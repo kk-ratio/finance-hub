@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ratio · Finance Department</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════════
+   LIGHT MODE (default)
+══════════════════════════════════════════════ */
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg:          #F5F4F9;
+  --surface:     #FFFFFF;
+  --surface2:    #F0EDF8;
+  --surface3:    #E8E2F5;
+  --nav-bg:      rgba(255,255,255,0.92);
+
+  /* Borders */
+  --border:      #E2DCF0;
+  --border2:     #C9BCEC;
+
+  /* Brand — Ratio Purple */
+  --purple:      #7C3AED;
+  --purple-mid:  #9B5FFF;
+  --purple-light:#EDE9FE;
+  --purple-dim:  rgba(124,58,237,0.10);
+  --purple-glow: rgba(124,58,237,0.06);
+
+  /* Brand — Ratio Orange */
+  --orange:      #F97316;
+  --orange-light:#FFF3EA;
+  --orange-dim:  rgba(249,115,22,0.12);
+
+  /* Text */
+  --text:        #1E1333;
+  --text-dim:    #6B5F85;
+  --text-faint:  #A99DC0;
+
+  /* Status */
+  --green:       #16A34A;
+  --green-dim:   rgba(22,163,74,0.10);
+  --red:         #DC2626;
+  --red-dim:     rgba(220,38,38,0.10);
+  --blue:        #2563EB;
+  --blue-dim:    rgba(37,99,235,0.10);
+  --amber:       #D97706;
+  --amber-dim:   rgba(217,119,6,0.10);
+
+  /* Cover */
+  --cover-bg:    linear-gradient(135deg, #2D1B69 0%, #4C1D95 40%, #7C3AED 70%, #F97316 130%);
+  --cover-text:  #ffffff;
+
+  /* Misc */
+  --radius:      12px;
+  --radius-sm:   8px;
+  --shadow:      0 1px 4px rgba(124,58,237,0.06), 0 4px 16px rgba(124,58,237,0.06);
+  --shadow-md:   0 4px 24px rgba(124,58,237,0.12);
+  --scrollbar:   rgba(124,58,237,0.2);
+}
+
+/* ══════════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:          #0F0B1A;
+  --surface:     #17112A;
+  --surface2:    #1E1633;
+  --surface3:    #271E40;
+  --nav-bg:      rgba(15,11,26,0.93);
+
+  --border:      rgba(124,58,237,0.15);
+  --border2:     rgba(124,58,237,0.30);
+
+  --purple:      #A78BFA;
+  --purple-mid:  #C4B5FD;
+  --purple-light:#2D1B69;
+  --purple-dim:  rgba(167,139,250,0.12);
+  --purple-glow: rgba(167,139,250,0.06);
+
+  --orange:      #FB923C;
+  --orange-light:#431407;
+  --orange-dim:  rgba(251,146,60,0.12);
+
+  --text:        #EDE9FE;
+  --text-dim:    #A78BFA;
+  --text-faint:  rgba(237,233,254,0.35);
+
+  --green:       #4ADE80;
+  --green-dim:   rgba(74,222,128,0.12);
+  --red:         #F87171;
+  --red-dim:     rgba(248,113,113,0.12);
+  --blue:        #60A5FA;
+  --blue-dim:    rgba(96,165,250,0.12);
+  --amber:       #FCD34D;
+  --amber-dim:   rgba(252,211,77,0.12);
+
+  --cover-bg:    linear-gradient(135deg, #0D0820 0%, #1E0A42 40%, #3B1073 70%, #7C2D0A 130%);
+  --cover-text:  #EDE9FE;
+
+  --shadow:      0 1px 4px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-md:   0 4px 24px rgba(0,0,0,0.4);
+  --scrollbar:   rgba(167,139,250,0.25);
+}
+
+/* ══════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════ */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background .3s, color .3s;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 99px; }
+
+/* ══════════════════════════════════════════════
+   COVER BANNER
+══════════════════════════════════════════════ */
+.cover {
+  width: 100%; height: 240px;
+  background: var(--cover-bg);
+  position: relative; overflow: hidden;
+  display: flex; align-items: flex-end;
+  padding: 0 72px 36px;
+}
+.cover-mesh {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 80%, rgba(124,58,237,0.4) 0%, transparent 50%);
+}
+.cover-dots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.cover-bottom-line {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange) 40%, var(--purple) 60%, transparent);
+  opacity: 0.7;
+}
+.cover-content {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 20px;
+}
+.cover-logo-wrap {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); flex-shrink: 0;
+}
+.cover-logo-wrap img { width: 38px; filter: brightness(0) invert(1); }
+.cover-logo-fallback {
+  font-size: 26px; font-weight: 800; color: #fff;
+}
+.cover-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: .4em;
+  text-transform: uppercase; color: rgba(255,255,255,0.65);
+  margin-bottom: 5px;
+}
+.cover-title {
+  font-size: 36px; font-weight: 800; color: #fff;
+  line-height: 1.1; letter-spacing: -.5px;
+}
+.cover-title .accent { color: var(--orange); }
+
+/* ══════════════════════════════════════════════
+   NAV BAR
+══════════════════════════════════════════════ */
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 72px;
+  display: flex; align-items: center; gap: 2px;
+}
+.nav-left { display: flex; align-items: center; gap: 2px; flex: 1; overflow-x: auto; }
+.nav-tab {
+  padding: 13px 16px;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text-dim); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s; white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-tab:hover { color: var(--text); }
+.nav-tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+
+/* Theme toggle button */
+.theme-btn {
+  margin-left: auto; flex-shrink: 0;
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border-radius: 99px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text-dim); cursor: pointer;
+  font-size: 11px; font-weight: 600;
+  transition: all .2s; letter-spacing: .02em;
+}
+.theme-btn:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-dim); }
+.theme-icon { font-size: 13px; }
+
+/* ══════════════════════════════════════════════
+   MAIN WRAPPER
+══════════════════════════════════════════════ */
+.main {
+  max-width: 1380px; margin: 0 auto;
+  padding: 40px 72px 100px;
+}
+
+/* ══════════════════════════════════════════════
+   SECTIONS
+══════════════════════════════════════════════ */
+.section { display: none; }
+.section.active { display: block; }
+
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px;
+}
+.section-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--purple-dim);
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.section-title {
+  font-size: 22px; font-weight: 800; color: var(--text);
+  letter-spacing: -.3px;
+}
+.section-sub {
+  font-size: 11px; font-weight: 500;
+  color: var(--text-faint); letter-spacing: .25em;
+  text-transform: uppercase; margin-top: 1px;
+}
+
+/* ══════════════════════════════════════════════
+   GRID
+══════════════════════════════════════════════ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.col-span-2 { grid-column: span 2; }
+
+/* ══════════════════════════════════════════════
+   CARD
+══════════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  transition: border-color .2s, box-shadow .2s;
+}
+.card:hover { border-color: var(--border2); box-shadow: var(--shadow-md); }
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.card-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.card-action {
+  font-size: 11px; font-weight: 600;
+  color: var(--purple); cursor: pointer;
+  opacity: .8; transition: opacity .2s;
+}
+.card-action:hover { opacity: 1; }
+
+/* ══════════════════════════════════════════════
+   KPI CARDS
+══════════════════════════════════════════════ */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+  margin-bottom: 28px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all .2s;
+}
+.kpi-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--orange));
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.kpi-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 10px;
+}
+.kpi-value {
+  font-size: 28px; font-weight: 800; color: var(--text);
+  letter-spacing: -.5px; line-height: 1;
+}
+.kpi-change {
+  font-size: 11px; font-weight: 600; margin-top: 6px;
+}
+.kpi-change.up   { color: var(--green); }
+.kpi-change.down { color: var(--red); }
+.kpi-change.neutral { color: var(--text-faint); }
+
+/* ══════════════════════════════════════════════
+   QUICK LINKS
+══════════════════════════════════════════════ */
+.ql-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 12px;
+}
+.ql-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; transition: all .2s;
+  text-decoration: none; color: inherit;
+  box-shadow: var(--shadow);
+}
+.ql-item:hover {
+  border-color: var(--purple); transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.ql-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.ql-icon.excel   { background: rgba(22,163,74,0.12); }
+.ql-icon.ppt     { background: var(--red-dim); }
+.ql-icon.folder  { background: var(--orange-dim); }
+.ql-icon.pdf     { background: var(--red-dim); }
+.ql-icon.drive   { background: var(--blue-dim); }
+.ql-icon.notion  { background: var(--purple-dim); }
+.ql-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.ql-type { font-size: 10px; font-weight: 500; color: var(--text-faint); text-transform: uppercase; letter-spacing: .12em; margin-top: 1px; }
+
+.ql-add {
+  background: transparent;
+  border: 1.5px dashed var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; transition: all .2s;
+  color: var(--text-faint);
+}
+.ql-add:hover { border-color: var(--purple); color: var(--purple); }
+
+/* ══════════════════════════════════════════════
+   POWER BI
+══════════════════════════════════════════════ */
+.pbi-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow);
+}
+.pbi-toolbar {
+  padding: 12px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.pbi-dots { display: flex; gap: 6px; align-items: center; }
+.pbi-dot { width: 10px; height: 10px; border-radius: 50%; }
+.pbi-dot.r { background: #ef4444; }
+.pbi-dot.y { background: #f59e0b; }
+.pbi-dot.g { background: #22c55e; }
+.pbi-title {
+  font-size: 10px; font-weight: 700; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--text-faint); margin-left: 12px;
+}
+.pbi-frame {
+  width: 100%; min-height: 520px;
+  background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 14px;
+  position: relative; overflow: hidden;
+}
+.pbi-frame::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: .6;
+}
+.pbi-placeholder-icon { font-size: 44px; opacity: .35; position: relative; z-index:1; }
+.pbi-placeholder-text {
+  font-size: 20px; font-weight: 700;
+  color: var(--text-dim); position: relative; z-index:1;
+}
+.pbi-placeholder-sub {
+  font-size: 13px; color: var(--text-faint);
+  position: relative; z-index:1; text-align: center; max-width: 380px;
+}
+.pbi-btn {
+  background: var(--purple-dim); border: 1px solid var(--border2);
+  color: var(--purple); padding: 9px 22px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s;
+  position: relative; z-index:1;
+}
+.pbi-btn:hover { background: var(--purple-light); }
+
+/* ══════════════════════════════════════════════
+   CALENDAR
+══════════════════════════════════════════════ */
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.cal-month { font-size: 18px; font-weight: 800; color: var(--text); }
+.cal-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text-dim); width: 30px; height: 30px; border-radius: 8px;
+  cursor: pointer; font-size: 14px; transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.cal-btn:hover { border-color: var(--purple); color: var(--purple); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cal-day-label {
+  text-align: center; padding: 7px 0;
+  font-size: 9px; font-weight: 700;
+  color: var(--text-faint); letter-spacing: .2em; text-transform: uppercase;
+}
+.cal-day {
+  aspect-ratio: 1; border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; cursor: pointer; transition: all .2s;
+  font-size: 12px; font-weight: 500; color: var(--text-dim);
+  position: relative;
+}
+.cal-day:hover { background: var(--surface2); color: var(--text); }
+.cal-day.today {
+  background: var(--purple-dim);
+  border: 1.5px solid var(--border2);
+  color: var(--purple); font-weight: 800;
+}
+.cal-day.has-event::after {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--orange); position: absolute; bottom: 5px;
+}
+.cal-day.has-event.critical::after { background: var(--red); }
+.cal-day.other-month { opacity: .25; }
+.cal-day.deadline { background: var(--red-dim); color: var(--red); }
+
+/* ══════════════════════════════════════════════
+   EVENTS
+══════════════════════════════════════════════ */
+.event-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.event-item:last-child { border-bottom: none; }
+.event-date-box {
+  min-width: 44px; height: 44px; border-radius: 10px;
+  background: var(--purple-dim); border: 1px solid var(--border2);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.event-date-day { font-size: 17px; font-weight: 800; line-height: 1; color: var(--purple); }
+.event-date-mon { font-size: 8px; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: .1em; }
+.event-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.event-meta  { font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+.event-badge {
+  margin-left: auto; padding: 3px 10px; border-radius: 99px;
+  font-size: 9px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; flex-shrink: 0;
+}
+.badge-critical { background: var(--red-dim); color: var(--red); }
+.badge-deadline { background: var(--amber-dim); color: var(--amber); }
+.badge-report   { background: var(--blue-dim); color: var(--blue); }
+.badge-meeting  { background: var(--purple-dim); color: var(--purple); }
+.badge-done     { background: var(--green-dim); color: var(--green); }
+
+/* ══════════════════════════════════════════════
+   MONTH CLOSE
+══════════════════════════════════════════════ */
+.mc-progress-bar {
+  height: 7px; border-radius: 99px;
+  background: var(--surface2); overflow: hidden; margin-bottom: 18px;
+}
+.mc-progress-fill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--purple), var(--orange));
+  transition: width 1s ease;
+}
+.mc-task {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.mc-task:last-child { border-bottom: none; }
+.mc-check {
+  width: 18px; height: 18px; border-radius: 5px;
+  border: 1.5px solid var(--border2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .2s; font-size: 10px; color: var(--purple);
+}
+.mc-check.done { background: var(--purple-dim); border-color: var(--purple); }
+.mc-task-text { flex: 1; font-size: 13px; font-weight: 500; }
+.mc-task-text.done { text-decoration: line-through; color: var(--text-faint); }
+.mc-owner { font-size: 10px; font-weight: 600; color: var(--text-faint); letter-spacing: .05em; }
+.mc-due {
+  font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 99px;
+}
+.mc-due.on-track  { background: var(--green-dim); color: var(--green); }
+.mc-due.due-soon  { background: var(--amber-dim); color: var(--amber); }
+.mc-due.overdue   { background: var(--red-dim); color: var(--red); }
+
+/* ══════════════════════════════════════════════
+   ROADMAP
+══════════════════════════════════════════════ */
+.roadmap-tabs {
+  display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
+}
+.roadmap-tab {
+  padding: 6px 18px; border-radius: 99px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--border); color: var(--text-faint);
+  cursor: pointer; transition: all .2s;
+}
+.roadmap-tab:hover { border-color: var(--border2); color: var(--text); }
+.roadmap-tab.active { background: var(--purple-dim); border-color: var(--border2); color: var(--purple); }
+
+.roadmap-fy { display: none; }
+.roadmap-fy.active { display: block; }
+
+.timeline { position: relative; padding-left: 34px; }
+.timeline::before {
+  content: ''; position: absolute; left: 11px; top: 8px; bottom: 0;
+  width: 2px; background: linear-gradient(180deg, var(--purple), var(--orange) 60%, transparent);
+  opacity: .4;
+}
+.tl-item { position: relative; margin-bottom: 36px; }
+.tl-dot {
+  position: absolute; left: -29px; top: 5px;
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2.5px solid var(--purple); background: var(--bg);
+}
+.tl-dot.done { background: var(--purple); }
+.tl-dot.active-dot {
+  background: var(--orange-dim); border-color: var(--orange);
+  box-shadow: 0 0 0 4px var(--orange-dim);
+}
+.tl-quarter {
+  font-size: 10px; font-weight: 700; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 4px;
+}
+.tl-title {
+  font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px;
+}
+.tl-goals { display: flex; flex-wrap: wrap; gap: 7px; }
+.tl-goal {
+  padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  border: 1px solid; display: flex; align-items: center; gap: 6px;
+}
+.tl-goal.done       { background: var(--green-dim);  border-color: rgba(22,163,74,0.2);  color: var(--green); }
+.tl-goal.in-progress{ background: var(--purple-dim); border-color: var(--border2);       color: var(--purple); }
+.tl-goal.upcoming   { background: var(--surface2);   border-color: var(--border);        color: var(--text-faint); }
+
+/* ══════════════════════════════════════════════
+   DUE DATES
+══════════════════════════════════════════════ */
+.due-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  background: var(--surface2); margin-bottom: 8px;
+  border-left: 3px solid transparent; transition: border-color .2s;
+}
+.due-item:hover { border-left-color: var(--purple); }
+.due-item.overdue  { border-left-color: var(--red); }
+.due-item.due-today{ border-left-color: var(--amber); }
+.due-item.on-track { border-left-color: var(--green); }
+.due-title { font-size: 13px; font-weight: 600; flex: 1; }
+.due-assignee {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--purple-dim); border: 1.5px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--purple); flex-shrink: 0;
+}
+.due-date-label {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 99px; letter-spacing: .05em;
+}
+
+/* ══════════════════════════════════════════════
+   ALERTS
+══════════════════════════════════════════════ */
+.alert-item {
+  padding: 14px 18px; border-radius: var(--radius-sm);
+  border: 1px solid; margin-bottom: 10px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.alert-item.critical{ background: var(--red-dim);   border-color: rgba(220,38,38,0.25); }
+.alert-item.warning { background: var(--amber-dim); border-color: rgba(217,119,6,0.2); }
+.alert-item.info    { background: var(--blue-dim);  border-color: rgba(37,99,235,0.2); }
+.alert-icon  { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.alert-desc  { font-size: 12px; color: var(--text-dim); }
+.alert-time  { font-size: 10px; color: var(--text-faint); margin-top: 4px; }
+
+/* ══════════════════════════════════════════════
+   MINI CHART
+══════════════════════════════════════════════ */
+.mini-chart { height: 60px; display: flex; align-items: flex-end; gap: 3px; }
+.mini-bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  background: var(--purple-dim); min-height: 4px;
+  position: relative; transition: opacity .3s;
+}
+.mini-bar.current { background: linear-gradient(180deg, var(--orange), var(--purple)); }
+
+/* ══════════════════════════════════════════════
+   INNER TABS
+══════════════════════════════════════════════ */
+.inner-tabs { display: flex; gap: 6px; margin-bottom: 22px; flex-wrap: wrap; }
+.inner-tab {
+  padding: 5px 14px; border-radius: 99px;
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid var(--border); color: var(--text-faint);
+  cursor: pointer; transition: all .2s;
+}
+.inner-tab:hover { color: var(--text); border-color: var(--border2); }
+.inner-tab.active { background: var(--purple-dim); border-color: var(--border2); color: var(--purple); }
+
+/* ══════════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000; display: none;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 30px; width: 460px; max-width: 92vw;
+  box-shadow: var(--shadow-md);
+}
+.modal-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+.field { margin-bottom: 14px; }
+.field label {
+  font-size: 10px; font-weight: 700; color: var(--text-faint);
+  letter-spacing: .22em; text-transform: uppercase;
+  display: block; margin-bottom: 6px;
+}
+.field input, .field select {
+  width: 100%; background: var(--surface2);
+  border: 1px solid var(--border2); border-radius: 8px;
+  padding: 9px 13px; font-size: 13px; font-weight: 500;
+  color: var(--text); outline: none; transition: border-color .2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.field input:focus, .field select:focus { border-color: var(--purple); }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-primary {
+  flex: 1; padding: 10px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple), var(--purple-mid));
+  border: none; color: #fff;
+  font-size: 12px; font-weight: 700; letter-spacing: .05em;
+  cursor: pointer; transition: opacity .2s;
+}
+.btn-primary:hover { opacity: .9; }
+.btn-cancel {
+  padding: 10px 18px; border-radius: 8px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-faint); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.btn-cancel:hover { border-color: var(--border2); color: var(--text); }
+
+/* ══════════════════════════════════════════════
+   MISC
+══════════════════════════════════════════════ */
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:none; }
+}
+.section.active > * { animation: fadeUp .35s ease both; }
+.section.active > *:nth-child(1) { animation-delay: .04s; }
+.section.active > *:nth-child(2) { animation-delay: .08s; }
+.section.active > *:nth-child(3) { animation-delay: .12s; }
+.section.active > *:nth-child(4) { animation-delay: .16s; }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media(max-width:900px){
+  .main       { padding: 28px 20px 80px; }
+  .kpi-grid   { grid-template-columns: repeat(2,1fr); }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .col-span-2 { grid-column: span 1; }
+  .cover      { padding: 0 20px 28px; height: 200px; }
+  .nav-bar    { padding: 0 16px; }
+  .cover-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ COVER -->
+<div class="cover">
+  <div class="cover-mesh"></div>
+  <div class="cover-dots"></div>
+  <div class="cover-bottom-line"></div>
+  <div class="cover-content">
+    <div class="cover-logo-wrap">
+      <img src="https://cdn.prod.website-files.com/627b3dc048f9ac1a0ae6eca1/629ca1ffa21198c9bebe3a6c_ratio-logo.svg"
+           alt="Ratio"
+           onerror="this.parentElement.innerHTML='<span class=cover-logo-fallback>R</span>'">
+    </div>
+    <div>
+      <div class="cover-eyebrow">Ratiotech.com · Internal Hub</div>
+      <div class="cover-title">Finance <span class="accent">Department</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ NAV -->
+<nav class="nav-bar" id="navBar">
+  <div class="nav-left">
+    <div class="nav-tab active" data-section="overview">⬡ Overview</div>
+    <div class="nav-tab" data-section="quicklinks">🗂 Quick Links</div>
+    <div class="nav-tab" data-section="powerbi">📊 Power BI</div>
+    <div class="nav-tab" data-section="calendar">📅 Calendar</div>
+    <div class="nav-tab" data-section="monthclose">✓ Month Close</div>
+    <div class="nav-tab" data-section="duedates">⏱ Due Dates</div>
+    <div class="nav-tab" data-section="roadmap">🗺 Roadmap</div>
+    <div class="nav-tab" data-section="critical">🚨 Alerts</div>
+  </div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+    <span class="theme-icon" id="themeIcon">🌙</span>
+    <span id="themeLabel">Dark mode</span>
+  </button>
+</nav>
+
+<!-- ══════════════════ MAIN -->
+<div class="main">
+
+<!-- ─────────── OVERVIEW -->
+<section class="section active" id="section-overview">
+  <div class="section-header">
+    <div class="section-icon">⬡</div>
+    <div>
+      <div class="section-title">Finance Command Center</div>
+      <div class="section-sub">FY 2026 · Q1 at a glance</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Revenue · MTD</div>
+      <div class="kpi-value">$4.2M</div>
+      <div class="kpi-change up">▲ 12.4% vs last month</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">EBITDA Margin</div>
+      <div class="kpi-value">23.1%</div>
+      <div class="kpi-change up">▲ 1.8pp QoQ</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cash Runway</div>
+      <div class="kpi-value">18 mo</div>
+      <div class="kpi-change neutral">— Stable</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">AR Overdue</div>
+      <div class="kpi-value">$182K</div>
+      <div class="kpi-change down">▼ Needs attention</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:18px">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Upcoming Events</div>
+        <div class="card-action" onclick="switchSection('calendar')">View calendar →</div>
+      </div>
+      <div id="overviewEvents"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Active Alerts</div>
+        <div class="card-action" onclick="switchSection('critical')">All alerts →</div>
+      </div>
+      <div id="overviewAlerts"></div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Month Close · Feb 2026</div>
+        <div class="card-action" onclick="switchSection('monthclose')">Details →</div>
+      </div>
+      <div class="mc-progress-bar"><div class="mc-progress-fill" id="overviewProgress" style="width:0%"></div></div>
+      <div id="overviewMCStatus" style="font-size:11px;font-weight:600;color:var(--text-faint)"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Revenue Trend · 2026</div></div>
+      <div class="mini-chart" id="revenueChart"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:9px;font-weight:700;color:var(--text-faint)">JAN</span>
+        <span style="font-size:9px;font-weight:700;color:var(--text-faint)">FEB</span>
+        <span style="font-size:9px;font-weight:700;color:var(--orange)">MAR ▶</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Top Links</div>
+        <div class="card-action" onclick="switchSection('quicklinks')">All links →</div>
+      </div>
+      <div id="overviewQuickLinks"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── QUICK LINKS -->
+<section class="section" id="section-quicklinks">
+  <div class="section-header">
+    <div class="section-icon">🗂</div>
+    <div>
+      <div class="section-title">Files & Quick Links</div>
+      <div class="section-sub">Folders · Docs · Spreadsheets · Reports</div>
+    </div>
+  </div>
+  <div style="margin-bottom:24px">
+    <div class="card-title" style="margin-bottom:12px;display:block">📁 FOLDERS</div>
+    <div class="ql-grid" id="foldersGrid"></div>
+  </div>
+  <div style="margin-bottom:24px">
+    <div class="card-title" style="margin-bottom:12px;display:block">📊 FINANCIAL MODELS & SPREADSHEETS</div>
+    <div class="ql-grid" id="excelGrid"></div>
+  </div>
+  <div style="margin-bottom:24px">
+    <div class="card-title" style="margin-bottom:12px;display:block">📑 REPORTS & DOCUMENTS</div>
+    <div class="ql-grid" id="docsGrid"></div>
+  </div>
+  <div>
+    <div class="card-title" style="margin-bottom:12px;display:block">🔗 OTHER TOOLS & LINKS</div>
+    <div class="ql-grid" id="toolsGrid"></div>
+  </div>
+</section>
+
+<!-- ─────────── POWER BI -->
+<section class="section" id="section-powerbi">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <div>
+      <div class="section-title">Power BI Reports</div>
+      <div class="section-sub">Embedded analytics · Live data</div>
+    </div>
+  </div>
+  <div class="inner-tabs" id="pbiTabs">
+    <div class="inner-tab active" data-pbi="0">Revenue Dashboard</div>
+    <div class="inner-tab" data-pbi="1">Cash Flow Report</div>
+    <div class="inner-tab" data-pbi="2">AR/AP Tracker</div>
+    <div class="inner-tab" data-pbi="3">Budget vs Actual</div>
+    <div class="inner-tab">+ Add Report</div>
+  </div>
+  <div class="pbi-container">
+    <div class="pbi-toolbar">
+      <div style="display:flex;align-items:center">
+        <div class="pbi-dots">
+          <div class="pbi-dot r"></div><div class="pbi-dot y"></div><div class="pbi-dot g"></div>
+        </div>
+        <div class="pbi-title" id="pbiTitle">REVENUE DASHBOARD · POWER BI EMBED</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <div class="pbi-btn" onclick="openPbiModal()">⚙ Configure URL</div>
+      </div>
+    </div>
+    <div class="pbi-frame" id="pbiFrame">
+      <div class="pbi-placeholder-icon">📊</div>
+      <div class="pbi-placeholder-text">Power BI Report Embed</div>
+      <div class="pbi-placeholder-sub">Paste your Power BI embed URL to display your live report here.</div>
+      <button class="pbi-btn" onclick="openPbiModal()">+ Connect Power BI Report</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <div class="card-header"><div class="card-title">How to embed a Power BI report</div></div>
+    <div style="font-size:13px;color:var(--text-dim);line-height:1.9">
+      1. In Power BI Service → open report → <strong>File → Embed report → Website or portal</strong><br>
+      2. Copy the embed URL (starts with <code style="color:var(--purple);background:var(--purple-dim);padding:1px 6px;border-radius:4px;font-size:12px">https://app.powerbi.com/reportEmbed…</code>)<br>
+      3. Click <strong>Configure URL</strong> above and paste → the report loads live.
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CALENDAR -->
+<section class="section" id="section-calendar">
+  <div class="section-header">
+    <div class="section-icon">📅</div>
+    <div>
+      <div class="section-title">Finance Calendar</div>
+      <div class="section-sub">Deadlines · Reports · Board Meetings · Payroll</div>
+    </div>
+  </div>
+  <div class="grid-2" style="align-items:start">
+    <div class="card">
+      <div class="cal-nav">
+        <button class="cal-btn" id="calPrev">‹</button>
+        <div class="cal-month" id="calMonthLabel"></div>
+        <button class="cal-btn" id="calNext">›</button>
+      </div>
+      <div class="cal-grid" id="calDayLabels"></div>
+      <div class="cal-grid" id="calDays" style="margin-top:3px"></div>
+    </div>
+    <div class="card" style="max-height:460px;overflow-y:auto">
+      <div class="card-header">
+        <div class="card-title" id="calEventsTitle">Events this month</div>
+        <div class="card-action" onclick="openEventModal()">+ Add Event</div>
+      </div>
+      <div id="calEventsList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── MONTH CLOSE -->
+<section class="section" id="section-monthclose">
+  <div class="section-header">
+    <div class="section-icon">✓</div>
+    <div>
+      <div class="section-title">Month-End Close</div>
+      <div class="section-sub">February 2026 · Close date: Mar 5</div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-header">
+      <div class="card-title">Overall Progress</div>
+      <div id="mcProgressLabel" style="font-size:11px;font-weight:700;color:var(--purple)"></div>
+    </div>
+    <div class="mc-progress-bar" style="height:10px">
+      <div class="mc-progress-fill" id="mcProgressFill" style="width:0%"></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📒 Accounting & GL</div>
+        <div class="card-action" onclick="openTaskModal('gl')">+ Task</div>
+      </div>
+      <div id="mcTasksGL"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">💰 Revenue Recognition</div>
+        <div class="card-action" onclick="openTaskModal('rev')">+ Task</div>
+      </div>
+      <div id="mcTasksRev"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">💳 AP / Payables</div>
+        <div class="card-action" onclick="openTaskModal('ap')">+ Task</div>
+      </div>
+      <div id="mcTasksAP"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📤 Reporting & Review</div>
+        <div class="card-action" onclick="openTaskModal('rep')">+ Task</div>
+      </div>
+      <div id="mcTasksRep"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── DUE DATES -->
+<section class="section" id="section-duedates">
+  <div class="section-header">
+    <div class="section-icon">⏱</div>
+    <div>
+      <div class="section-title">Due Dates Tracker</div>
+      <div class="section-sub">All upcoming deadlines across Finance</div>
+    </div>
+  </div>
+  <div class="inner-tabs" id="dueTabs">
+    <div class="inner-tab active" data-due="all">All</div>
+    <div class="inner-tab" data-due="overdue">Overdue</div>
+    <div class="inner-tab" data-due="this-week">This Week</div>
+    <div class="inner-tab" data-due="upcoming">Upcoming</div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Deadlines</div>
+      <div class="card-action" onclick="openDueModal()">+ Add Deadline</div>
+    </div>
+    <div id="dueList"></div>
+  </div>
+</section>
+
+<!-- ─────────── ROADMAP -->
+<section class="section" id="section-roadmap">
+  <div class="section-header">
+    <div class="section-icon">🗺</div>
+    <div>
+      <div class="section-title">Finance Roadmap & Goals</div>
+      <div class="section-sub">Quarterly & Annual objectives</div>
+    </div>
+  </div>
+  <div class="roadmap-tabs" id="roadmapTabs">
+    <div class="roadmap-tab active" data-fy="fy26">FY 2026</div>
+    <div class="roadmap-tab" data-fy="fy25">FY 2025</div>
+  </div>
+  <div class="roadmap-fy active" id="roadmap-fy26">
+    <div class="timeline" id="fy26Timeline"></div>
+  </div>
+  <div class="roadmap-fy" id="roadmap-fy25">
+    <div class="timeline" id="fy25Timeline"></div>
+  </div>
+</section>
+
+<!-- ─────────── CRITICAL EVENTS -->
+<section class="section" id="section-critical">
+  <div class="section-header">
+    <div class="section-icon">🚨</div>
+    <div>
+      <div class="section-title">Critical Events & Alerts</div>
+      <div class="section-sub">Board deadlines · Regulatory · High-priority items</div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-header">
+      <div class="card-title">🔴 Critical — Requires Immediate Action</div>
+      <div class="card-action" onclick="openAlertModal()">+ Add Alert</div>
+    </div>
+    <div id="alertsCritical"></div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="card-header"><div class="card-title">🟡 Warnings — Monitor Closely</div></div>
+    <div id="alertsWarning"></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">🔵 Informational</div></div>
+    <div id="alertsInfo"></div>
+  </div>
+</section>
+
+</div><!-- /main -->
+
+<!-- ══════════════════ MODALS -->
+<div class="modal-overlay" id="pbiModal">
+  <div class="modal">
+    <div class="modal-title">Configure Power BI Report</div>
+    <div class="field"><label>Report Name</label><input type="text" id="pbiReportName" placeholder="e.g. Revenue Dashboard"></div>
+    <div class="field"><label>Power BI Embed URL</label><input type="text" id="pbiUrl" placeholder="https://app.powerbi.com/reportEmbed?..."></div>
+    <div class="field"><label>Frame Height (px)</label><input type="number" id="pbiHeight" value="540"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="savePbiReport()">Embed Report</button>
+      <button class="btn-cancel" onclick="closePbiModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <div class="modal-title">Add Calendar Event</div>
+    <div class="field"><label>Event Title</label><input type="text" id="evTitle" placeholder="Board Meeting, Tax Filing…"></div>
+    <div class="field"><label>Date</label><input type="date" id="evDate"></div>
+    <div class="field"><label>Type</label>
+      <select id="evType">
+        <option value="meeting">Meeting</option>
+        <option value="deadline">Deadline</option>
+        <option value="report">Report Due</option>
+        <option value="critical">Critical</option>
+      </select>
+    </div>
+    <div class="field"><label>Notes</label><input type="text" id="evNotes" placeholder="Optional notes…"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveEvent()">Add Event</button>
+      <button class="btn-cancel" onclick="closeEventModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="linkModal">
+  <div class="modal">
+    <div class="modal-title">Add Quick Link</div>
+    <div class="field"><label>Name</label><input type="text" id="lkName" placeholder="Budget Model FY26…"></div>
+    <div class="field"><label>URL</label><input type="text" id="lkUrl" placeholder="https://…"></div>
+    <div class="field"><label>Type</label>
+      <select id="lkType">
+        <option value="folder">Folder</option>
+        <option value="excel">Excel / Sheets</option>
+        <option value="pdf">PDF / Doc</option>
+        <option value="notion">Notion Page</option>
+        <option value="drive">Drive</option>
+        <option value="ppt">Presentation</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveLink()">Add Link</button>
+      <button class="btn-cancel" onclick="closeLinkModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="dueModal">
+  <div class="modal">
+    <div class="modal-title">Add Deadline</div>
+    <div class="field"><label>Task / Deadline</label><input type="text" id="ddTitle" placeholder="Tax filing Q1…"></div>
+    <div class="field"><label>Due Date</label><input type="date" id="ddDate"></div>
+    <div class="field"><label>Assignee Initials</label><input type="text" id="ddAssignee" placeholder="JD" maxlength="2"></div>
+    <div class="field"><label>Category</label>
+      <select id="ddCat">
+        <option>Tax</option><option>Payroll</option><option>Reporting</option>
+        <option>Audit</option><option>Compliance</option><option>Internal</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveDue()">Add Deadline</button>
+      <button class="btn-cancel" onclick="closeDueModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="alertModal">
+  <div class="modal">
+    <div class="modal-title">Add Alert</div>
+    <div class="field"><label>Title</label><input type="text" id="alTitle" placeholder="Alert title…"></div>
+    <div class="field"><label>Description</label><input type="text" id="alDesc" placeholder="Description…"></div>
+    <div class="field"><label>Severity</label>
+      <select id="alSev">
+        <option value="critical">Critical</option>
+        <option value="warning">Warning</option>
+        <option value="info">Informational</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveAlert()">Add Alert</button>
+      <button class="btn-cancel" onclick="closeAlertModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  THEME TOGGLE
+// ═══════════════════════════════════════
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeIcon').textContent  = isDark ? '🌙' : '☀️';
+  document.getElementById('themeLabel').textContent = isDark ? 'Dark mode' : 'Light mode';
+  localStorage.setItem('ratio-theme', isDark ? 'light' : 'dark');
+}
+// Restore saved preference
+(function(){
+  const saved = localStorage.getItem('ratio-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('themeIcon').textContent  = '☀️';
+    document.getElementById('themeLabel').textContent = 'Light mode';
+  }
+})();
+
+// ═══════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════
+const today    = new Date();
+const todayStr = today.toISOString().split('T')[0];
+
+const state = {
+  events: [
+    { id:1, title:'Board Finance Review',    date:'2026-02-28', type:'meeting',  notes:'Quarterly board packet due' },
+    { id:2, title:'Q1 Tax Filing Deadline',  date:'2026-03-15', type:'deadline', notes:'Federal + State' },
+    { id:3, title:'Month-End Close',          date:'2026-03-05', type:'critical', notes:'February books' },
+    { id:4, title:'Payroll Run',              date:'2026-03-01', type:'deadline', notes:'Semi-monthly payroll' },
+    { id:5, title:'Investor Report Due',      date:'2026-03-10', type:'report',   notes:'Monthly MRR report' },
+    { id:6, title:'Budget Review Workshop',   date:'2026-03-18', type:'meeting',  notes:'FY26 Q2 budget planning' },
+    { id:7, title:'Audit Prep — External',    date:'2026-03-25', type:'critical', notes:'External auditor preliminary' },
+    { id:8, title:'AP Processing Cutoff',     date:'2026-02-27', type:'deadline', notes:'All POs must be approved' },
+  ],
+  mcTasks: {
+    gl: [
+      { id:'g1', text:'Post all journal entries',         done:true,  owner:'Sarah K.',  due:'2026-02-28', status:'done' },
+      { id:'g2', text:'Bank reconciliation — Operating',  done:true,  owner:'Sarah K.',  due:'2026-02-28', status:'done' },
+      { id:'g3', text:'Bank reconciliation — Payroll',    done:false, owner:'Mark T.',   due:'2026-03-01', status:'on-track' },
+      { id:'g4', text:'Intercompany eliminations',        done:false, owner:'Sarah K.',  due:'2026-03-02', status:'on-track' },
+    ],
+    rev: [
+      { id:'r1', text:'Run ASC 606 revenue waterfall',    done:true,  owner:'Lisa R.',   due:'2026-02-28', status:'done' },
+      { id:'r2', text:'Deferred revenue schedule update', done:false, owner:'Lisa R.',   due:'2026-03-01', status:'on-track' },
+      { id:'r3', text:'New contract review — February',   done:false, owner:'Tom V.',    due:'2026-03-02', status:'due-soon' },
+    ],
+    ap: [
+      { id:'a1', text:'Process all vendor invoices',      done:true,  owner:'Karen M.', due:'2026-02-27', status:'done' },
+      { id:'a2', text:'Accruals — recurring vendors',     done:false, owner:'Karen M.', due:'2026-03-01', status:'on-track' },
+      { id:'a3', text:'Credit card reconciliation',       done:false, owner:'James P.', due:'2026-03-02', status:'due-soon' },
+    ],
+    rep: [
+      { id:'p1', text:'Prepare P&L draft',                done:false, owner:'Alex D.', due:'2026-03-03', status:'on-track' },
+      { id:'p2', text:'Balance sheet tie-out',            done:false, owner:'Alex D.', due:'2026-03-04', status:'on-track' },
+      { id:'p3', text:'CFO review & sign-off',            done:false, owner:'CFO',     due:'2026-03-05', status:'upcoming' },
+    ]
+  },
+  quickLinks: {
+    folders: [
+      { name:'FY26 Budget Files',  type:'folder', url:'#', icon:'📁' },
+      { name:'Audit 2025 Folder',  type:'folder', url:'#', icon:'📁' },
+      { name:'Monthly Reports',    type:'folder', url:'#', icon:'📁' },
+      { name:'Tax Documents',      type:'folder', url:'#', icon:'📁' },
+      { name:'Board Decks',        type:'folder', url:'#', icon:'📁' },
+    ],
+    excel: [
+      { name:'Budget Model FY26',   type:'excel', url:'#', icon:'📊' },
+      { name:'Cash Flow Forecast',  type:'excel', url:'#', icon:'📊' },
+      { name:'Revenue Waterfall',   type:'excel', url:'#', icon:'📊' },
+      { name:'Headcount Tracker',   type:'excel', url:'#', icon:'📊' },
+      { name:'Cap Table',           type:'excel', url:'#', icon:'📊' },
+    ],
+    docs: [
+      { name:'Finance Policy Manual', type:'pdf',    url:'#', icon:'📑' },
+      { name:'Expense Policy',        type:'pdf',    url:'#', icon:'📑' },
+      { name:'Board Packet Feb 26',   type:'ppt',    url:'#', icon:'📋' },
+      { name:'Audit Report FY25',     type:'pdf',    url:'#', icon:'📑' },
+    ],
+    tools: [
+      { name:'QuickBooks Online', type:'drive',  url:'#', icon:'💼' },
+      { name:'Gusto Payroll',     type:'drive',  url:'#', icon:'💰' },
+      { name:'Ramp Dashboard',    type:'drive',  url:'#', icon:'💳' },
+      { name:'Stripe Finance',    type:'drive',  url:'#', icon:'🏦' },
+      { name:'Rippling HRIS',     type:'notion', url:'#', icon:'👥' },
+    ]
+  },
+  dueDates: [
+    { id:1, title:'Q1 Estimated Tax Payment',    due:'2026-03-15', assignee:'SK', cat:'Tax',       status:'upcoming' },
+    { id:2, title:'February Payroll Tax Filing', due:'2026-03-10', assignee:'KM', cat:'Payroll',   status:'upcoming' },
+    { id:3, title:'Month-End Close Sign-Off',    due:'2026-03-05', assignee:'AD', cat:'Reporting', status:'upcoming' },
+    { id:4, title:'1099 Corrections Deadline',   due:'2026-02-28', assignee:'LR', cat:'Tax',       status:'overdue' },
+    { id:5, title:'Board Packet Submission',     due:'2026-02-28', assignee:'AD', cat:'Reporting', status:'overdue' },
+    { id:6, title:'SOC 2 Audit Evidence',        due:'2026-03-25', assignee:'JP', cat:'Audit',     status:'upcoming' },
+    { id:7, title:'401k Match Contribution',     due:'2026-03-01', assignee:'KM', cat:'Payroll',   status:'upcoming' },
+  ],
+  alerts: [
+    { id:1, sev:'critical', title:'AR Balance 90+ Days Overdue',        desc:'$182K outstanding > 90 days. Initiate collections for top 3 accounts.', time:'Updated today' },
+    { id:2, sev:'critical', title:'1099 Correction Deadline Passed',     desc:'Two vendors need amended 1099s. Penalty risk if not filed within 30-day window.', time:'2 days ago' },
+    { id:3, sev:'warning',  title:'Cash Runway Approaching 18mo Threshold', desc:'Current burn rate projects runway at 18.2 months. Board prefers 24mo buffer.', time:'Updated this week' },
+    { id:4, sev:'warning',  title:'FX Exposure — EUR Contracts',         desc:'€450K in unhedged receivables as EUR weakens. Review hedging strategy.', time:'Updated this week' },
+    { id:5, sev:'info',     title:'New ASC 842 Lease Standard Updates',  desc:'Minor amendments effective Q2 2026. Controller review recommended.', time:'1 week ago' },
+    { id:6, sev:'info',     title:'Audit Engagement Letter Received',    desc:'External auditor has sent FY25 engagement letter for CFO signature.', time:'3 days ago' },
+  ],
+  roadmap: {
+    fy26: [
+      { q:'Q1 · Jan–Mar 2026', status:'active-dot', title:'Foundation & Controls',
+        goals:[
+          { text:'Implement month-close checklist workflow', status:'in-progress' },
+          { text:'Deploy Power BI finance dashboard',        status:'in-progress' },
+          { text:'Complete FY25 audit',                      status:'in-progress' },
+          { text:'Update expense policy v3.0',               status:'done' },
+          { text:'Hire Senior Financial Analyst',            status:'upcoming' },
+        ]},
+      { q:'Q2 · Apr–Jun 2026', status:'upcoming', title:'Scalability & Automation',
+        goals:[
+          { text:'Automate month-end journal entries (ERP)', status:'upcoming' },
+          { text:'Launch rolling 13-week cash forecast',     status:'upcoming' },
+          { text:'SOC 2 Type II readiness review',           status:'upcoming' },
+          { text:'FP&A model rebuild (driver-based)',        status:'upcoming' },
+        ]},
+      { q:'Q3 · Jul–Sep 2026', status:'upcoming', title:'Strategic Finance',
+        goals:[
+          { text:'Series B financial modeling',      status:'upcoming' },
+          { text:'Unit economics deep-dive report',  status:'upcoming' },
+          { text:'Implement procurement workflow',   status:'upcoming' },
+          { text:'CFO Board reporting refresh',      status:'upcoming' },
+        ]},
+      { q:'Q4 · Oct–Dec 2026', status:'upcoming', title:'Planning & Compliance',
+        goals:[
+          { text:'FY27 budget cycle',                    status:'upcoming' },
+          { text:'Year-end audit prep',                  status:'upcoming' },
+          { text:'Transfer pricing documentation',       status:'upcoming' },
+          { text:'Finance team OKR review',              status:'upcoming' },
+        ]},
+    ],
+    fy25: [
+      { q:'Q1 · Jan–Mar 2025', status:'done', title:'Infrastructure Build',
+        goals:[
+          { text:'Migrate to new ERP (QBO Advanced)',    status:'done' },
+          { text:'Implement Ramp spend management',      status:'done' },
+          { text:'Build first FP&A model',               status:'done' },
+          { text:'Establish finance team charter',       status:'done' },
+        ]},
+      { q:'Q2 · Apr–Jun 2025', status:'done', title:'Reporting Standards',
+        goals:[
+          { text:'First Board-ready finance package',             status:'done' },
+          { text:'ASC 606 revenue recognition implementation',    status:'done' },
+          { text:'AP automation (Bill.com)',                      status:'done' },
+        ]},
+      { q:'Q3 · Jul–Sep 2025', status:'done', title:'Growth Enablement',
+        goals:[
+          { text:'Series A financial due diligence',     status:'done' },
+          { text:'International entity setup (Canada)',  status:'done' },
+          { text:'Intercompany accounting policy',       status:'done' },
+          { text:'Hire Controller',                      status:'done' },
+        ]},
+      { q:'Q4 · Oct–Dec 2025', status:'done', title:'Year-End Excellence',
+        goals:[
+          { text:'FY25 audit completion',            status:'done' },
+          { text:'FY26 budget approved by board',    status:'done' },
+          { text:'Tax provision finalized',          status:'done' },
+          { text:'Finance team offsite & retrospective', status:'done' },
+        ]},
+    ]
+  },
+  calMonth:  today.getMonth(),
+  calYear:   today.getFullYear(),
+  pbiReports:[
+    { name:'Revenue Dashboard', url:'' },
+    { name:'Cash Flow Report',  url:'' },
+    { name:'AR/AP Tracker',     url:'' },
+    { name:'Budget vs Actual',  url:'' },
+  ],
+  activePbi: 0,
+  activeDueFilter: 'all'
+};
+
+// ═══════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════
+document.querySelectorAll('.nav-tab[data-section]').forEach(tab => {
+  tab.addEventListener('click', () => switchSection(tab.dataset.section));
+});
+function switchSection(sec) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sec));
+  document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === 'section-'+sec));
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
+// ═══════════════════════════════════════
+//  QUICK LINKS
+// ═══════════════════════════════════════
+const typeConfig = {
+  folder:{ cls:'folder', emoji:'📁' },
+  excel: { cls:'excel',  emoji:'📊' },
+  pdf:   { cls:'pdf',    emoji:'📑' },
+  ppt:   { cls:'ppt',    emoji:'📋' },
+  drive: { cls:'drive',  emoji:'💼' },
+  notion:{ cls:'notion', emoji:'⬡' },
+};
+function renderQLGrid(gridId, items, showAdd) {
+  const el = document.getElementById(gridId);
+  if (!el) return;
+  el.innerHTML = '';
+  items.forEach(item => {
+    const cfg = typeConfig[item.type] || typeConfig.folder;
+    const a = document.createElement('a');
+    a.className = 'ql-item';
+    a.href = item.url || '#'; a.target = '_blank';
+    a.innerHTML = `<div class="ql-icon ${cfg.cls}">${item.icon||cfg.emoji}</div>
+      <div><div class="ql-name">${item.name}</div><div class="ql-type">${item.type}</div></div>`;
+    el.appendChild(a);
+  });
+  if (showAdd) {
+    const add = document.createElement('div');
+    add.className = 'ql-add';
+    add.innerHTML = `<div style="font-size:18px">+</div><div style="font-size:12px;font-weight:600">Add link</div>`;
+    add.onclick = openLinkModal;
+    el.appendChild(add);
+  }
+}
+function renderAllQL() {
+  renderQLGrid('foldersGrid', state.quickLinks.folders, true);
+  renderQLGrid('excelGrid',   state.quickLinks.excel,   true);
+  renderQLGrid('docsGrid',    state.quickLinks.docs,    true);
+  renderQLGrid('toolsGrid',   state.quickLinks.tools,   true);
+}
+function renderOverviewQL() {
+  const el = document.getElementById('overviewQuickLinks');
+  if (!el) return;
+  const all = [...state.quickLinks.folders, ...state.quickLinks.excel, ...state.quickLinks.docs].slice(0,5);
+  el.innerHTML = '';
+  all.forEach(item => {
+    const cfg = typeConfig[item.type] || typeConfig.folder;
+    const d = document.createElement('div');
+    d.style.cssText = 'display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer;';
+    d.innerHTML = `<div class="ql-icon ${cfg.cls}" style="width:26px;height:26px;font-size:12px;border-radius:6px">${item.icon||cfg.emoji}</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text)">${item.name}</div>`;
+    el.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════
+//  CALENDAR
+// ═══════════════════════════════════════
+const dayLabels   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const monthNames  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function renderCalendar() {
+  const { calMonth, calYear } = state;
+  document.getElementById('calMonthLabel').textContent = `${monthNames[calMonth]} ${calYear}`;
+  document.getElementById('calDayLabels').innerHTML = dayLabels.map(d => `<div class="cal-day-label">${d}</div>`).join('');
+
+  const firstDay    = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const daysInPrev  = new Date(calYear, calMonth, 0).getDate();
+  const daysEl      = document.getElementById('calDays');
+  daysEl.innerHTML  = '';
+
+  const eventsThisMonth = state.events.filter(e => {
+    const d = new Date(e.date);
+    return d.getMonth()===calMonth && d.getFullYear()===calYear;
+  });
+
+  for (let i = firstDay-1; i >= 0; i--) {
+    const d = document.createElement('div');
+    d.className = 'cal-day other-month';
+    d.textContent = daysInPrev - i;
+    daysEl.appendChild(d);
+  }
+  for (let day = 1; day <= daysInMonth; day++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day';
+    const isToday = day===today.getDate() && calMonth===today.getMonth() && calYear===today.getFullYear();
+    if (isToday) d.classList.add('today');
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const evs = eventsThisMonth.filter(e => e.date === dateStr);
+    if (evs.length) {
+      d.classList.add('has-event');
+      if (evs.some(e => e.type==='critical'||e.type==='deadline')) d.classList.add('critical');
+    }
+    d.textContent = day;
+    daysEl.appendChild(d);
+  }
+  const total = firstDay + daysInMonth;
+  const rem = total%7===0 ? 0 : 7-(total%7);
+  for (let i = 1; i <= rem; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day other-month';
+    d.textContent = i;
+    daysEl.appendChild(d);
+  }
+  renderCalEvents();
+}
+function renderCalEvents() {
+  const { calMonth, calYear } = state;
+  const el = document.getElementById('calEventsList');
+  const evs = state.events
+    .filter(e => { const d=new Date(e.date); return d.getMonth()===calMonth && d.getFullYear()===calYear; })
+    .sort((a,b) => new Date(a.date)-new Date(b.date));
+  document.getElementById('calEventsTitle').textContent = `Events — ${monthNames[calMonth]} ${calYear}`;
+  const typeMap = { meeting:'badge-meeting', deadline:'badge-deadline', report:'badge-report', critical:'badge-critical' };
+  el.innerHTML = evs.length ? evs.map(e => {
+    const d = new Date(e.date);
+    return `<div class="event-item">
+      <div class="event-date-box">
+        <div class="event-date-day">${d.getDate()}</div>
+        <div class="event-date-mon">${monthNames[d.getMonth()].slice(0,3)}</div>
+      </div>
+      <div style="flex:1">
+        <div class="event-title">${e.title}</div>
+        <div class="event-meta">${e.notes||''}</div>
+      </div>
+      <div class="event-badge ${typeMap[e.type]||'badge-meeting'}">${e.type}</div>
+    </div>`;
+  }).join('') : `<div style="color:var(--text-faint);font-size:13px;padding:14px 0">No events this month.</div>`;
+}
+document.getElementById('calPrev').onclick = () => {
+  if (--state.calMonth < 0) { state.calMonth=11; state.calYear--; }
+  renderCalendar();
+};
+document.getElementById('calNext').onclick = () => {
+  if (++state.calMonth > 11) { state.calMonth=0; state.calYear++; }
+  renderCalendar();
+};
+
+// ═══════════════════════════════════════
+//  MONTH CLOSE
+// ═══════════════════════════════════════
+function renderMCFixed() {
+  const catMap     = { gl:'GL', rev:'Rev', ap:'AP', rep:'Rep' };
+  const statusMap  = { done:'on-track','on-track':'on-track','due-soon':'due-soon',overdue:'overdue',upcoming:'on-track' };
+  const labelMap   = { done:'✓ Done','on-track':'On Track','due-soon':'Due Soon',overdue:'Overdue',upcoming:'Upcoming' };
+  let total=0, done=0;
+  Object.keys(catMap).forEach(cat => {
+    const el    = document.getElementById('mcTasks'+catMap[cat]);
+    const tasks = state.mcTasks[cat]||[];
+    total += tasks.length; done += tasks.filter(t=>t.done).length;
+    if (!el) return;
+    el.innerHTML = tasks.map(t => `
+      <div class="mc-task">
+        <div class="mc-check ${t.done?'done':''}" onclick="toggleMCTask('${cat}','${t.id}')">${t.done?'✓':''}</div>
+        <div class="mc-task-text ${t.done?'done':''}">${t.text}</div>
+        <div class="mc-owner">${t.owner}</div>
+        <div class="mc-due ${statusMap[t.status]||'on-track'}">${labelMap[t.status]||'—'}</div>
+      </div>`).join('');
+  });
+  const pct = Math.round((done/total)*100);
+  document.querySelectorAll('#mcProgressFill, #overviewProgress').forEach(el => { if(el) el.style.width=pct+'%'; });
+  const lbl  = document.getElementById('mcProgressLabel');
+  if (lbl) lbl.textContent = `${done} / ${total} tasks · ${pct}%`;
+  const ovEl = document.getElementById('overviewMCStatus');
+  if (ovEl) ovEl.textContent = `${done} of ${total} tasks complete · ${pct}% · Close date Mar 5`;
+}
+window.toggleMCTask = function(cat, id) {
+  const task = state.mcTasks[cat].find(t => t.id===id);
+  if (task) { task.done = !task.done; task.status = task.done?'done':'on-track'; }
+  renderMCFixed();
+};
+
+// ═══════════════════════════════════════
+//  DUE DATES
+// ═══════════════════════════════════════
+function getDueStatus(due) {
+  const diff = Math.ceil((new Date(due) - new Date()) / (1000*60*60*24));
+  if (diff < 0) return 'overdue';
+  if (diff <= 3) return 'due-today';
+  return 'on-track';
+}
+function renderDueDates(filter) {
+  const el = document.getElementById('dueList');
+  if (!el) return;
+  let items = state.dueDates.slice();
+  if (filter==='overdue')   items = items.filter(i => getDueStatus(i.due)==='overdue');
+  else if (filter==='this-week') items = items.filter(i => { const diff=Math.ceil((new Date(i.due)-new Date())/(1000*60*60*24)); return diff>=0&&diff<=7; });
+  else if (filter==='upcoming') items = items.filter(i => getDueStatus(i.due)==='on-track');
+  items.sort((a,b) => new Date(a.due)-new Date(b.due));
+  const colorMap  = { overdue:['var(--red)','var(--red-dim)'], 'due-today':['var(--amber)','var(--amber-dim)'], 'on-track':['var(--green)','var(--green-dim)'] };
+  const labelMap  = { overdue:'🔴 Overdue','due-today':'🟡 Due Soon','on-track':'✅ On Track' };
+  el.innerHTML = items.map(item => {
+    const st = getDueStatus(item.due);
+    const [col,bg] = colorMap[st];
+    const d = new Date(item.due);
+    return `<div class="due-item ${st}">
+      <div class="due-assignee">${item.assignee||'?'}</div>
+      <div style="flex:1">
+        <div class="due-title">${item.title}</div>
+        <div style="font-size:10px;font-weight:600;color:var(--text-faint);margin-top:2px">${item.cat} · Due ${d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
+      </div>
+      <div class="due-date-label" style="background:${bg};color:${col}">${labelMap[st]}</div>
+    </div>`;
+  }).join('') || `<div style="color:var(--text-faint);font-size:13px;padding:14px 0">No items in this category.</div>`;
+}
+document.getElementById('dueTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.inner-tab');
+  if (!tab) return;
+  document.querySelectorAll('#dueTabs .inner-tab').forEach(t => t.classList.toggle('active', t===tab));
+  state.activeDueFilter = tab.dataset.due || 'all';
+  renderDueDates(state.activeDueFilter);
+});
+
+// ═══════════════════════════════════════
+//  ROADMAP
+// ═══════════════════════════════════════
+function renderRoadmap(fy) {
+  const data = state.roadmap[fy];
+  const el   = document.getElementById(fy+'Timeline');
+  if (!el||!data) return;
+  const sIcon = { done:'✓','in-progress':'◐', upcoming:'○' };
+  const gCls  = { done:'done','in-progress':'in-progress', upcoming:'upcoming' };
+  el.innerHTML = data.map(q => `
+    <div class="tl-item">
+      <div class="tl-dot ${q.status}"></div>
+      <div>
+        <div class="tl-quarter">${q.q}</div>
+        <div class="tl-title">${q.title}</div>
+        <div class="tl-goals">
+          ${q.goals.map(g => `<div class="tl-goal ${gCls[g.status]||'upcoming'}">
+            <span>${sIcon[g.status]||'○'}</span>${g.text}
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+}
+document.getElementById('roadmapTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.roadmap-tab');
+  if (!tab) return;
+  const fy = tab.dataset.fy;
+  document.querySelectorAll('.roadmap-tab').forEach(t => t.classList.toggle('active', t===tab));
+  document.querySelectorAll('.roadmap-fy').forEach(f => f.classList.toggle('active', f.id==='roadmap-'+fy));
+  renderRoadmap(fy);
+});
+
+// ═══════════════════════════════════════
+//  ALERTS
+// ═══════════════════════════════════════
+function renderAlerts() {
+  const sevMap = { critical:'alertsCritical', warning:'alertsWarning', info:'alertsInfo' };
+  const iconMap= { critical:'🔴', warning:'🟡', info:'🔵' };
+  Object.keys(sevMap).forEach(sev => {
+    const el    = document.getElementById(sevMap[sev]);
+    if (!el) return;
+    const items = state.alerts.filter(a => a.sev===sev);
+    el.innerHTML = items.length ? items.map(a => `
+      <div class="alert-item ${a.sev}">
+        <div class="alert-icon">${iconMap[a.sev]}</div>
+        <div>
+          <div class="alert-title">${a.title}</div>
+          <div class="alert-desc">${a.desc}</div>
+          <div class="alert-time">${a.time}</div>
+        </div>
+      </div>`).join('') : `<div style="color:var(--text-faint);font-size:13px;padding:10px 0">No items.</div>`;
+  });
+  const ovEl = document.getElementById('overviewAlerts');
+  if (ovEl) {
+    ovEl.innerHTML = state.alerts.filter(a=>a.sev==='critical'||a.sev==='warning').slice(0,3).map(a => `
+      <div class="alert-item ${a.sev}" style="margin-bottom:8px">
+        <div class="alert-icon">${iconMap[a.sev]}</div>
+        <div>
+          <div class="alert-title" style="font-size:12px">${a.title}</div>
+          <div class="alert-time">${a.time}</div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+// ═══════════════════════════════════════
+//  OVERVIEW EVENTS
+// ═══════════════════════════════════════
+function renderOverviewEvents() {
+  const el = document.getElementById('overviewEvents');
+  if (!el) return;
+  const upcoming = state.events
+    .filter(e => new Date(e.date) >= new Date(today.toDateString()))
+    .sort((a,b) => new Date(a.date)-new Date(b.date)).slice(0,4);
+  const typeMap = { meeting:'badge-meeting', deadline:'badge-deadline', report:'badge-report', critical:'badge-critical' };
+  el.innerHTML = upcoming.map(e => {
+    const d = new Date(e.date);
+    return `<div class="event-item">
+      <div class="event-date-box">
+        <div class="event-date-day">${d.getDate()}</div>
+        <div class="event-date-mon">${monthNames[d.getMonth()].slice(0,3)}</div>
+      </div>
+      <div style="flex:1">
+        <div class="event-title" style="font-size:12px">${e.title}</div>
+        <div class="event-meta">${e.notes||''}</div>
+      </div>
+      <div class="event-badge ${typeMap[e.type]||'badge-meeting'}">${e.type}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  REVENUE CHART
+// ═══════════════════════════════════════
+function renderRevenueChart() {
+  const el = document.getElementById('revenueChart');
+  if (!el) return;
+  const vals = [72,68,75,80,78,85,82,88,92,86,0,0];
+  const max  = Math.max(...vals.filter(v=>v>0));
+  el.innerHTML = vals.map((v,i) => {
+    const h   = v ? Math.max(8,(v/max)*55) : 4;
+    const cur = i===1;
+    return `<div class="mini-bar ${cur?'current':''}" style="height:${h}px;opacity:${v?1:.2}" title="${v?'$'+v+'K':'Future'}"></div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  POWER BI
+// ═══════════════════════════════════════
+document.getElementById('pbiTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.inner-tab');
+  if (!tab) return;
+  const idx = parseInt(tab.dataset.pbi);
+  if (isNaN(idx)) { openPbiModal(); return; }
+  document.querySelectorAll('#pbiTabs .inner-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  state.activePbi = idx;
+  renderPbiFrame();
+});
+function renderPbiFrame() {
+  const report = state.pbiReports[state.activePbi];
+  const frame  = document.getElementById('pbiFrame');
+  const title  = document.getElementById('pbiTitle');
+  if (!report) return;
+  title.textContent = (report.name + ' · POWER BI EMBED').toUpperCase();
+  if (report.url) {
+    frame.innerHTML  = `<iframe src="${report.url}" width="100%" height="${document.getElementById('pbiHeight')?.value||540}" frameborder="0" allowFullScreen="true"></iframe>`;
+    frame.style.minHeight = 'auto';
+  } else {
+    frame.style.minHeight = '520px';
+    frame.innerHTML = `<div class="pbi-placeholder-icon">📊</div>
+      <div class="pbi-placeholder-text">${report.name}</div>
+      <div class="pbi-placeholder-sub">Click "Configure URL" to embed this Power BI report.</div>
+      <button class="pbi-btn" onclick="openPbiModal()">+ Connect Power BI Report</button>`;
+  }
+}
+function openPbiModal() {
+  const r = state.pbiReports[state.activePbi];
+  if (r) { document.getElementById('pbiReportName').value=r.name; document.getElementById('pbiUrl').value=r.url||''; }
+  document.getElementById('pbiModal').classList.add('open');
+}
+function closePbiModal()  { document.getElementById('pbiModal').classList.remove('open'); }
+function savePbiReport()  {
+  const name = document.getElementById('pbiReportName').value.trim();
+  const url  = document.getElementById('pbiUrl').value.trim();
+  if (!url) { closePbiModal(); return; }
+  state.pbiReports[state.activePbi] = { name: name||state.pbiReports[state.activePbi].name, url };
+  const tabs = document.querySelectorAll('#pbiTabs .inner-tab');
+  if (tabs[state.activePbi]) tabs[state.activePbi].textContent = name||tabs[state.activePbi].textContent;
+  closePbiModal(); renderPbiFrame();
+}
+
+// ═══════════════════════════════════════
+//  MODALS — EVENTS, DUE DATES, ALERTS, LINKS
+// ═══════════════════════════════════════
+function openEventModal() { document.getElementById('evDate').value=todayStr; document.getElementById('eventModal').classList.add('open'); }
+function closeEventModal(){ document.getElementById('eventModal').classList.remove('open'); }
+function saveEvent() {
+  const title=document.getElementById('evTitle').value.trim(), date=document.getElementById('evDate').value,
+        type=document.getElementById('evType').value, notes=document.getElementById('evNotes').value.trim();
+  if (!title||!date) return;
+  state.events.push({ id:Date.now(), title, date, type, notes });
+  closeEventModal(); renderCalendar(); renderOverviewEvents();
+}
+function openDueModal()  { document.getElementById('ddDate').value=todayStr; document.getElementById('dueModal').classList.add('open'); }
+function closeDueModal() { document.getElementById('dueModal').classList.remove('open'); }
+function saveDue() {
+  const title=document.getElementById('ddTitle').value.trim(), due=document.getElementById('ddDate').value,
+        assignee=document.getElementById('ddAssignee').value.trim().toUpperCase()||'?',
+        cat=document.getElementById('ddCat').value;
+  if (!title||!due) return;
+  state.dueDates.push({ id:Date.now(), title, due, assignee, cat });
+  closeDueModal(); renderDueDates(state.activeDueFilter||'all');
+}
+function openAlertModal()  { document.getElementById('alertModal').classList.add('open'); }
+function closeAlertModal() { document.getElementById('alertModal').classList.remove('open'); }
+function saveAlert() {
+  const title=document.getElementById('alTitle').value.trim(), desc=document.getElementById('alDesc').value.trim(),
+        sev=document.getElementById('alSev').value;
+  if (!title) return;
+  state.alerts.unshift({ id:Date.now(), sev, title, desc, time:'Just now' });
+  closeAlertModal(); renderAlerts();
+}
+function openLinkModal()  { document.getElementById('linkModal').classList.add('open'); }
+function closeLinkModal() { document.getElementById('linkModal').classList.remove('open'); }
+function saveLink() {
+  const name=document.getElementById('lkName').value.trim(), url=document.getElementById('lkUrl').value.trim(),
+        type=document.getElementById('lkType').value;
+  if (!name) return;
+  const catMap={ folder:'folders',excel:'excel',pdf:'docs',ppt:'docs',notion:'tools',drive:'tools' };
+  state.quickLinks[catMap[type]||'tools'].push({ name, type, url:url||'#', icon:typeConfig[type]?.emoji||'🔗' });
+  closeLinkModal(); renderAllQL();
+}
+function openTaskModal(cat) { /* placeholder */ }
+
+document.querySelectorAll('.modal-overlay').forEach(ov => {
+  ov.addEventListener('click', e => { if(e.target===ov) ov.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════
+function init() {
+  renderAllQL(); renderOverviewQL();
+  renderCalendar(); renderMCFixed();
+  renderDueDates('all'); renderRoadmap('fy26'); renderRoadmap('fy25');
+  renderAlerts(); renderOverviewEvents(); renderRevenueChart();
+}
+init();
+</script>
+</body>
+</html>
