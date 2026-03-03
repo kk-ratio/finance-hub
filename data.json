@@ -42,11 +42,16 @@
         "q": "March",
         "title": "The finance Hub - Go Live",
         "status": "done",
-        "goals": []
+        "goals": [
+          {
+            "text": "Development",
+            "status": "done"
+          }
+        ]
       }
     ]
   },
   "activeRMTab": "rm1772523632630",
   "alerts": [],
-  "_savedAt": "2026-03-03T07:41:44.031Z"
+  "_savedAt": "2026-03-03T07:42:05.431Z"
 }
