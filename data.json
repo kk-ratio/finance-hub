@@ -2,77 +2,31 @@
   "qlGroups": [
     {
       "id": "g1",
-      "name": "&#x1F4C1; Folders & Files",
-      "links": [
-        {
-          "name": "Financials",
-          "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ?usp=drive_link",
-          "icon": "&#x1F517;",
-          "type": ""
-        }
-      ]
+      "name": "📁 Folders & Files",
+      "links": []
     },
     {
       "id": "g2",
-      "name": "&#x1F4CA; Spreadsheets & Models",
+      "name": "📊 Spreadsheets & Models",
       "links": []
     },
     {
       "id": "g3",
-      "name": "&#x1F517; Tools & Other Links",
+      "name": "🔗 Tools & Other Links",
       "links": []
     }
   ],
-  "pbiReports": [
-    {
-      "id": 1772524040103,
-      "name": "Test",
-      "url": "https://app.powerbi.com/view?r=eyJrIjoiMzJkZGFiZGYtZmVmOS00OWU3LWI2YjAtYWJiNjg1OTY1NzdmIiwidCI6Ijg2MTZmYWM1LTY4YTYtNGQyOC1hZjdiLWRhMTQ2YWNjNTBlZSJ9&pageName=2f3f9d1856a07a9f20cc",
-      "h": 560
-    },
-    {
-      "id": 1772524078052,
-      "name": "Test 2",
-      "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ",
-      "h": 560
-    }
-  ],
-  "activePbi": 0,
+  "pbiReports": [],
+  "activePbi": null,
   "events": [],
   "todos": [],
-  "mcGroups": [
-    {
-      "id": 1772524412583,
-      "name": "Bank Accounting",
-      "icon": "&#x1F4CB;",
-      "tasks": [
-        {
-          "id": 1772524463818,
-          "text": "Completion of bank feed Verified.",
-          "owner": "KK",
-          "due": "2026-03-09",
-          "status": "due-soon",
-          "done": false
-        }
-      ]
-    }
-  ],
+  "mcGroups": [],
+  "mcLabel": "",
+  "mcHistory": [],
   "dueDates": [],
-  "rmTabs": [
-    {
-      "id": "rm1772523632630",
-      "name": "FY 2026 - Q2 Goals"
-    },
-    {
-      "id": "rm1772523906006",
-      "name": "Process Study - Accounting/Month Close"
-    }
-  ],
-  "rmItems": {
-    "rm1772523632630": [],
-    "rm1772523906006": []
-  },
-  "activeRMTab": "rm1772523632630",
+  "rmTabs": [],
+  "rmItems": {},
+  "activeRMTab": null,
   "alerts": [],
-  "_savedAt": "2026-03-03T08:05:14.119Z"
+  "_savedAt": "2026-03-03T09:36:57.520Z"
 }
