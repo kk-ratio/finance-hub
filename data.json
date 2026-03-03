@@ -9,6 +9,12 @@
           "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ?usp=drive_link",
           "icon": "&#x1F517;",
           "type": "Folder"
+        },
+        {
+          "name": "Risk & Finance Priorities",
+          "url": "https://docs.google.com/document/d/1UE8cAkgq94w_v4LiRqLXJjReLcAPSWxzdv6SNLPACUo/edit?tab=t.0",
+          "icon": "📄",
+          "type": "Doc"
         }
       ]
     },
@@ -278,5 +284,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:25:42.533Z"
+  "_savedAt": "2026-03-03T15:42:21.727Z"
 }
