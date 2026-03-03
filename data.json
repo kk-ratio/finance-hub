@@ -57,10 +57,27 @@
   "mcGroups": [],
   "mcLabel": "2026-01",
   "mcHistory": [],
-  "dueDates": [],
+  "dueDates": [
+    {
+      "id": 1772531396990,
+      "title": "Financials Review Meet",
+      "due": "2026-03-16",
+      "assignee": "?",
+      "cat": "meeting",
+      "recur": "monthly"
+    },
+    {
+      "id": 1772531397991,
+      "title": "Meet MSCFO for month close updates",
+      "due": "2026-03-13",
+      "assignee": "KK",
+      "cat": "Accounting",
+      "recur": ""
+    }
+  ],
   "rmTabs": [],
   "rmItems": {},
   "activeRMTab": null,
   "alerts": [],
-  "_savedAt": "2026-03-03T09:49:55.557Z"
+  "_savedAt": "2026-03-03T09:49:58.993Z"
 }
