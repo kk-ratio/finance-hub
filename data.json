@@ -195,6 +195,11 @@
             "text": "Platform fees",
             "status": "upcoming",
             "owner": "KK/SJ"
+          },
+          {
+            "text": "Cash vs accrual",
+            "status": "upcoming",
+            "owner": "KK/SJ"
           }
         ]
       }
@@ -202,5 +207,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:19:21.627Z"
+  "_savedAt": "2026-03-03T15:19:46.303Z"
 }
