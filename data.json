@@ -266,11 +266,17 @@
         "q": "Full Year",
         "title": "KIZEN",
         "status": "active",
-        "goals": []
+        "goals": [
+          {
+            "text": "File organization in Google Drive and OneDrive",
+            "status": "in-progress",
+            "owner": "Team Goal"
+          }
+        ]
       }
     ]
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:25:30.151Z"
+  "_savedAt": "2026-03-03T15:25:42.533Z"
 }
