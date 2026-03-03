@@ -248,6 +248,11 @@
             "text": "Clean up and automate all inputs that can be automated",
             "status": "upcoming",
             "owner": "KK"
+          },
+          {
+            "text": "Power BI - BS & PNL Module",
+            "status": "in-progress",
+            "owner": "KK"
           }
         ]
       }
@@ -255,5 +260,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:23:42.501Z"
+  "_savedAt": "2026-03-03T15:24:17.924Z"
 }
