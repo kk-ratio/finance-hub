@@ -3,7 +3,14 @@
     {
       "id": "g1",
       "name": "&#x1F4C1; Folders & Files",
-      "links": []
+      "links": [
+        {
+          "name": "Financials",
+          "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ?usp=drive_link",
+          "icon": "&#x1F517;",
+          "type": ""
+        }
+      ]
     },
     {
       "id": "g2",
@@ -26,5 +33,5 @@
   "rmItems": {},
   "activeRMTab": null,
   "alerts": [],
-  "_savedAt": "2026-03-03T07:37:31.136Z"
+  "_savedAt": "2026-03-03T07:39:57.770Z"
 }
