@@ -23,8 +23,15 @@
       "links": []
     }
   ],
-  "pbiReports": [],
-  "activePbi": null,
+  "pbiReports": [
+    {
+      "id": 1772524040103,
+      "name": "Test",
+      "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ",
+      "h": 560
+    }
+  ],
+  "activePbi": 0,
   "events": [],
   "todos": [],
   "mcGroups": [],
@@ -66,5 +73,5 @@
   },
   "activeRMTab": "rm1772523906006",
   "alerts": [],
-  "_savedAt": "2026-03-03T07:47:07.943Z"
+  "_savedAt": "2026-03-03T07:47:22.111Z"
 }
