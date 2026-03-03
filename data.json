@@ -69,31 +69,10 @@
     }
   ],
   "rmItems": {
-    "rm1772523632630": [
-      {
-        "id": 1772523702029,
-        "q": "March",
-        "title": "The finance Hub - Go Live",
-        "status": "done",
-        "goals": [
-          {
-            "text": "Development",
-            "status": "done"
-          },
-          {
-            "text": "Testing",
-            "status": "done"
-          },
-          {
-            "text": "Go Live",
-            "status": "in-progress"
-          }
-        ]
-      }
-    ],
+    "rm1772523632630": [],
     "rm1772523906006": []
   },
-  "activeRMTab": "rm1772523906006",
+  "activeRMTab": "rm1772523632630",
   "alerts": [],
-  "_savedAt": "2026-03-03T07:58:10.316Z"
+  "_savedAt": "2026-03-03T07:58:54.916Z"
 }
