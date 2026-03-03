@@ -1,0 +1,30 @@
+{
+  "qlGroups": [
+    {
+      "id": "g1",
+      "name": "&#x1F4C1; Folders & Files",
+      "links": []
+    },
+    {
+      "id": "g2",
+      "name": "&#x1F4CA; Spreadsheets & Models",
+      "links": []
+    },
+    {
+      "id": "g3",
+      "name": "&#x1F517; Tools & Other Links",
+      "links": []
+    }
+  ],
+  "pbiReports": [],
+  "activePbi": null,
+  "events": [],
+  "todos": [],
+  "mcGroups": [],
+  "dueDates": [],
+  "rmTabs": [],
+  "rmItems": {},
+  "activeRMTab": null,
+  "alerts": [],
+  "_savedAt": "2026-03-03T07:37:31.136Z"
+}
