@@ -42,7 +42,18 @@
       "recur": "monthly"
     }
   ],
-  "todos": [],
+  "todos": [
+    {
+      "id": 1772531393553,
+      "title": "Meet MSCFO for month close updates",
+      "notes": "",
+      "date": "2026-03-13",
+      "assignee": "KK",
+      "priority": "high",
+      "tag": "Accounting",
+      "done": false
+    }
+  ],
   "mcGroups": [],
   "mcLabel": "2026-01",
   "mcHistory": [],
@@ -51,5 +62,5 @@
   "rmItems": {},
   "activeRMTab": null,
   "alerts": [],
-  "_savedAt": "2026-03-03T09:49:08.877Z"
+  "_savedAt": "2026-03-03T09:49:55.557Z"
 }
