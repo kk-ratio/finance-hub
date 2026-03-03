@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Hub · Ratio</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#F5F4F9;--surface:#fff;--surface2:#F0EDF8;--surface3:#E8E2F5;
+  --nav:#ffffffeb;--border:#E2DCF0;--border2:#C9BCEC;
+  --p:#7C3AED;--p2:#9B5FFF;--pdim:rgba(124,58,237,.09);--pdim2:rgba(124,58,237,.17);
+  --o:#F97316;--odim:rgba(249,115,22,.11);
+  --text:#1E1333;--dim:#6B5F85;--faint:#B0A0CC;
+  --green:#16A34A;--gdim:rgba(22,163,74,.1);
+  --red:#DC2626;--rdim:rgba(220,38,38,.1);
+  --blue:#2563EB;--bdim:rgba(37,99,235,.1);
+  --amber:#D97706;--adim:rgba(217,119,6,.1);
+  --radius:12px;--rsm:8px;
+  --sh:0 1px 4px rgba(124,58,237,.06),0 4px 14px rgba(124,58,237,.06);
+  --shmd:0 4px 24px rgba(124,58,237,.13);
+  --scroll:rgba(124,58,237,.2);
+}
+[data-theme="dark"]{
+  --bg:#0F0B1A;--surface:#17112A;--surface2:#1E1633;--surface3:#271E40;
+  --nav:rgba(15,11,26,.93);--border:rgba(124,58,237,.15);--border2:rgba(124,58,237,.3);
+  --p:#A78BFA;--p2:#C4B5FD;--pdim:rgba(167,139,250,.12);--pdim2:rgba(167,139,250,.22);
+  --o:#FB923C;--odim:rgba(251,146,60,.12);
+  --text:#EDE9FE;--dim:#A78BFA;--faint:rgba(237,233,254,.35);
+  --green:#4ADE80;--gdim:rgba(74,222,128,.12);
+  --red:#F87171;--rdim:rgba(248,113,113,.12);
+  --blue:#60A5FA;--bdim:rgba(96,165,250,.12);
+  --amber:#FCD34D;--adim:rgba(252,211,77,.12);
+  --sh:0 1px 4px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  --shmd:0 4px 24px rgba(0,0,0,.4);
+  --scroll:rgba(167,139,250,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:9px}
+button,select,input,textarea{font-family:inherit}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:var(--nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:2px}
+.nav-tabs{display:flex;align-items:center;gap:1px;flex:1;overflow-x:auto}
+.nav-tab{padding:13px 14px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--dim);cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;transition:all .18s;user-select:none;display:flex;align-items:center;gap:5px}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--p);border-bottom-color:var(--p)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-left:10px}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;border:1px solid var(--border2);background:var(--surface2);color:var(--dim);cursor:pointer;font-size:11px;font-weight:700;transition:all .18s}
+.theme-btn:hover{border-color:var(--p);color:var(--p);background:var(--pdim)}
+
+/* LAYOUT */
+.main{max-width:1280px;margin:0 auto;padding:32px 28px 100px}
+.section{display:none}
+.section.active{display:block;animation:fu .28s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.sec-title-row{display:flex;align-items:center;gap:11px}
+.sec-icon{width:34px;height:34px;border-radius:9px;background:var(--pdim);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sec-title{font-size:19px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.sec-sub{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.sec-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--sh);transition:border-color .18s}
+.card:hover{border-color:var(--border2)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;flex-wrap:wrap}
+.card-label{font-size:10px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+.card-acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{font-size:11px;font-weight:700;color:var(--p);cursor:pointer;padding:5px 11px;border-radius:7px;border:1px solid var(--border2);background:var(--pdim);transition:all .15s;white-space:nowrap;letter-spacing:.02em}
+.btn:hover{background:var(--pdim2)}
+.btn.danger{color:var(--red);background:var(--rdim);border-color:rgba(220,38,38,.2)}
+.btn.danger:hover{background:rgba(220,38,38,.18)}
+.btn.ghost{background:transparent;border-style:dashed}
+.btn.ghost:hover{background:var(--pdim);border-style:solid}
+.btn.green{color:var(--green);background:var(--gdim);border-color:rgba(22,163,74,.2)}
+.btn.green:hover{background:rgba(22,163,74,.18)}
+.btn.warn{color:var(--amber);background:var(--adim);border-color:rgba(217,119,6,.2)}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* EMPTY */
+.empty{display:flex;flex-direction:column;align-items:center;padding:36px 16px;text-align:center;gap:10px}
+.empty-icon{font-size:32px;opacity:.28}
+.empty-txt{font-size:13px;font-weight:600;color:var(--faint)}
+.empty-cta{font-size:12px;font-weight:700;color:var(--p);cursor:pointer;padding:6px 16px;border-radius:8px;border:1.5px dashed var(--border2);background:var(--pdim);transition:all .15s}
+.empty-cta:hover{background:var(--pdim2);border-color:var(--p)}
+
+/* INNER TABS */
+.itabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.itab{padding:5px 13px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--border);color:var(--faint);cursor:pointer;transition:all .15s}
+.itab:hover{color:var(--text);border-color:var(--border2)}
+.itab.active{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+.itab.add{border-style:dashed;color:var(--p)}
+.itab.add:hover{background:var(--pdim)}
+
+/* CALENDAR */
+.cal-layout{display:grid;grid-template-columns:300px 1fr;gap:14px;align-items:start}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month{font-size:15px;font-weight:800;color:var(--text)}
+.cal-navbtn{width:26px;height:26px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cal-navbtn:hover{border-color:var(--p);color:var(--p)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dl{text-align:center;padding:5px 0;font-size:9px;font-weight:700;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
+.cal-day{aspect-ratio:1;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:500;color:var(--dim);transition:all .15s;position:relative}
+.cal-day:hover{background:var(--surface2);color:var(--text)}
+.cal-day.today{background:var(--pdim);border:1.5px solid var(--border2);color:var(--p);font-weight:800}
+.cal-day.other{opacity:.22}
+.cal-day::after{content:'';width:4px;height:4px;border-radius:50%;position:absolute;bottom:4px;display:none}
+.cal-day.has-ev::after{display:block;background:var(--o)}
+.cal-day.has-td::after{display:block;background:var(--p)}
+.cal-day.has-both::after{display:block;background:linear-gradient(90deg,var(--o),var(--p))}
+.cal-legend{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--faint)}
+.cal-legend-dot{width:7px;height:7px;border-radius:50%}
+
+/* PANEL */
+.panel-tabs{display:flex;gap:6px;margin-bottom:10px}
+.ptab{padding:5px 13px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);color:var(--faint);cursor:pointer;transition:all .15s}
+.ptab.active{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+
+/* EVENTS */
+.ev-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border)}
+.ev-item:last-child{border-bottom:none}
+.ev-date-box{min-width:38px;height:38px;border-radius:8px;background:var(--pdim);border:1px solid var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.ev-dd{font-size:14px;font-weight:800;line-height:1;color:var(--p)}
+.ev-mm{font-size:7px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.07em}
+.ev-title{font-size:13px;font-weight:700;color:var(--text)}
+.ev-notes{font-size:11px;color:var(--faint);margin-top:1px}
+.ev-badge{padding:2px 8px;border-radius:99px;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;flex-shrink:0;margin-top:2px}
+.ev-acts{display:flex;gap:4px;flex-shrink:0;margin-top:2px}
+.ev-act{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;font-size:11px;flex-shrink:0}
+.ev-item:hover .ev-act{opacity:1}
+.ev-act.del{background:var(--rdim);color:var(--red)}
+.ev-act.edit{background:var(--pdim);color:var(--p)}
+.ev-act.sync{background:var(--gdim);color:var(--green)}
+.bm{background:var(--pdim);color:var(--p)}
+.bd{background:var(--adim);color:var(--amber)}
+.br{background:var(--bdim);color:var(--blue)}
+.bc{background:var(--rdim);color:var(--red)}
+.recur-badge{padding:1px 5px;border-radius:99px;font-size:8px;font-weight:800;background:var(--bdim);color:var(--blue);margin-left:4px;text-transform:uppercase;letter-spacing:.04em}
+
+/* TASKS */
+.todo-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border)}
+.todo-item:last-child{border-bottom:none}
+.chk{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .15s;font-size:10px;color:var(--p)}
+.chk.done{background:var(--pdim);border-color:var(--p)}
+.todo-title{font-size:13px;font-weight:600;color:var(--text)}
+.todo-title.done{text-decoration:line-through;color:var(--faint)}
+.todo-meta{font-size:10px;color:var(--faint);margin-top:2px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pri{padding:2px 6px;border-radius:99px;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.ph{background:var(--rdim);color:var(--red)}
+.pm{background:var(--adim);color:var(--amber)}
+.pl{background:var(--gdim);color:var(--green)}
+.todo-del{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;margin-top:2px}
+.todo-item:hover .todo-del{opacity:1}
+.tag-pill{background:var(--pdim);color:var(--p);padding:1px 6px;border-radius:99px;font-size:9px;font-weight:800}
+
+/* QUICK LINKS */
+.ql-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:9px}
+.ql-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;color:inherit;box-shadow:var(--sh);transition:all .18s;position:relative}
+.ql-item:hover{border-color:var(--p);transform:translateY(-1px);box-shadow:var(--shmd)}
+.ql-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--pdim)}
+.ql-name{font-size:12px;font-weight:700;color:var(--text)}
+.ql-type{font-size:9px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.09em;margin-top:1px}
+.ql-del{position:absolute;top:4px;right:4px;background:var(--rdim);color:var(--red);border-radius:4px;padding:1px 5px;font-size:10px;cursor:pointer;opacity:0;transition:opacity .15s}
+.ql-item:hover .ql-del{opacity:1}
+.ql-add{background:transparent;border:1.5px dashed var(--border2);border-radius:var(--rsm);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;color:var(--faint)}
+.ql-add:hover{border-color:var(--p);color:var(--p);background:var(--pdim)}
+.grp-hd{display:flex;align-items:center;justify-content:space-between;margin:20px 0 9px}
+.grp-hd:first-child{margin-top:0}
+.grp-name-inp{background:transparent;border:none;border-bottom:1px solid transparent;font-size:10px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--faint);outline:none;cursor:text;width:auto;font-family:inherit;transition:border-color .15s}
+.grp-name-inp:focus{border-bottom-color:var(--p);color:var(--p)}
+
+/* POWER BI */
+.pbi-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--sh)}
+.pbi-top{background:var(--surface2);border-bottom:1px solid var(--border);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:relative;z-index:2}
+.pbi-dots{display:flex;gap:5px;align-items:center}
+.pbi-dot{width:10px;height:10px;border-radius:50%}
+.pbi-dot.r{background:#EF4444}.pbi-dot.y{background:#F59E0B}.pbi-dot.g{background:#22C55E}
+.pbi-label{font-size:11px;font-weight:700;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;margin-left:9px}
+.pbi-frame{min-height:480px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden}
+.pbi-frame.empty-frame::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:34px 34px;opacity:.5;pointer-events:none}
+.pbi-ph-icon{font-size:40px;opacity:.28;position:relative;z-index:1}
+.pbi-ph-title{font-size:17px;font-weight:800;color:var(--dim);position:relative;z-index:1}
+.pbi-ph-sub{font-size:13px;color:var(--faint);position:relative;z-index:1;text-align:center;max-width:340px;line-height:1.7}
+.pbi-ph-btn{background:var(--pdim);border:1px solid var(--border2);color:var(--p);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;position:relative;z-index:1}
+.pbi-ph-btn:hover{background:var(--pdim2)}
+.help-box{background:var(--pdim);border:1px solid var(--border2);border-radius:var(--rsm);padding:13px 15px;margin-top:12px;font-size:12px;color:var(--dim);line-height:1.85}
+.help-box strong{color:var(--text)}
+code{background:var(--pdim);color:var(--p);border-radius:4px;padding:1px 5px;font-family:'DM Mono',monospace;font-size:11px}
+
+/* MONTH CLOSE */
+.mc-bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-bottom:5px}
+.mc-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p),var(--o));transition:width .7s ease}
+.mc-task{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.mc-task:last-child{border-bottom:none}
+.mc-text{flex:1;font-size:13px;font-weight:500}
+.mc-text.done{text-decoration:line-through;color:var(--faint)}
+.mc-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;white-space:nowrap}
+.mc-acts{display:flex;gap:3px;flex-shrink:0;margin-top:2px}
+.mc-act{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;font-size:11px}
+.mc-task:hover .mc-act{opacity:1}
+.mc-act.del{background:var(--rdim);color:var(--red)}
+.mc-act.edit{background:var(--pdim);color:var(--p)}
+.st-ot{background:var(--gdim);color:var(--green)}
+.st-ds{background:var(--adim);color:var(--amber)}
+.st-ov{background:var(--rdim);color:var(--red)}
+.st-dn{background:var(--gdim);color:var(--green)}
+.st-up{background:var(--surface2);color:var(--faint);border:1px solid var(--border)}
+.mc-label-inp{background:var(--pdim);border:1.5px solid var(--border2);border-radius:8px;font-size:14px;font-weight:700;color:var(--p);outline:none;padding:4px 10px;font-family:inherit;transition:border-color .15s;cursor:pointer;min-width:160px}
+.mc-label-inp:focus{border-color:var(--p)}
+.mc-hist-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.mc-hist-row:last-child{border-bottom:none}
+.mc-hist-month{font-weight:700;min-width:90px}
+.mc-hist-bar{flex:1;height:6px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.mc-hist-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p),var(--o))}
+.mc-hist-stat{font-size:11px;font-weight:700;color:var(--dim);min-width:60px;text-align:right}
+
+/* DUE DATES */
+.due-item{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:var(--rsm);background:var(--surface2);margin-bottom:7px;border-left:3px solid transparent;transition:border-color .15s}
+.due-item:hover{border-left-color:var(--p)}
+.due-item.overdue{border-left-color:var(--red)}
+.due-item.due-today{border-left-color:var(--amber)}
+.due-item.on-track{border-left-color:var(--green)}
+.due-avt{width:26px;height:26px;border-radius:50%;background:var(--pdim);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--p);flex-shrink:0}
+.due-lbl{font-size:9px;font-weight:800;padding:2px 8px;border-radius:99px}
+.due-acts{display:flex;gap:3px;flex-shrink:0}
+.due-act{opacity:0;cursor:pointer;padding:2px 5px;border-radius:4px;font-size:11px;transition:opacity .15s}
+.due-item:hover .due-act{opacity:1}
+.due-act.del{background:var(--rdim);color:var(--red)}
+.due-act.edit{background:var(--pdim);color:var(--p)}
+.due-act.sync{background:var(--gdim);color:var(--green)}
+
+/* ROADMAP */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:0;width:2px;background:linear-gradient(180deg,var(--p),var(--o) 60%,transparent);opacity:.32}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-dot{position:absolute;left:-25px;top:4px;width:13px;height:13px;border-radius:50%;border:2.5px solid var(--p);background:var(--bg)}
+.tl-dot.done{background:var(--p)}
+.tl-dot.active{background:var(--odim);border-color:var(--o);box-shadow:0 0 0 4px var(--odim)}
+.tl-q{font-size:9px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--o);margin-bottom:2px}
+.tl-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:7px}
+.tl-goals{display:flex;flex-wrap:wrap;gap:5px}
+.tl-goal{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid;display:flex;align-items:center;gap:5px;cursor:pointer;transition:opacity .15s;position:relative}
+.tl-goal:hover{opacity:.8}
+.g-acts{display:flex;gap:2px;margin-left:3px}
+.g-act{font-size:9px;padding:1px 4px;border-radius:3px;display:none;cursor:pointer}
+.tl-goal:hover .g-act{display:inline}
+.g-act.del{background:var(--rdim);color:var(--red)}
+.g-act.edit{background:var(--pdim);color:var(--p)}
+.goal-done{background:var(--gdim);border-color:rgba(22,163,74,.2);color:var(--green)}
+.goal-prog{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+.goal-up{background:var(--surface2);border-color:var(--border);color:var(--faint)}
+.tl-add-goal{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;border:1.5px dashed var(--border2);color:var(--p);cursor:pointer;background:transparent;transition:all .15s}
+.tl-add-goal:hover{background:var(--pdim);border-color:var(--p)}
+.tl-acts{position:absolute;right:0;top:0;display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.tl-item:hover .tl-acts{opacity:1}
+.tl-act{cursor:pointer;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700}
+.tl-act.del{background:var(--rdim);color:var(--red)}
+.tl-act.edit{background:var(--pdim);color:var(--p)}
+.goal-owner{font-size:9px;color:var(--faint);font-weight:700;margin-left:2px}
+
+/* ALERTS */
+.alert-item{padding:12px 15px;border-radius:var(--rsm);border:1px solid;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.alert-item.critical{background:var(--rdim);border-color:rgba(220,38,38,.22)}
+.alert-item.warning{background:var(--adim);border-color:rgba(217,119,6,.2)}
+.alert-item.info{background:var(--bdim);border-color:rgba(37,99,235,.2)}
+.alert-icon{font-size:14px;flex-shrink:0;margin-top:2px}
+.alert-title{font-size:13px;font-weight:700;margin-bottom:2px}
+.alert-desc{font-size:12px;color:var(--dim)}
+.alert-time{font-size:10px;color:var(--faint);margin-top:3px}
+.alert-del{margin-left:auto;opacity:0;cursor:pointer;padding:2px 6px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;transition:opacity .15s}
+.alert-item:hover .alert-del{opacity:1}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:26px;width:450px;max-width:94vw;box-shadow:var(--shmd);max-height:90vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:18px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:9px;font-weight:800;color:var(--faint);letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 11px;font-size:13px;font-weight:500;color:var(--text);outline:none;transition:border-color .15s;font-family:inherit;resize:vertical}
+.field textarea{min-height:65px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p)}
+.mrow{display:flex;gap:10px}
+.mrow .field{flex:1}
+.modal-foot{display:flex;gap:8px;margin-top:16px}
+.btn-ok{flex:1;padding:9px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;cursor:pointer;transition:opacity .15s}
+.btn-ok:hover{opacity:.9}
+.btn-cancel{padding:9px 15px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--faint);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-cancel:hover{border-color:var(--border2);color:var(--text)}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:99px;font-size:12px;font-weight:700;opacity:0;transition:all .28s;z-index:2000;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* SETUP / SETTINGS */
+.setup-banner{background:linear-gradient(135deg,#7C3AED,#F97316);color:#fff;padding:14px 24px;text-align:center;font-size:13px;font-weight:600;line-height:1.7;position:relative;z-index:300}
+.setup-banner .setup-close{position:absolute;right:12px;top:8px;background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.settings-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;border:1px solid var(--border2);background:var(--surface2);color:var(--dim);cursor:pointer;font-size:11px;font-weight:700;transition:all .18s}
+.settings-btn:hover{border-color:var(--p);color:var(--p);background:var(--pdim)}
+.settings-btn.connected{border-color:rgba(22,163,74,.4);color:var(--green);background:var(--gdim)}
+.token-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:12px;font-weight:500;color:var(--text);outline:none;font-family:'DM Mono',monospace;transition:border-color .15s;word-break:break-all}
+.token-input:focus{border-color:var(--p)}
+.step-list{list-style:none;padding:0;margin:12px 0}
+.step-list li{padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--dim);line-height:1.6;display:flex;gap:8px}
+.step-list li:last-child{border-bottom:none}
+.step-num{background:var(--pdim);color:var(--p);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-list a{color:var(--p);text-decoration:none;font-weight:600}
+.step-list a:hover{text-decoration:underline}
+.step-list code{background:var(--pdim);color:var(--p);border-radius:4px;padding:1px 5px;font-family:'DM Mono',monospace;font-size:10px}
+/* SAVE INDICATOR */
+.save-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;margin-right:4px;transition:background .3s}
+.save-dot.saving{background:#F59E0B;animation:pulse .6s infinite alternate}
+.save-dot.error{background:#EF4444}
+@keyframes pulse{from{opacity:.4}to{opacity:1}}
+.save-status{font-size:10px;font-weight:700;color:var(--faint);display:flex;align-items:center;gap:2px;letter-spacing:.04em}
+/* LOADING OVERLAY */
+.loading-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .4s}
+.loading-overlay.done{opacity:0;pointer-events:none}
+.loading-spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--p);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:13px;font-weight:600;color:var(--dim)}
+
+/* ADD ROW */
+.add-row{display:flex;justify-content:center;margin-top:20px}
+
+@media(max-width:800px){
+  .main{padding:20px 14px 80px}
+  .nav{padding:0 10px}
+  .g2,.g3{grid-template-columns:1fr}
+  .cal-layout{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading your data…</div>
+</div>
+
+<div class="setup-banner" id="setupBanner" style="display:none">
+  <button class="setup-close" onclick="document.getElementById('setupBanner').style.display='none'">&times;</button>
+  <span id="setupMsg">⚙️ Click the <strong>Settings</strong> button (top-right) to connect your GitHub token and enable data saving.</span>
+</div>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-s="quicklinks">🗂 Links</div>
+    <div class="nav-tab" data-s="powerbi">📊 Power BI</div>
+    <div class="nav-tab" data-s="calendar">📅 Calendar & Tasks</div>
+    <div class="nav-tab" data-s="monthclose">✓ Month Close</div>
+    <div class="nav-tab" data-s="duedates">⏱ Due Dates</div>
+    <div class="nav-tab" data-s="roadmap">🗺 Roadmap</div>
+    <div class="nav-tab" data-s="alerts">🚨 Alerts</div>
+  </div>
+  <div class="nav-right">
+    <div class="save-status" id="saveStatus"><span class="save-dot" id="saveDot"></span><span id="saveLbl">Not connected</span></div>
+    <button class="settings-btn" id="settingsBtn" onclick="openM('mSettings')">⚙ Settings</button>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span><span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- QUICK LINKS -->
+<section class="section active" id="section-quicklinks">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">🗂</div><div><div class="sec-title">Files & Quick Links</div><div class="sec-sub">All key files, folders and tools</div></div></div>
+    <div class="sec-actions"><button class="btn" onclick="openLinkModal()">+ Add Link</button><button class="btn ghost" onclick="addLinkGroup()">+ Add Group</button></div>
+  </div>
+  <div id="qlGroups"></div>
+</section>
+
+<!-- POWER BI -->
+<section class="section" id="section-powerbi">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">📊</div><div><div class="sec-title">Power BI Reports</div><div class="sec-sub">Embed your live reports</div></div></div>
+    <button class="btn" onclick="openPbiAddModal()">+ Add Report Tab</button>
+  </div>
+  <div class="itabs" id="pbiTabs"></div>
+  <div class="pbi-wrap">
+    <div class="pbi-top">
+      <div style="display:flex;align-items:center"><div class="pbi-dots"><div class="pbi-dot r"></div><div class="pbi-dot y"></div><div class="pbi-dot g"></div></div><div class="pbi-label" id="pbiLabel">NO REPORT CONNECTED</div></div>
+      <div style="display:flex;gap:7px">
+        <button class="btn" onclick="openPbiEditModal()" id="pbiEditBtn" style="display:none">✏ Edit</button>
+        <button class="btn danger" onclick="window._deletePbiTab()" id="pbiDelBtn" style="display:none">✕ Remove</button>
+      </div>
+    </div>
+    <div class="pbi-frame empty-frame" id="pbiFrame"></div>
+  </div>
+  <div class="help-box"><strong>How to get your Power BI embed URL:</strong><br>1. Open your report in <strong>Power BI Service</strong> (app.powerbi.com)<br>2. Click <strong>File → Embed report → Website or portal</strong><br>3. Copy the URL starting with <code>https://app.powerbi.com/reportEmbed…</code><br>4. Click <strong>+ Add Report Tab</strong>, paste the URL, name it, click Embed.</div>
+</section>
+
+<!-- CALENDAR & TASKS -->
+<section class="section" id="section-calendar">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">📅</div><div><div class="sec-title">Calendar, Tasks & To-Do</div><div class="sec-sub">Events · Tasks · To-Dos · Deadlines</div></div></div>
+    <div class="sec-actions">
+      <button class="btn" onclick="openEventModal()">+ Event</button>
+      <button class="btn" onclick="openTodoModal()">+ Task / To-Do</button>
+      <button class="btn green" onclick="syncAllToDue()">↗ Sync All to Due Dates</button>
+    </div>
+  </div>
+  <div class="cal-layout">
+    <div class="card">
+      <div class="cal-nav"><button class="cal-navbtn" id="calPrev">&#8249;</button><div class="cal-month" id="calMonthLabel"></div><button class="cal-navbtn" id="calNext">&#8250;</button></div>
+      <div class="cal-grid" id="calLabels"></div>
+      <div class="cal-grid" id="calDays" style="margin-top:2px"></div>
+      <div class="cal-legend">
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--o)"></div>Events</div>
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--p)"></div>Tasks</div>
+      </div>
+    </div>
+    <div>
+      <div class="panel-tabs"><div class="ptab active" data-pt="events">📅 Events</div><div class="ptab" data-pt="tasks">✓ Tasks &amp; To-Dos</div></div>
+      <div id="panelEvents" class="card" style="max-height:460px;overflow-y:auto">
+        <div class="card-hd"><div class="card-label" id="evPanelLbl">Events</div><button class="btn" onclick="openEventModal()">+ Event</button></div>
+        <div id="evList"></div>
+      </div>
+      <div id="panelTasks" class="card" style="display:none;max-height:460px;overflow-y:auto">
+        <div class="card-hd">
+          <div class="card-label">Tasks &amp; To-Dos</div>
+          <div class="card-acts">
+            <div class="itab active" id="tf-all" onclick="filterTasks('all')" style="padding:3px 9px">All</div>
+            <div class="itab" id="tf-open" onclick="filterTasks('open')" style="padding:3px 9px">Open</div>
+            <div class="itab" id="tf-done" onclick="filterTasks('done')" style="padding:3px 9px">Done</div>
+            <button class="btn" onclick="openTodoModal()">+ Task</button>
+          </div>
+        </div>
+        <div id="todoList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTH CLOSE -->
+<section class="section" id="section-monthclose">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">&#x2713;</div><div><div class="sec-title">Month-End Close</div><div class="sec-sub">Track your close checklist</div></div></div>
+    <div class="sec-actions">
+      <button class="btn" onclick="openMCGroupModal()">+ Add Category</button>
+      <button class="btn green" onclick="closeMonth()">✓ Close Month & Roll Forward</button>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-hd">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="card-label">Closing Month:</div>
+        <input type="month" class="mc-label-inp" id="mcLabelInp" onchange="setMCMonth(this.value)">
+        <span id="mcMonthEndLbl" style="font-size:12px;font-weight:700;color:var(--dim)"></span>
+      </div>
+      <div id="mcProgLbl" style="font-size:11px;font-weight:700;color:var(--p)"></div>
+    </div>
+    <div class="mc-bar"><div class="mc-fill" id="mcFill" style="width:0%"></div></div>
+  </div>
+  <div class="g2" id="mcGroups"></div>
+  <div class="add-row"><button class="btn ghost" onclick="openMCGroupModal()">+ Add category</button></div>
+  <div class="card" style="margin-top:20px" id="mcHistCard">
+    <div class="card-hd"><div class="card-label">📊 Close History & Trend</div></div>
+    <div id="mcHistList"></div>
+  </div>
+</section>
+
+<!-- DUE DATES -->
+<section class="section" id="section-duedates">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">&#x23F1;</div><div><div class="sec-title">Due Dates &amp; Deadlines</div><div class="sec-sub">All upcoming deadlines</div></div></div>
+    <button class="btn" onclick="openDueModal()">+ Add Deadline</button>
+  </div>
+  <div class="itabs" id="dueTabs">
+    <div class="itab active" data-df="all">All</div>
+    <div class="itab" data-df="overdue">&#x1F534; Overdue</div>
+    <div class="itab" data-df="this-week">This Week</div>
+    <div class="itab" data-df="upcoming">Upcoming</div>
+  </div>
+  <div class="card"><div class="card-hd"><div class="card-label" id="dueLbl">All Deadlines</div></div><div id="dueList"></div></div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section" id="section-roadmap">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">&#x1F5FA;</div><div><div class="sec-title">Roadmap &amp; Goals</div><div class="sec-sub">Quarterly and annual objectives</div></div></div>
+    <button class="btn" onclick="openRMItemModal()">+ Add Milestone</button>
+  </div>
+  <div class="itabs" id="rmTabs"></div>
+  <div id="rmTimeline"></div>
+  <div class="add-row"><button class="btn ghost" onclick="openRMTabModal()">+ Add year / period</button></div>
+</section>
+
+<!-- ALERTS -->
+<section class="section" id="section-alerts">
+  <div class="sec-hd">
+    <div class="sec-title-row"><div class="sec-icon">&#x1F6A8;</div><div><div class="sec-title">Alerts &amp; Critical Events</div><div class="sec-sub">Board deadlines · Regulatory · High-priority</div></div></div>
+    <button class="btn" onclick="openAlertModal()">+ Add Alert</button>
+  </div>
+  <div class="card" style="margin-bottom:12px"><div class="card-hd"><div class="card-label">&#x1F534; Critical</div><button class="btn" onclick="openAlertModal('critical')">+ Add</button></div><div id="alCritical"></div></div>
+  <div class="card" style="margin-bottom:12px"><div class="card-hd"><div class="card-label">&#x1F7E1; Warnings</div><button class="btn" onclick="openAlertModal('warning')">+ Add</button></div><div id="alWarning"></div></div>
+  <div class="card"><div class="card-hd"><div class="card-label">&#x1F535; Informational</div><button class="btn" onclick="openAlertModal('info')">+ Add</button></div><div id="alInfo"></div></div>
+</section>
+
+</div><!-- /main -->
+
+<!-- ═══ MODALS ═══ -->
+<!-- Link --><div class="overlay" id="mLink"><div class="modal"><div class="modal-title">Add Quick Link</div><div class="field"><label>Name</label><input id="lkName" placeholder="e.g. Budget Model, Drive Folder…"></div><div class="field"><label>URL (optional)</label><input id="lkUrl" placeholder="https://…"></div><div class="mrow"><div class="field"><label>Icon (emoji)</label><input id="lkIcon" placeholder="📊" maxlength="3" style="font-size:18px;text-align:center"></div><div class="field"><label>Type / Label</label><input id="lkType" placeholder="Excel, PDF, Folder…"></div></div><div class="field"><label>Group</label><select id="lkGroup"></select></div><div class="modal-foot"><button class="btn-ok" onclick="saveLink()">Add Link</button><button class="btn-cancel" onclick="closeM('mLink')">Cancel</button></div></div></div>
+<!-- PBI --><div class="overlay" id="mPbi"><div class="modal"><div class="modal-title" id="mPbiTitle">Add Power BI Report</div><div class="field"><label>Tab Name</label><input id="pbiName" placeholder="e.g. Revenue Dashboard"></div><div class="field"><label>Power BI Embed URL</label><input id="pbiUrl" placeholder="https://app.powerbi.com/reportEmbed?..."></div><div class="field"><label>Height px (default 560)</label><input id="pbiH" type="number" value="560"></div><div class="modal-foot"><button class="btn-ok" onclick="savePbi()">Embed Report</button><button class="btn-cancel" onclick="closeM('mPbi')">Cancel</button></div></div></div>
+<!-- Event --><div class="overlay" id="mEvent"><div class="modal"><div class="modal-title" id="mEvTitle">Add Event</div><div class="field"><label>Title</label><input id="evT" placeholder="Board Meeting, Tax Filing…"></div><div class="mrow"><div class="field"><label>Date</label><input id="evD" type="date"></div><div class="field"><label>Type</label><select id="evType"><option value="meeting">Meeting</option><option value="deadline">Deadline</option><option value="report">Report Due</option><option value="critical">Critical</option></select></div></div><div class="field"><label>Recurring</label><select id="evRecur"><option value="">None</option><option value="weekly">Weekly</option><option value="biweekly">Bi-weekly</option><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select></div><div class="field"><label>Notes (optional)</label><input id="evN" placeholder="Any context…"></div><div class="modal-foot"><button class="btn-ok" id="evSaveBtn" onclick="saveEvent()">Add Event</button><button class="btn-cancel" onclick="closeM('mEvent')">Cancel</button></div></div></div>
+<!-- Todo --><div class="overlay" id="mTodo"><div class="modal"><div class="modal-title">Add Task / To-Do</div><div class="field"><label>Title</label><input id="tdT" placeholder="What needs to be done?"></div><div class="field"><label>Notes / Description</label><textarea id="tdN" placeholder="Details, context, links…"></textarea></div><div class="mrow"><div class="field"><label>Due Date</label><input id="tdD" type="date"></div><div class="field"><label>Assignee</label><input id="tdA" placeholder="Name or initials"></div></div><div class="mrow"><div class="field"><label>Priority</label><select id="tdP"><option value="high">&#x1F534; High</option><option value="med" selected>&#x1F7E1; Medium</option><option value="low">&#x1F7E2; Low</option></select></div><div class="field"><label>Category / Tag</label><input id="tdTag" placeholder="Finance, Tax, Audit…"></div></div><div class="modal-foot"><button class="btn-ok" onclick="saveTodo()">Add Task</button><button class="btn-cancel" onclick="closeM('mTodo')">Cancel</button></div></div></div>
+<!-- MC Group --><div class="overlay" id="mMCG"><div class="modal"><div class="modal-title" id="mcgTitle">Add Close Category</div><div class="field"><label>Category Name</label><input id="mcgN" placeholder="e.g. Accounting & GL, AP / Payables…"></div><div class="field"><label>Icon (emoji)</label><input id="mcgI" placeholder="📒" maxlength="3" style="font-size:18px;text-align:center"></div><div class="modal-foot"><button class="btn-ok" id="mcgSaveBtn" onclick="saveMCGroup()">Add Category</button><button class="btn-cancel" onclick="closeM('mMCG')">Cancel</button></div></div></div>
+<!-- MC Task --><div class="overlay" id="mMCT"><div class="modal"><div class="modal-title" id="mctTitle">Add Task</div><div class="field"><label>Task Description</label><input id="mctT" placeholder="e.g. Post all journal entries"></div><div class="mrow"><div class="field"><label>Owner</label><input id="mctO" placeholder="Sarah K."></div><div class="field"><label>Due Date</label><input id="mctD" type="date"></div></div><div class="field"><label>Status</label><select id="mctS"><option value="on-track">On Track</option><option value="due-soon">Due Soon</option><option value="overdue">Overdue</option><option value="upcoming">Upcoming</option></select></div><div class="modal-foot"><button class="btn-ok" id="mctSaveBtn" onclick="saveMCTask()">Add Task</button><button class="btn-cancel" onclick="closeM('mMCT')">Cancel</button></div></div></div>
+<!-- Due Date --><div class="overlay" id="mDue"><div class="modal"><div class="modal-title" id="mDueTitle">Add Deadline</div><div class="field"><label>Task / Deadline</label><input id="ddT" placeholder="e.g. Q1 Tax Payment"></div><div class="mrow"><div class="field"><label>Due Date (first occurrence)</label><input id="ddD" type="date"></div><div class="field"><label>Assignee</label><input id="ddA" placeholder="JD" maxlength="5"></div></div><div class="field"><label>Category</label><input id="ddC" placeholder="Tax, Payroll, Audit…"></div><div class="field"><label>Recurring</label><select id="ddRecur" onchange="toggleRecurFields()"><option value="">None (one-time)</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select></div><div id="recurFields" style="display:none"><div class="mrow"><div class="field" id="recurDayField"><label id="recurDayLabel">Day of Month (1-31)</label><input id="ddRecurDay" type="number" min="1" max="31" placeholder="e.g. 15"></div><div class="field"><label>Generate how many occurrences?</label><select id="ddRecurCount"><option value="3">3</option><option value="6" selected>6</option><option value="12">12</option><option value="24">24</option></select></div></div><div style="font-size:10px;color:var(--dim);margin-top:-6px;margin-bottom:12px;padding:6px 10px;background:var(--pdim);border-radius:6px" id="recurPreview"></div></div><div class="modal-foot"><button class="btn-ok" id="ddSaveBtn" onclick="saveDue()">Add Deadline</button><button class="btn-cancel" onclick="closeM('mDue')">Cancel</button></div></div></div>
+<!-- RM Tab --><div class="overlay" id="mRMTab"><div class="modal"><div class="modal-title" id="rmTabTitle">Add Year / Period</div><div class="field"><label>Label</label><input id="rmTabN" placeholder="e.g. FY 2026, Q1 2026…"></div><div class="modal-foot"><button class="btn-ok" id="rmTabSaveBtn" onclick="saveRMTab()">Add Period</button><button class="btn-cancel" onclick="closeM('mRMTab')">Cancel</button></div></div></div>
+<!-- RM Item --><div class="overlay" id="mRMItem"><div class="modal"><div class="modal-title" id="rmItemTitle">Add Milestone</div><div class="field"><label>Period</label><select id="rmITab"></select></div><div class="field"><label>Quarter / Phase Label</label><input id="rmIQ" placeholder="Q1 · Jan–Mar 2026"></div><div class="field"><label>Milestone Title</label><input id="rmIT" placeholder="e.g. Foundation & Controls"></div><div class="field"><label>Status</label><select id="rmIS"><option value="active">&#x25B6; In Progress</option><option value="done">&#x2713; Done</option><option value="">&#x25CB; Upcoming</option></select></div><div class="modal-foot"><button class="btn-ok" id="rmItemSaveBtn" onclick="saveRMItem()">Add Milestone</button><button class="btn-cancel" onclick="closeM('mRMItem')">Cancel</button></div></div></div>
+<!-- Goal --><div class="overlay" id="mGoal"><div class="modal"><div class="modal-title" id="goalTitle">Add Goal</div><div class="field"><label>Goal Description</label><input id="goalT" placeholder="e.g. Complete FY25 audit"></div><div class="field"><label>Person Responsible</label><input id="goalOwner" placeholder="e.g. Sarah K."></div><div class="field"><label>Status</label><select id="goalS"><option value="in-progress">&#x25D0; In Progress</option><option value="done">&#x2713; Done</option><option value="upcoming">&#x25CB; Upcoming</option></select></div><div class="modal-foot"><button class="btn-ok" id="goalSaveBtn" onclick="saveGoal()">Add Goal</button><button class="btn-cancel" onclick="closeM('mGoal')">Cancel</button></div></div></div>
+<!-- Alert --><div class="overlay" id="mAlert"><div class="modal"><div class="modal-title">Add Alert</div><div class="field"><label>Title</label><input id="alT" placeholder="Alert title…"></div><div class="field"><label>Description</label><textarea id="alD" placeholder="What action is needed?"></textarea></div><div class="mrow"><div class="field"><label>Severity</label><select id="alS"><option value="critical">&#x1F534; Critical</option><option value="warning">&#x1F7E1; Warning</option><option value="info">&#x1F535; Info</option></select></div><div class="field"><label>Date / Tag</label><input id="alTime" placeholder="e.g. Due Mar 15"></div></div><div class="modal-foot"><button class="btn-ok" onclick="saveAlert()">Add Alert</button><button class="btn-cancel" onclick="closeM('mAlert')">Cancel</button></div></div></div>
+<!-- Settings --><div class="overlay" id="mSettings"><div class="modal" style="max-width:520px"><div class="modal-title">⚙️ Settings — Connect GitHub Storage</div><div style="font-size:12px;color:var(--dim);margin-bottom:14px;line-height:1.7">Your data is saved as a file (<code>data.json</code>) inside your own GitHub repo. You need a GitHub Personal Access Token so the page can read/write that file. This is a <strong>one-time setup</strong>.</div><ol class="step-list"><li><span class="step-num">1</span><div>Go to <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens</a> → <strong>Generate new token (Fine-grained)</strong></div></li><li><span class="step-num">2</span><div>Set <strong>Token name</strong> to anything (e.g. "Finance Hub"), <strong>Expiration</strong> to "No expiration"</div></li><li><span class="step-num">3</span><div>Under <strong>Repository access</strong> → select <strong>"Only select repositories"</strong> → pick <code>finance-hub</code></div></li><li><span class="step-num">4</span><div>Under <strong>Permissions → Repository permissions</strong> → set <strong>Contents</strong> to <strong>"Read and write"</strong></div></li><li><span class="step-num">5</span><div>Click <strong>Generate token</strong>, copy it, paste below.</div></li></ol><div class="field"><label>GitHub Personal Access Token</label><input class="token-input" id="ghTokenInput" placeholder="github_pat_xxxxxxxxxxxxxx" autocomplete="off" spellcheck="false"></div><div id="tokenStatus" style="font-size:11px;margin-bottom:10px;font-weight:600;min-height:18px"></div><div class="modal-foot"><button class="btn-ok" onclick="saveGHToken()">Connect &amp; Save</button><button class="btn-cancel" onclick="closeM('mSettings')">Cancel</button></div><div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:10px;color:var(--faint);line-height:1.6">🔒 <strong>Security:</strong> Your token is stored only in the URL hash fragment (<code>#token=…</code>) which never gets sent to any server.</div></div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const today=new Date();
+const todayStr=today.toISOString().split('T')[0];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0])}
+
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100)}
+function closeM(id){$(id).classList.remove('open')}
+function openM(id){$(id).classList.add('open')}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+
+// ═══ GITHUB STORAGE ═══
+const GH_OWNER='kk-ratio',GH_REPO='finance-hub',GH_FILE='data.json';
+const GH_API=`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+let _fileSha=null;
+function getToken(){const h=window.location.hash;if(h.includes('token='))return decodeURIComponent(h.split('token=')[1].split('&')[0]);return null}
+function showSaveStatus(state){const dot=$('saveDot'),lbl=$('saveLbl');if(!dot||!lbl)return;dot.className='save-dot'+(state==='saving'?' saving':state==='error'?' error':'');lbl.textContent=state==='saving'?'Saving…':state==='error'?'Save failed':'Saved';const btn=$('settingsBtn');if(btn)btn.className='settings-btn'+(state!=='error'&&getToken()?' connected':'')}
+async function loadFromGitHub(){const token=getToken();if(!token)return null;try{const res=await fetch(GH_API,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'},cache:'no-store'});if(res.status===404)return null;if(!res.ok)return null;const json=await res.json();_fileSha=json.sha;return JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g,'')))))}catch(e){console.warn('GitHub load failed:',e);return null}}
+let _saveTimer=null;
+function persist(){if(!getToken())return;clearTimeout(_saveTimer);_saveTimer=setTimeout(_doSave,2000);showSaveStatus('saving')}
+async function _doSave(){const token=getToken();if(!token){showSaveStatus('error');return}
+const data={qlGroups:S.qlGroups,pbiReports:S.pbiReports,activePbi:S.activePbi,events:S.events,todos:S.todos,mcGroups:S.mcGroups,mcLabel:S.mcLabel,mcHistory:S.mcHistory,dueDates:S.dueDates,rmTabs:S.rmTabs,rmItems:S.rmItems,activeRMTab:S.activeRMTab,alerts:S.alerts,_savedAt:new Date().toISOString()};
+const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+try{if(!_fileSha){try{const r=await fetch(GH_API,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'},cache:'no-store'});if(r.ok){const j=await r.json();_fileSha=j.sha}}catch(e){}}
+const body={message:'Update Finance Hub data — '+new Date().toLocaleString(),content};if(_fileSha)body.sha=_fileSha;
+const res=await fetch(GH_API,{method:'PUT',headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
+if(res.ok){const j=await res.json();_fileSha=j.content.sha;showSaveStatus('ok')}else if(res.status===409){_fileSha=null;const r2=await fetch(GH_API,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'},cache:'no-store'});if(r2.ok){const j2=await r2.json();_fileSha=j2.sha}body.sha=_fileSha;const res2=await fetch(GH_API,{method:'PUT',headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});if(res2.ok){const j3=await res2.json();_fileSha=j3.content.sha;showSaveStatus('ok')}else showSaveStatus('error')}else{showSaveStatus('error')}}catch(e){showSaveStatus('error')}}
+async function saveGHToken(){const input=$('ghTokenInput'),status=$('tokenStatus'),token=input.value.trim();if(!token){status.innerHTML='<span style="color:var(--red)">Please paste your token above.</span>';return}status.innerHTML='<span style="color:var(--amber)">Testing connection…</span>';try{const res=await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`,{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}});if(!res.ok){status.innerHTML='<span style="color:var(--red)">❌ Token rejected — check repo & permissions.</span>';return}}catch(e){status.innerHTML='<span style="color:var(--red)">❌ Network error.</span>';return}window.location.hash='token='+encodeURIComponent(token);status.innerHTML='<span style="color:var(--green)">✅ Connected!</span>';showSaveStatus('saving');$('settingsBtn').className='settings-btn connected';$('setupBanner').style.display='none';await _doSave();closeM('mSettings');toast('Connected to GitHub!');const fullUrl=window.location.origin+window.location.pathname+window.location.hash;const banner=$('setupBanner'),msg=$('setupMsg');msg.innerHTML=`✅ Connected! <strong>Update your Notion embed URL</strong> to include the token. <code style="background:rgba(255,255,255,.2);color:#fff;padding:2px 6px;border-radius:4px;font-size:10px;margin:0 4px;user-select:all;cursor:text;word-break:break-all">${fullUrl}</code> <button style="background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;margin-left:4px" onclick="navigator.clipboard.writeText('${fullUrl}');this.textContent='Copied!'">Copy</button>`;banner.style.display='block'}
+
+// ═══ THEME ═══
+function toggleTheme(){const d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'light':'dark');$('themeIcon').textContent=d?'🌙':'☀️';$('themeLabel').textContent=d?'Dark':'Light';try{localStorage.setItem('fh3-theme',d?'light':'dark')}catch(e){}}
+(function(){try{const s=localStorage.getItem('fh3-theme');if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');$('themeIcon').textContent='☀️';$('themeLabel').textContent='Light'}}catch(e){}})();
+
+// NAV
+document.querySelectorAll('.nav-tab[data-s]').forEach(t=>t.addEventListener('click',()=>switchS(t.dataset.s)));
+function switchS(s){document.querySelectorAll('.nav-tab').forEach(t=>t.classList.toggle('active',t.dataset.s===s));document.querySelectorAll('.section').forEach(sec=>sec.classList.toggle('active',sec.id==='section-'+s))}
+
+// ═══ STATE ═══
+const S={
+  qlGroups:[{id:'g1',name:'📁 Folders & Files',links:[]},{id:'g2',name:'📊 Spreadsheets & Models',links:[]},{id:'g3',name:'🔗 Tools & Other Links',links:[]}],
+  pbiReports:[],activePbi:null,
+  events:[],todos:[],taskFilter:'all',
+  calMonth:today.getMonth(),calYear:today.getFullYear(),activePT:'events',
+  mcGroups:[],mcLabel:'',mcHistory:[],
+  dueDates:[],dueFilter:'all',
+  rmTabs:[],rmItems:{},activeRMTab:null,
+  pendingGoal:null,
+  alerts:[]
+};
+
+// ═══ QUICK LINKS ═══
+function renderQL(){const el=$('qlGroups');if(!el)return;if(!S.qlGroups.length){el.innerHTML='<div class="empty"><div class="empty-icon">🗂</div><div class="empty-txt">No groups yet</div><div class="empty-cta" onclick="addLinkGroup()">+ Add Group</div></div>';return}el.innerHTML='';S.qlGroups.forEach((grp,gi)=>{const wrap=document.createElement('div');wrap.style.marginBottom='24px';wrap.innerHTML=`<div class="grp-hd"><div style="display:flex;align-items:center;gap:8px"><input class="grp-name-inp" value="${grp.name.replace(/"/g,'&quot;')}" onchange="S.qlGroups[${gi}].name=this.value;persist()" title="Click to rename"><span style="opacity:.35;cursor:pointer;font-size:12px" onclick="deleteQLGrp(${gi})">✕</span></div><button class="btn" onclick="openLinkModal(${gi})">+ Add</button></div><div class="ql-grid" id="qlg${gi}"></div>`;el.appendChild(wrap);const grid=$('qlg'+gi);grp.links.forEach((lk,li)=>{const a=document.createElement('a');a.className='ql-item';a.href=lk.url||'#';a.target='_blank';a.innerHTML=`<div class="ql-icon">${lk.icon||'🔗'}</div><div><div class="ql-name">${lk.name}</div><div class="ql-type">${lk.type||''}</div></div><span class="ql-del" onclick="event.preventDefault();deleteQL(${gi},${li})">✕</span>`;grid.appendChild(a)});const add=document.createElement('div');add.className='ql-add';add.innerHTML='<span style="font-size:17px">+</span><span style="font-size:12px;font-weight:700">Add link</span>';add.onclick=()=>openLinkModal(gi);grid.appendChild(add)})}
+function addLinkGroup(){S.qlGroups.push({id:'g'+Date.now(),name:'📂 New Group',links:[]});renderQL();persist();toast('Group added')}
+function deleteQLGrp(gi){if(!confirm('Delete this group?'))return;S.qlGroups.splice(gi,1);renderQL();persist()}
+function deleteQL(gi,li){S.qlGroups[gi].links.splice(li,1);renderQL();persist()}
+let _lkGi=0;
+function openLinkModal(gi=0){_lkGi=gi;$('lkName').value='';$('lkUrl').value='';$('lkIcon').value='';$('lkType').value='';const sel=$('lkGroup');sel.innerHTML='';S.qlGroups.forEach((g,i)=>{const o=document.createElement('option');o.value=i;o.textContent=g.name.replace(/[\u{1F000}-\u{1FFFF}]/gu,'').trim()||'Group '+(i+1);if(i===gi)o.selected=true;sel.appendChild(o)});openM('mLink')}
+function saveLink(){const n=$('lkName').value.trim();if(!n){toast('Enter a name');return}const gi=parseInt($('lkGroup').value);S.qlGroups[gi].links.push({name:n,url:$('lkUrl').value.trim(),icon:$('lkIcon').value.trim()||'🔗',type:$('lkType').value.trim()});closeM('mLink');renderQL();persist();toast('Link added!')}
+
+// ═══ POWER BI ═══
+function renderPbiTabs(){const el=$('pbiTabs');el.innerHTML='';S.pbiReports.forEach((r,i)=>{const t=document.createElement('div');t.className='itab'+(S.activePbi===i?' active':'');t.textContent=r.name;t.onclick=()=>switchPbi(i);el.appendChild(t)});const add=document.createElement('div');add.className='itab add';add.textContent='+ Add Report';add.onclick=openPbiAddModal;el.appendChild(add)}
+function switchPbi(i){S.activePbi=i;renderPbiTabs();renderPbiFrame()}
+function renderPbiFrame(){const frame=$('pbiFrame');if(S.activePbi===null||!S.pbiReports[S.activePbi]){$('pbiLabel').textContent='NO REPORT CONNECTED';$('pbiEditBtn').style.display='none';$('pbiDelBtn').style.display='none';frame.style.minHeight='480px';frame.className='pbi-frame empty-frame';frame.innerHTML='<div class="pbi-ph-icon">📊</div><div class="pbi-ph-title">No Reports Yet</div><div class="pbi-ph-sub">Click <strong>+ Add Report Tab</strong> to embed your Power BI report.</div><button class="pbi-ph-btn" onclick="openPbiAddModal()">+ Add Your First Report</button>';return}const r=S.pbiReports[S.activePbi];$('pbiLabel').textContent=r.name.toUpperCase();$('pbiEditBtn').style.display='';$('pbiDelBtn').style.display='';if(r.url){frame.style.minHeight='auto';frame.className='pbi-frame';frame.innerHTML=`<iframe src="${r.url}" width="100%" height="${r.h||560}" frameborder="0" allowFullScreen="true" style="display:block;position:relative;z-index:1"></iframe>`}else{frame.style.minHeight='480px';frame.className='pbi-frame empty-frame';frame.innerHTML=`<div class="pbi-ph-icon">🔗</div><div class="pbi-ph-title">${r.name}</div><div class="pbi-ph-sub">No URL yet. Click <strong>✏ Edit</strong> to add your embed link.</div><button class="pbi-ph-btn" onclick="openPbiEditModal()">✏ Connect URL</button>`}}
+let _pbiEd=false;
+function openPbiAddModal(){_pbiEd=false;$('mPbiTitle').textContent='Add Power BI Report';$('pbiName').value='';$('pbiUrl').value='';$('pbiH').value=560;openM('mPbi')}
+function openPbiEditModal(){if(S.activePbi===null)return;_pbiEd=true;const r=S.pbiReports[S.activePbi];$('mPbiTitle').textContent='Edit Report';$('pbiName').value=r.name;$('pbiUrl').value=r.url||'';$('pbiH').value=r.h||560;openM('mPbi')}
+function savePbi(){const n=$('pbiName').value.trim();if(!n){toast('Enter a name');return}const url=$('pbiUrl').value.trim(),h=parseInt($('pbiH').value)||560;if(_pbiEd&&S.activePbi!==null)S.pbiReports[S.activePbi]={...S.pbiReports[S.activePbi],name:n,url,h};else{S.pbiReports.push({id:Date.now(),name:n,url,h});S.activePbi=S.pbiReports.length-1}closeM('mPbi');renderPbiTabs();renderPbiFrame();persist();toast('Report saved!')}
+window._deletePbiTab=function(){if(S.activePbi===null)return;if(!confirm('Remove this report tab?'))return;S.pbiReports.splice(S.activePbi,1);S.activePbi=S.pbiReports.length?0:null;renderPbiTabs();renderPbiFrame();persist();toast('Report removed')};
+
+// ═══ CALENDAR ═══
+function getExpandedEvents(m,y){const evs=[];S.events.forEach(e=>{const base=new Date(e.date);if(!e.recur){if(base.getMonth()===m&&base.getFullYear()===y)evs.push(e);return}
+// Generate recurring occurrences for this month
+const start=new Date(y,m,1),end=new Date(y,m+1,0);let cur=new Date(base);while(cur<=end){if(cur>=start&&cur.getMonth()===m&&cur.getFullYear()===y){evs.push({...e,date:cur.toISOString().split('T')[0],_parentId:e.id})}
+if(e.recur==='weekly')cur.setDate(cur.getDate()+7);else if(e.recur==='biweekly')cur.setDate(cur.getDate()+14);else if(e.recur==='monthly'){cur=new Date(cur.getFullYear(),cur.getMonth()+1,base.getDate())}else if(e.recur==='quarterly'){cur=new Date(cur.getFullYear(),cur.getMonth()+3,base.getDate())}else if(e.recur==='yearly'){cur=new Date(cur.getFullYear()+1,base.getMonth(),base.getDate())}else break;if(cur>end)break}});return evs.sort((a,b)=>new Date(a.date)-new Date(b.date))}
+function renderCal(){const{calMonth:m,calYear:y}=S;$('calMonthLabel').textContent=MONTHS[m]+' '+y;$('calLabels').innerHTML=DAYS.map(d=>`<div class="cal-dl">${d}</div>`).join('');const first=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),dprev=new Date(y,m,0).getDate();const exEvs=getExpandedEvents(m,y);const evDs=new Set(exEvs.map(e=>new Date(e.date).getDate()));const tdDs=new Set(S.todos.filter(t=>t.date).filter(t=>{const d=new Date(t.date);return d.getMonth()===m&&d.getFullYear()===y}).map(t=>new Date(t.date).getDate()));let h='';for(let i=first-1;i>=0;i--)h+=`<div class="cal-day other">${dprev-i}</div>`;for(let d=1;d<=dim;d++){const isT=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();const hE=evDs.has(d),hT=tdDs.has(d);h+=`<div class="cal-day ${isT?'today':''} ${hE&&hT?'has-both':hE?'has-ev':hT?'has-td':''}">${d}</div>`}const rem=(first+dim)%7===0?0:7-(first+dim)%7;for(let i=1;i<=rem;i++)h+=`<div class="cal-day other">${i}</div>`;$('calDays').innerHTML=h}
+$('calPrev').onclick=()=>{if(--S.calMonth<0){S.calMonth=11;S.calYear--}renderCal();renderEvList();renderTodoList()};
+$('calNext').onclick=()=>{if(++S.calMonth>11){S.calMonth=0;S.calYear++}renderCal();renderEvList();renderTodoList()};
+document.querySelectorAll('.ptab').forEach(t=>t.addEventListener('click',()=>{S.activePT=t.dataset.pt;document.querySelectorAll('.ptab').forEach(x=>x.classList.toggle('active',x===t));$('panelEvents').style.display=t.dataset.pt==='events'?'':'none';$('panelTasks').style.display=t.dataset.pt==='tasks'?'':'none'}));
+
+function renderEvList(){const el=$('evList');if(!el)return;const{calMonth:m,calYear:y}=S;const evs=getExpandedEvents(m,y);$('evPanelLbl').textContent=`Events — ${MONTHS[m]} ${y}`;const bm={meeting:'bm',deadline:'bd',report:'br',critical:'bc'};el.innerHTML=evs.length?evs.map(e=>{const d=new Date(e.date);return`<div class="ev-item"><div class="ev-date-box"><div class="ev-dd">${d.getDate()}</div><div class="ev-mm">${MONTHS[d.getMonth()].slice(0,3)}</div></div><div style="flex:1;min-width:0"><div class="ev-title">${e.title}${e.recur?`<span class="recur-badge">↻ ${e.recur}</span>`:''}</div>${e.notes?`<div class="ev-notes">${e.notes}</div>`:''}</div><div class="ev-badge ${bm[e.type]||'bm'}">${e.type}</div><div class="ev-acts"><span class="ev-act edit" onclick="editEvent(${e._parentId||e.id})">✏</span><span class="ev-act sync" onclick="syncEventToDue(${e._parentId||e.id})" title="Add to Due Dates">↗</span><span class="ev-act del" onclick="deleteEvent(${e._parentId||e.id})">✕</span></div></div>`}).join(''):`<div class="empty"><div class="empty-icon">📅</div><div class="empty-txt">No events this month</div><div class="empty-cta" onclick="openEventModal()">+ Add Event</div></div>`}
+let _editEvId=null;
+function deleteEvent(id){S.events=S.events.filter(e=>e.id!==id);renderEvList();renderCal();persist();toast('Event removed')}
+function openEventModal(){_editEvId=null;$('mEvTitle').textContent='Add Event';$('evSaveBtn').textContent='Add Event';$('evT').value='';$('evD').value=todayStr;$('evN').value='';$('evRecur').value='';$('evType').value='meeting';openM('mEvent')}
+window.editEvent=function(id){const e=S.events.find(x=>x.id===id);if(!e)return;_editEvId=id;$('mEvTitle').textContent='Edit Event';$('evSaveBtn').textContent='Save Changes';$('evT').value=e.title;$('evD').value=e.date;$('evN').value=e.notes||'';$('evRecur').value=e.recur||'';$('evType').value=e.type;openM('mEvent')};
+function saveEvent(){const t=$('evT').value.trim();if(!t){toast('Enter a title');return}const d=$('evD').value;if(!d){toast('Pick a date');return}const obj={title:t,date:d,type:$('evType').value,notes:$('evN').value.trim(),recur:$('evRecur').value||''};if(_editEvId){const e=S.events.find(x=>x.id===_editEvId);if(e)Object.assign(e,obj)}else{S.events.push({id:Date.now(),...obj})}closeM('mEvent');renderEvList();renderCal();persist();toast(_editEvId?'Event updated!':'Event added!')}
+window.syncEventToDue=function(id){const e=S.events.find(x=>x.id===id);if(!e)return;if(S.dueDates.find(d=>d.title===e.title&&d.due===e.date)){toast('Already in Due Dates');return}S.dueDates.push({id:Date.now(),title:e.title,due:e.date,assignee:'?',cat:e.type,recur:e.recur||''});renderDue();persist();toast('Added to Due Dates!')};
+function syncAllToDue(){let count=0;S.events.forEach(e=>{if(!S.dueDates.find(d=>d.title===e.title&&d.due===e.date)){S.dueDates.push({id:Date.now()+count,title:e.title,due:e.date,assignee:'?',cat:e.type,recur:e.recur||''});count++}});S.todos.forEach(t=>{if(t.date&&!S.dueDates.find(d=>d.title===t.title&&d.due===t.date)){S.dueDates.push({id:Date.now()+count+1000,title:t.title,due:t.date,assignee:t.assignee||'?',cat:t.tag||'',recur:''});count++}});renderDue();persist();toast(count?`${count} items synced to Due Dates`:'All already synced')}
+
+function renderTodoList(){const el=$('todoList');if(!el)return;let items=S.todos.slice().sort((a,b)=>({high:0,med:1,low:2}[a.priority]??1)-({high:0,med:1,low:2}[b.priority]??1));if(S.taskFilter==='open')items=items.filter(t=>!t.done);if(S.taskFilter==='done')items=items.filter(t=>t.done);const pm={high:['ph','🔴 High'],med:['pm','🟡 Med'],low:['pl','🟢 Low']};el.innerHTML=items.length?items.map(t=>{const[pc,pl]=pm[t.priority]||pm.med;return`<div class="todo-item"><div class="chk ${t.done?'done':''}" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</div><div style="flex:1;min-width:0"><div class="todo-title ${t.done?'done':''}">${t.title}</div><div class="todo-meta"><span class="pri ${pc}">${pl}</span>${t.assignee?`<span>👤 ${t.assignee}</span>`:''}${t.date?`<span>📅 ${new Date(t.date).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`:''}${t.tag?`<span class="tag-pill">${t.tag}</span>`:''}${t.notes?`<span style="font-style:italic">${t.notes.slice(0,38)}${t.notes.length>38?'…':''}</span>`:''}</div></div><span class="todo-del" onclick="deleteTodo(${t.id})">✕</span></div>`}).join(''):`<div class="empty"><div class="empty-icon">✓</div><div class="empty-txt">No tasks yet</div><div class="empty-cta" onclick="openTodoModal()">+ Add Task</div></div>`}
+window.toggleTodo=function(id){const t=S.todos.find(x=>x.id===id);if(t)t.done=!t.done;renderTodoList();persist()};
+window.deleteTodo=function(id){S.todos=S.todos.filter(x=>x.id!==id);renderTodoList();renderCal();persist();toast('Task removed')};
+window.filterTasks=function(f){S.taskFilter=f;['all','open','done'].forEach(x=>{const e=$('tf-'+x);if(e)e.classList.toggle('active',f===x)});renderTodoList()};
+function openTodoModal(){$('tdT').value='';$('tdN').value='';$('tdD').value='';$('tdA').value='';$('tdTag').value='';$('tdP').value='med';openM('mTodo')}
+function saveTodo(){const t=$('tdT').value.trim();if(!t){toast('Enter a title');return}S.todos.push({id:Date.now(),title:t,notes:$('tdN').value.trim(),date:$('tdD').value,assignee:$('tdA').value.trim(),priority:$('tdP').value,tag:$('tdTag').value.trim(),done:false});closeM('mTodo');renderTodoList();renderCal();persist();toast('Task added!')}
+
+// ═══ MONTH CLOSE ═══
+function renderMCLabel(){const inp=$('mcLabelInp');const lbl=$('mcMonthEndLbl');if(!inp)return;inp.value=S.mcLabel||'';if(S.mcLabel){const[y,m]=S.mcLabel.split('-').map(Number);const end=new Date(y,m,0);lbl.textContent='→ Month-end: '+end.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}else{lbl.textContent=''}}
+function setMCMonth(v){S.mcLabel=v;renderMCLabel();persist()}
+function renderMCGroups(){const el=$('mcGroups');if(!el)return;if(!S.mcGroups.length){el.innerHTML='<div class="empty" style="grid-column:span 2"><div class="empty-icon">✓</div><div class="empty-txt">No categories yet — add your close checklist</div><div class="empty-cta" onclick="openMCGroupModal()">+ Add Category</div></div>';updateMCProg();return}el.innerHTML='';S.mcGroups.forEach((grp,gi)=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="card-hd"><div class="card-label">${grp.icon||'📋'} ${grp.name}</div><div class="card-acts"><button class="btn" onclick="openMCTaskModal(${gi})">+ Task</button><button class="btn" onclick="editMCGroup(${gi})">✏</button><button class="btn danger" onclick="deleteMCGrp(${gi})">✕</button></div></div><div id="mct${gi}"></div>`;el.appendChild(card);renderMCTasks(gi)});updateMCProg()}
+function renderMCTasks(gi){const el=$('mct'+gi);if(!el)return;const tasks=S.mcGroups[gi].tasks;if(!tasks.length){el.innerHTML='<div style="font-size:12px;color:var(--faint);padding:8px 0">No tasks yet — click + Task above</div>';return}const st={'on-track':['st-ot','On Track'],'due-soon':['st-ds','Due Soon'],overdue:['st-ov','Overdue'],done:['st-dn','Done'],upcoming:['st-up','Upcoming']};el.innerHTML=tasks.map((t,ti)=>{const[sc,sl]=st[t.done?'done':t.status]||st['on-track'];return`<div class="mc-task"><div class="chk ${t.done?'done':''}" onclick="toggleMC(${gi},${ti})">${t.done?'✓':''}</div><div style="flex:1;min-width:0"><div class="mc-text ${t.done?'done':''}">${t.text}</div>${t.owner?`<div style="font-size:10px;color:var(--faint);margin-top:1px">👤 ${t.owner}${t.due?' · 📅 '+new Date(t.due).toLocaleDateString('en-US',{month:'short',day:'numeric'}):''}</div>`:''}</div><span class="mc-badge ${sc}">${sl}</span><div class="mc-acts"><span class="mc-act edit" onclick="editMCTask(${gi},${ti})">✏</span><span class="mc-act del" onclick="deleteMCTask(${gi},${ti})">✕</span></div></div>`}).join('')}
+window.toggleMC=function(gi,ti){S.mcGroups[gi].tasks[ti].done=!S.mcGroups[gi].tasks[ti].done;renderMCTasks(gi);updateMCProg();persist()};
+window.deleteMCTask=function(gi,ti){S.mcGroups[gi].tasks.splice(ti,1);renderMCTasks(gi);updateMCProg();persist();toast('Task removed')};
+function deleteMCGrp(gi){if(!confirm('Delete this category?'))return;S.mcGroups.splice(gi,1);renderMCGroups();persist();toast('Category removed')}
+function updateMCProg(){let tot=0,dn=0;S.mcGroups.forEach(g=>{tot+=g.tasks.length;dn+=g.tasks.filter(t=>t.done).length});const pct=tot?Math.round(dn/tot*100):0;$('mcFill').style.width=pct+'%';$('mcProgLbl').textContent=tot?`${dn} / ${tot} tasks · ${pct}%`:'Add tasks to track progress'}
+let _mcgEditId=null;
+function openMCGroupModal(){_mcgEditId=null;$('mcgTitle').textContent='Add Close Category';$('mcgSaveBtn').textContent='Add Category';$('mcgN').value='';$('mcgI').value='';openM('mMCG')}
+window.editMCGroup=function(gi){_mcgEditId=gi;const g=S.mcGroups[gi];$('mcgTitle').textContent='Edit Category';$('mcgSaveBtn').textContent='Save Changes';$('mcgN').value=g.name;$('mcgI').value=g.icon||'';openM('mMCG')};
+function saveMCGroup(){const n=$('mcgN').value.trim();if(!n){toast('Enter a name');return}if(_mcgEditId!==null){S.mcGroups[_mcgEditId].name=n;S.mcGroups[_mcgEditId].icon=$('mcgI').value.trim()||'📋'}else{S.mcGroups.push({id:Date.now(),name:n,icon:$('mcgI').value.trim()||'📋',tasks:[]})}closeM('mMCG');renderMCGroups();persist();toast(_mcgEditId!==null?'Category updated!':'Category added!')}
+let _mcGi=0,_mctEditTi=null;
+function openMCTaskModal(gi){_mcGi=gi;_mctEditTi=null;$('mctTitle').textContent='Add Task';$('mctSaveBtn').textContent='Add Task';$('mctT').value='';$('mctO').value='';$('mctD').value='';$('mctS').value='on-track';openM('mMCT')}
+window.editMCTask=function(gi,ti){_mcGi=gi;_mctEditTi=ti;const t=S.mcGroups[gi].tasks[ti];$('mctTitle').textContent='Edit Task';$('mctSaveBtn').textContent='Save Changes';$('mctT').value=t.text;$('mctO').value=t.owner||'';$('mctD').value=t.due||'';$('mctS').value=t.status||'on-track';openM('mMCT')};
+function saveMCTask(){const t=$('mctT').value.trim();if(!t){toast('Enter a task');return}const obj={text:t,owner:$('mctO').value.trim(),due:$('mctD').value,status:$('mctS').value};if(_mctEditTi!==null){Object.assign(S.mcGroups[_mcGi].tasks[_mctEditTi],obj)}else{S.mcGroups[_mcGi].tasks.push({id:Date.now(),...obj,done:false})}closeM('mMCT');renderMCTasks(_mcGi);updateMCProg();persist();toast(_mctEditTi!==null?'Task updated!':'Task added!')}
+
+// Close Month & Roll Forward
+function closeMonth(){if(!S.mcGroups.length){toast('Add categories first');return}if(!S.mcLabel){toast('Select a closing month first');return}let tot=0,dn=0;S.mcGroups.forEach(g=>{tot+=g.tasks.length;dn+=g.tasks.filter(t=>t.done).length});
+const[y,m]=S.mcLabel.split('-').map(Number);const endDate=new Date(y,m,0);const displayLabel=endDate.toLocaleDateString('en-US',{month:'short',year:'numeric'});
+if(!confirm(`Close "${displayLabel}"?\n\n${dn}/${tot} tasks completed (${tot?Math.round(dn/tot*100):0}%).\n\nAll tasks will be reset and rolled forward to the next month.`))return;
+S.mcHistory.push({label:displayLabel,monthKey:S.mcLabel,date:new Date().toISOString(),total:tot,done:dn,pct:tot?Math.round(dn/tot*100):0});
+S.mcGroups.forEach(g=>g.tasks.forEach(t=>{t.done=false;t.status='on-track'}));
+// Advance to next month in YYYY-MM format
+const nm=m===12?1:m+1;const ny=m===12?y+1:y;S.mcLabel=ny+'-'+(nm<10?'0'+nm:nm);
+renderMCLabel();renderMCGroups();renderMCHistory();persist();toast('Month closed! Tasks rolled forward to '+MONTHS[nm-1]+' '+ny)}
+function renderMCHistory(){const el=$('mcHistList');if(!el)return;if(!S.mcHistory.length){el.innerHTML='<div style="font-size:12px;color:var(--faint);padding:8px 0">No history yet. Close your first month to start tracking.</div>';return}el.innerHTML=S.mcHistory.slice().reverse().map(h=>{const closedOn=h.date?new Date(h.date).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'' ;const barCol=h.pct>=90?'var(--green)':h.pct>=70?'var(--p)':h.pct>=50?'var(--amber)':'var(--red)';return`<div class="mc-hist-row"><div class="mc-hist-month">${h.label}${closedOn?`<div style="font-size:9px;color:var(--faint);font-weight:500">Closed ${closedOn}</div>`:''}</div><div class="mc-hist-bar"><div class="mc-hist-fill" style="width:${h.pct}%;background:${barCol}"></div></div><div class="mc-hist-stat">${h.done}/${h.total} · ${h.pct}%</div></div>`}).join('')}
+
+// ═══ DUE DATES ═══
+function getDueSt(due){const diff=Math.ceil((new Date(due)-new Date())/86400000);return diff<0?'overdue':diff<=3?'due-today':'on-track'}
+function renderDue(){const el=$('dueList');if(!el)return;let items=S.dueDates.slice();const f=S.dueFilter;if(f==='overdue')items=items.filter(i=>getDueSt(i.due)==='overdue');else if(f==='this-week')items=items.filter(i=>{const d=Math.ceil((new Date(i.due)-new Date())/86400000);return d>=0&&d<=7});else if(f==='upcoming')items=items.filter(i=>getDueSt(i.due)==='on-track');items.sort((a,b)=>new Date(a.due)-new Date(b.due));const cm={overdue:['var(--red)','var(--rdim)','🔴 Overdue'],'due-today':['var(--amber)','var(--adim)','🟡 Due Soon'],'on-track':['var(--green)','var(--gdim)','✅ On Track']};const lm={all:'All Deadlines',overdue:'Overdue','this-week':'This Week',upcoming:'Upcoming'};$('dueLbl').textContent=lm[f]||'Deadlines';
+el.innerHTML=items.length?items.map(i=>{const st=getDueSt(i.due);const[col,bg,lbl]=cm[st];const recurInfo=i.recur?(i.recur==='weekly'?`<span class="recur-badge">↻ weekly (day ${i.recurDay||'?'})</span>`:i.recur==='monthly'?`<span class="recur-badge">↻ monthly (${i.recurDay?ordinal(i.recurDay):'?'})</span>`:`<span class="recur-badge">↻ ${i.recur}</span>`):'';return`<div class="due-item ${st}"><div class="due-avt">${(i.assignee||'?').slice(0,2).toUpperCase()}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">${i.title}${recurInfo}</div><div style="font-size:10px;font-weight:600;color:var(--faint);margin-top:1px">${i.cat?i.cat+' · ':''}Due ${new Date(i.due).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div></div><div class="due-lbl" style="background:${bg};color:${col}">${lbl}</div><div class="due-acts"><span class="due-act edit" onclick="editDue(${i.id})">✏</span><span class="due-act sync" onclick="syncDueToCal(${i.id})" title="Add to Calendar">📅</span><span class="due-act del" onclick="deleteDue(${i.id})">✕</span></div></div>`}).join(''):`<div class="empty"><div class="empty-icon">⏱</div><div class="empty-txt">No deadlines in this view</div><div class="empty-cta" onclick="openDueModal()">+ Add Deadline</div></div>`}
+window.deleteDue=function(id){S.dueDates=S.dueDates.filter(x=>x.id!==id);renderDue();persist();toast('Deadline removed')};
+$('dueTabs').addEventListener('click',e=>{const t=e.target.closest('.itab');if(!t)return;document.querySelectorAll('#dueTabs .itab').forEach(x=>x.classList.toggle('active',x===t));S.dueFilter=t.dataset.df||'all';renderDue()});
+let _editDueId=null;
+function toggleRecurFields(){const r=$('ddRecur').value;const rf=$('recurFields');rf.style.display=r?'':'none';if(r==='weekly'){$('recurDayLabel').textContent='Day of Week (0=Sun, 1=Mon…6=Sat)';$('ddRecurDay').max=6;$('ddRecurDay').min=0;$('ddRecurDay').placeholder='e.g. 1 for Monday'}else if(r==='monthly'){$('recurDayLabel').textContent='Day of Month (1-31)';$('ddRecurDay').max=31;$('ddRecurDay').min=1;$('ddRecurDay').placeholder='e.g. 15'}else if(r==='quarterly'){$('recurDayLabel').textContent='Day of Month (1-31)';$('ddRecurDay').max=31;$('ddRecurDay').min=1;$('ddRecurDay').placeholder='e.g. 1'}else if(r==='yearly'){$('recurDayLabel').textContent='Day of Month (1-31)';$('ddRecurDay').max=31;$('ddRecurDay').min=1;$('ddRecurDay').placeholder='e.g. 15'}updateRecurPreview()}
+function updateRecurPreview(){const r=$('ddRecur').value;const day=parseInt($('ddRecurDay').value);const count=parseInt($('ddRecurCount').value)||6;const base=$('ddD').value?new Date($('ddD').value+'T12:00:00'):new Date();const prev=$('recurPreview');if(!r||!day){prev.textContent='Select a recurring day to see preview…';return}const dates=generateRecurDates(r,day,base,count);prev.innerHTML='<strong>Will create '+dates.length+' deadlines:</strong> '+dates.map(d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})).join(' → ')}
+function generateRecurDates(recur,day,base,count){const dates=[];let cur=new Date(base);for(let i=0;i<count;i++){let nd;if(recur==='weekly'){if(i===0){nd=new Date(cur);const diff=(day-nd.getDay()+7)%7;nd.setDate(nd.getDate()+(diff===0?0:diff))}else{nd=new Date(dates[dates.length-1]);nd.setDate(nd.getDate()+7)}}else if(recur==='monthly'){nd=new Date(cur.getFullYear(),cur.getMonth()+i,Math.min(day,new Date(cur.getFullYear(),cur.getMonth()+i+1,0).getDate()))}else if(recur==='quarterly'){nd=new Date(cur.getFullYear(),cur.getMonth()+(i*3),Math.min(day,new Date(cur.getFullYear(),cur.getMonth()+(i*3)+1,0).getDate()))}else if(recur==='yearly'){nd=new Date(cur.getFullYear()+i,cur.getMonth(),Math.min(day,new Date(cur.getFullYear()+i,cur.getMonth()+1,0).getDate()))}if(nd)dates.push(nd)}return dates}
+function openDueModal(){_editDueId=null;$('mDueTitle').textContent='Add Deadline';$('ddSaveBtn').textContent='Add Deadline';$('ddT').value='';$('ddD').value=todayStr;$('ddA').value='';$('ddC').value='';$('ddRecur').value='';$('ddRecurDay').value='';$('recurFields').style.display='none';$('recurPreview').textContent='';openM('mDue')}
+window.editDue=function(id){const d=S.dueDates.find(x=>x.id===id);if(!d)return;_editDueId=id;$('mDueTitle').textContent='Edit Deadline';$('ddSaveBtn').textContent='Save Changes';$('ddT').value=d.title;$('ddD').value=d.due;$('ddA').value=d.assignee||'';$('ddC').value=d.cat||'';$('ddRecur').value=d.recur||'';$('ddRecurDay').value=d.recurDay||'';toggleRecurFields();openM('mDue')};
+function saveDue(){const t=$('ddT').value.trim();if(!t){toast('Enter a title');return}const d=$('ddD').value;if(!d){toast('Pick a date');return}const recur=$('ddRecur').value||'';const recurDay=parseInt($('ddRecurDay').value)||0;const assignee=$('ddA').value.trim().toUpperCase()||'?';const cat=$('ddC').value.trim();
+if(_editDueId){const dd=S.dueDates.find(x=>x.id===_editDueId);if(dd)Object.assign(dd,{title:t,due:d,assignee,cat,recur,recurDay});closeM('mDue');renderDue();persist();toast('Deadline updated!');return}
+// New entry — if recurring, generate batch
+if(recur&&recurDay){const count=parseInt($('ddRecurCount').value)||6;const base=new Date(d+'T12:00:00');const dates=generateRecurDates(recur,recurDay,base,count);let added=0;dates.forEach((dt,i)=>{const dateStr=dt.toISOString().split('T')[0];if(!S.dueDates.find(x=>x.title===t&&x.due===dateStr)){S.dueDates.push({id:Date.now()+i,title:t,due:dateStr,assignee,cat,recur,recurDay});added++}});closeM('mDue');renderDue();persist();toast(`${added} recurring deadlines created!`)}else{S.dueDates.push({id:Date.now(),title:t,due:d,assignee,cat,recur:'',recurDay:0});closeM('mDue');renderDue();persist();toast('Deadline added!')}}
+// Attach live preview listeners for recurring
+(function(){['ddRecurDay','ddRecurCount','ddD'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',updateRecurPreview)})})();
+window.syncDueToCal=function(id){const d=S.dueDates.find(x=>x.id===id);if(!d)return;if(S.events.find(e=>e.title===d.title&&e.date===d.due)){toast('Already in Calendar');return}S.events.push({id:Date.now(),title:d.title,date:d.due,type:'deadline',notes:d.cat||'',recur:d.recur||''});renderEvList();renderCal();persist();toast('Added to Calendar!')};
+
+// ═══ ROADMAP ═══
+let _editRMTabId=null;
+function renderRMTabs(){const el=$('rmTabs');el.innerHTML='';S.rmTabs.forEach(t=>{const tab=document.createElement('div');tab.className='itab'+(S.activeRMTab===t.id?' active':'');tab.innerHTML=`${t.name} <span style="opacity:.35;margin-left:4px;cursor:pointer" onclick="event.stopPropagation();editRMTab('${t.id}')" title="Edit">✏</span> <span style="opacity:.35;margin-left:2px;cursor:pointer" onclick="event.stopPropagation();deleteRMTab('${t.id}')" title="Delete">✕</span>`;tab.onclick=()=>{S.activeRMTab=t.id;renderRMTabs();renderRMTimeline()};el.appendChild(tab)});const add=document.createElement('div');add.className='itab add';add.textContent='+ Add Period';add.onclick=openRMTabModal;el.appendChild(add)}
+window.editRMTab=function(id){const t=S.rmTabs.find(x=>x.id===id);if(!t)return;_editRMTabId=id;$('rmTabTitle').textContent='Edit Period';$('rmTabSaveBtn').textContent='Save Changes';$('rmTabN').value=t.name;openM('mRMTab')};
+window.deleteRMTab=function(id){if(!confirm('Delete this period?'))return;S.rmTabs=S.rmTabs.filter(t=>t.id!==id);delete S.rmItems[id];S.activeRMTab=S.rmTabs[0]?.id||null;renderRMTabs();renderRMTimeline();persist();toast('Period removed')}
+function renderRMTimeline(){const el=$('rmTimeline');if(!el)return;if(!S.rmTabs.length){el.innerHTML='<div class="empty"><div class="empty-icon">🗺</div><div class="empty-txt">No roadmap periods yet</div><div class="empty-cta" onclick="openRMTabModal()">+ Add Period</div></div>';return}const items=S.rmItems[S.activeRMTab]||[];const gI={'in-progress':'◐',done:'✓',upcoming:'○'};const gC={'in-progress':'goal-prog',done:'goal-done',upcoming:'goal-up'};el.innerHTML='<div class="timeline">'+(items.length?items.map((item,ii)=>`<div class="tl-item"><div class="tl-acts"><span class="tl-act edit" onclick="editRMItem('${S.activeRMTab}',${ii})">✏ Edit</span><span class="tl-act del" onclick="deleteRMItem('${S.activeRMTab}',${ii})">✕ Remove</span></div><div class="tl-dot ${item.status==='done'?'done':item.status==='active'?'active':''}"></div><div><div class="tl-q">${item.q}</div><div class="tl-title">${item.title}</div><div class="tl-goals">${(item.goals||[]).map((g,gi)=>`<div class="tl-goal ${gC[g.status]||'goal-up'}"><span>${gI[g.status]||'○'}</span>${g.text}${g.owner?`<span class="goal-owner">· ${g.owner}</span>`:''}<span class="g-acts"><span class="g-act edit" onclick="editGoal('${S.activeRMTab}',${ii},${gi})">✏</span><span class="g-act del" onclick="deleteGoal('${S.activeRMTab}',${ii},${gi})">✕</span></span></div>`).join('')}<div class="tl-add-goal" onclick="openGoalModal('${S.activeRMTab}',${ii})">+ Goal</div></div></div></div>`).join(''):'<div class="empty"><div class="empty-icon">○</div><div class="empty-txt">No milestones yet</div><div class="empty-cta" onclick="openRMItemModal()">+ Add Milestone</div></div>')+'</div>'}
+window.deleteRMItem=function(tid,ii){S.rmItems[tid].splice(ii,1);renderRMTimeline();persist();toast('Milestone removed')};
+window.deleteGoal=function(tid,ii,gi){S.rmItems[tid][ii].goals.splice(gi,1);renderRMTimeline();persist();toast('Goal removed')};
+function openRMTabModal(){_editRMTabId=null;$('rmTabTitle').textContent='Add Year / Period';$('rmTabSaveBtn').textContent='Add Period';$('rmTabN').value='';openM('mRMTab')}
+function saveRMTab(){const n=$('rmTabN').value.trim();if(!n){toast('Enter a name');return}if(_editRMTabId){const t=S.rmTabs.find(x=>x.id===_editRMTabId);if(t)t.name=n}else{const id='rm'+Date.now();S.rmTabs.push({id,name:n});S.rmItems[id]=[];if(!S.activeRMTab)S.activeRMTab=id}closeM('mRMTab');renderRMTabs();renderRMTimeline();persist();toast(_editRMTabId?'Period updated!':'Period added!')}
+let _editRMItemTid=null,_editRMItemIi=null;
+function openRMItemModal(){_editRMItemTid=null;$('rmItemTitle').textContent='Add Milestone';$('rmItemSaveBtn').textContent='Add Milestone';const sel=$('rmITab');sel.innerHTML='';S.rmTabs.forEach(t=>{const o=document.createElement('option');o.value=t.id;o.textContent=t.name;if(t.id===S.activeRMTab)o.selected=true;sel.appendChild(o)});$('rmIQ').value='';$('rmIT').value='';$('rmIS').value='active';openM('mRMItem')}
+window.editRMItem=function(tid,ii){const item=S.rmItems[tid][ii];if(!item)return;_editRMItemTid=tid;_editRMItemIi=ii;$('rmItemTitle').textContent='Edit Milestone';$('rmItemSaveBtn').textContent='Save Changes';const sel=$('rmITab');sel.innerHTML='';S.rmTabs.forEach(t=>{const o=document.createElement('option');o.value=t.id;o.textContent=t.name;if(t.id===tid)o.selected=true;sel.appendChild(o)});$('rmIQ').value=item.q||'';$('rmIT').value=item.title;$('rmIS').value=item.status||'';openM('mRMItem')};
+function saveRMItem(){const tid=$('rmITab').value,t=$('rmIT').value.trim();if(!t){toast('Enter a title');return}const obj={q:$('rmIQ').value.trim(),title:t,status:$('rmIS').value};if(_editRMItemTid!==null&&_editRMItemIi!==null){Object.assign(S.rmItems[_editRMItemTid][_editRMItemIi],obj)}else{if(!S.rmItems[tid])S.rmItems[tid]=[];S.rmItems[tid].push({id:Date.now(),...obj,goals:[]});S.activeRMTab=tid}closeM('mRMItem');renderRMTabs();renderRMTimeline();persist();toast(_editRMItemTid?'Milestone updated!':'Milestone added!')}
+let _editGoalTid=null,_editGoalIi=null,_editGoalGi=null;
+window.openGoalModal=function(tid,ii){_editGoalTid=null;_editGoalIi=null;_editGoalGi=null;S.pendingGoal={tid,ii};$('goalTitle').textContent='Add Goal';$('goalSaveBtn').textContent='Add Goal';$('goalT').value='';$('goalOwner').value='';$('goalS').value='in-progress';openM('mGoal')};
+window.editGoal=function(tid,ii,gi){const g=S.rmItems[tid][ii].goals[gi];if(!g)return;_editGoalTid=tid;_editGoalIi=ii;_editGoalGi=gi;$('goalTitle').textContent='Edit Goal';$('goalSaveBtn').textContent='Save Changes';$('goalT').value=g.text;$('goalOwner').value=g.owner||'';$('goalS').value=g.status;openM('mGoal')};
+function saveGoal(){const t=$('goalT').value.trim();if(!t){toast('Enter goal text');return}const obj={text:t,status:$('goalS').value,owner:$('goalOwner').value.trim()};if(_editGoalTid!==null){S.rmItems[_editGoalTid][_editGoalIi].goals[_editGoalGi]=obj}else{const{tid,ii}=S.pendingGoal;S.rmItems[tid][ii].goals.push(obj)}closeM('mGoal');renderRMTimeline();persist();toast(_editGoalTid?'Goal updated!':'Goal added!')}
+
+// ═══ ALERTS ═══
+function renderAlerts(){const im={critical:'🔴',warning:'🟡',info:'🔵'};['critical','warning','info'].forEach(sev=>{const id='al'+sev.charAt(0).toUpperCase()+sev.slice(1);const el=$(id);if(!el)return;const items=S.alerts.filter(a=>a.sev===sev);el.innerHTML=items.length?items.map(a=>`<div class="alert-item ${a.sev}"><div class="alert-icon">${im[a.sev]}</div><div style="flex:1"><div class="alert-title">${a.title}</div>${a.desc?`<div class="alert-desc">${a.desc}</div>`:''}${a.time?`<div class="alert-time">${a.time}</div>`:''}</div><span class="alert-del" onclick="deleteAlert(${a.id})">✕</span></div>`).join(''):`<div style="font-size:12px;color:var(--faint);padding:8px 0">No ${sev} alerts.</div>`})}
+window.deleteAlert=function(id){S.alerts=S.alerts.filter(a=>a.id!==id);renderAlerts();persist();toast('Alert removed')};
+function openAlertModal(sev){if(sev)$('alS').value=sev;$('alT').value='';$('alD').value='';$('alTime').value='';openM('mAlert')}
+function saveAlert(){const t=$('alT').value.trim();if(!t){toast('Enter a title');return}S.alerts.unshift({id:Date.now(),sev:$('alS').value,title:t,desc:$('alD').value.trim(),time:$('alTime').value.trim()||'Just now'});closeM('mAlert');renderAlerts();persist();toast('Alert added!')}
+
+// ═══ INIT ═══
+async function init(){const overlay=$('loadingOverlay');const hasToken=!!getToken();try{if(hasToken){const cloud=await loadFromGitHub();if(cloud){if(cloud.qlGroups)S.qlGroups=cloud.qlGroups;if(cloud.pbiReports)S.pbiReports=cloud.pbiReports;if(cloud.activePbi!==undefined)S.activePbi=cloud.activePbi;if(cloud.events)S.events=cloud.events;if(cloud.todos)S.todos=cloud.todos;if(cloud.mcGroups)S.mcGroups=cloud.mcGroups;if(cloud.mcLabel!==undefined){
+// Migrate old text format (e.g. "Feb 2026") to YYYY-MM format
+if(cloud.mcLabel&&!/^\d{4}-\d{2}$/.test(cloud.mcLabel)){const parts=cloud.mcLabel.match(/(\w+)\s+(\d{4})/);if(parts){const mi=MONTHS.findIndex(m=>m.toLowerCase().startsWith(parts[1].toLowerCase()));if(mi>=0)S.mcLabel=parts[2]+'-'+(mi<9?'0'+(mi+1):''+(mi+1));else S.mcLabel=cloud.mcLabel}else S.mcLabel=cloud.mcLabel}else S.mcLabel=cloud.mcLabel}if(cloud.mcHistory)S.mcHistory=cloud.mcHistory;if(cloud.dueDates)S.dueDates=cloud.dueDates;if(cloud.rmTabs)S.rmTabs=cloud.rmTabs;if(cloud.rmItems)S.rmItems=cloud.rmItems;if(cloud.activeRMTab!==undefined)S.activeRMTab=cloud.activeRMTab;if(cloud.alerts)S.alerts=cloud.alerts}showSaveStatus('ok');$('settingsBtn').className='settings-btn connected'}else{$('setupBanner').style.display='block';showSaveStatus('error');$('saveLbl').textContent='Not connected'}}catch(e){console.warn('Init error:',e)}if(hasToken)$('ghTokenInput').value=getToken();renderQL();renderPbiTabs();renderPbiFrame();renderCal();renderEvList();renderTodoList();renderMCLabel();renderMCGroups();renderMCHistory();renderDue();renderRMTabs();renderRMTimeline();renderAlerts();if(overlay){overlay.classList.add('done');setTimeout(()=>overlay.remove(),500)}}
+init();
+</script>
+</body>
+</html>
