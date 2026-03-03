@@ -260,10 +260,17 @@
             "owner": "KK/SJ/Rahul"
           }
         ]
+      },
+      {
+        "id": 1772551528148,
+        "q": "Full Year",
+        "title": "KIZEN",
+        "status": "active",
+        "goals": []
       }
     ]
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:24:54.166Z"
+  "_savedAt": "2026-03-03T15:25:30.151Z"
 }
