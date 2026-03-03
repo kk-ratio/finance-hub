@@ -170,6 +170,11 @@
             "text": "Clean up naming conventions",
             "status": "upcoming",
             "owner": "KK/SJ"
+          },
+          {
+            "text": "Dictionary of all the accounts",
+            "status": "upcoming",
+            "owner": "KK"
           }
         ]
       }
@@ -177,5 +182,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:17:25.588Z"
+  "_savedAt": "2026-03-03T15:17:53.654Z"
 }
