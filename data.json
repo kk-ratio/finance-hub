@@ -3,7 +3,14 @@
     {
       "id": "g1",
       "name": "📁 Folders & Files",
-      "links": []
+      "links": [
+        {
+          "name": "Financials",
+          "url": "https://drive.google.com/drive/folders/1WJxC45XQG5-eGJTWKQ6H2MpZwmYLgzGZ?usp=drive_link",
+          "icon": "&#x1F517;",
+          "type": "Folder"
+        }
+      ]
     },
     {
       "id": "g2",
@@ -21,12 +28,10 @@
   "events": [],
   "todos": [],
   "mcGroups": [],
-  "mcLabel": "",
-  "mcHistory": [],
   "dueDates": [],
   "rmTabs": [],
   "rmItems": {},
   "activeRMTab": null,
   "alerts": [],
-  "_savedAt": "2026-03-03T09:36:57.520Z"
+  "_savedAt": "2026-03-03T09:38:34.678Z"
 }
