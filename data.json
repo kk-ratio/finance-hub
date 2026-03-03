@@ -45,7 +45,16 @@
       "id": 1772524412583,
       "name": "Bank Accounting",
       "icon": "&#x1F4CB;",
-      "tasks": []
+      "tasks": [
+        {
+          "id": 1772524463818,
+          "text": "Completion of bank feed Verified.",
+          "owner": "KK",
+          "due": "2026-03-09",
+          "status": "due-soon",
+          "done": false
+        }
+      ]
     }
   ],
   "dueDates": [],
@@ -86,5 +95,5 @@
   },
   "activeRMTab": "rm1772523906006",
   "alerts": [],
-  "_savedAt": "2026-03-03T07:53:34.584Z"
+  "_savedAt": "2026-03-03T07:54:25.822Z"
 }
