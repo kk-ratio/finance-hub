@@ -159,10 +159,17 @@
             "owner": "KK"
           }
         ]
+      },
+      {
+        "id": 1772551013502,
+        "q": "March",
+        "title": "Clean up chart of accounts",
+        "status": "",
+        "goals": []
       }
     ]
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:15:52.855Z"
+  "_savedAt": "2026-03-03T15:16:55.505Z"
 }
