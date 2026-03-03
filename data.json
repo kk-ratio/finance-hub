@@ -175,6 +175,11 @@
             "text": "Dictionary of all the accounts",
             "status": "upcoming",
             "owner": "KK"
+          },
+          {
+            "text": "COGS vs OPEX",
+            "status": "upcoming",
+            "owner": "KK/SJ"
           }
         ]
       }
@@ -182,5 +187,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:17:53.654Z"
+  "_savedAt": "2026-03-03T15:18:16.008Z"
 }
