@@ -40,7 +40,14 @@
   "activePbi": 1,
   "events": [],
   "todos": [],
-  "mcGroups": [],
+  "mcGroups": [
+    {
+      "id": 1772524412583,
+      "name": "Bank Accounting",
+      "icon": "&#x1F4CB;",
+      "tasks": []
+    }
+  ],
   "dueDates": [],
   "rmTabs": [
     {
@@ -79,5 +86,5 @@
   },
   "activeRMTab": "rm1772523906006",
   "alerts": [],
-  "_savedAt": "2026-03-03T07:49:50.702Z"
+  "_savedAt": "2026-03-03T07:53:34.584Z"
 }
