@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Hub · Ratio</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#F5F4F9;--surface:#fff;--surface2:#F0EDF8;--surface3:#E8E2F5;
+  --nav:#ffffffeb;--border:#E2DCF0;--border2:#C9BCEC;
+  --p:#7C3AED;--p2:#9B5FFF;--pdim:rgba(124,58,237,.09);--pdim2:rgba(124,58,237,.17);
+  --o:#F97316;--odim:rgba(249,115,22,.11);
+  --text:#1E1333;--dim:#6B5F85;--faint:#B0A0CC;
+  --green:#16A34A;--gdim:rgba(22,163,74,.1);
+  --red:#DC2626;--rdim:rgba(220,38,38,.1);
+  --blue:#2563EB;--bdim:rgba(37,99,235,.1);
+  --amber:#D97706;--adim:rgba(217,119,6,.1);
+  --radius:12px;--rsm:8px;
+  --sh:0 1px 4px rgba(124,58,237,.06),0 4px 14px rgba(124,58,237,.06);
+  --shmd:0 4px 24px rgba(124,58,237,.13);
+  --scroll:rgba(124,58,237,.2);
+}
+[data-theme="dark"]{
+  --bg:#0F0B1A;--surface:#17112A;--surface2:#1E1633;--surface3:#271E40;
+  --nav:rgba(15,11,26,.93);--border:rgba(124,58,237,.15);--border2:rgba(124,58,237,.3);
+  --p:#A78BFA;--p2:#C4B5FD;--pdim:rgba(167,139,250,.12);--pdim2:rgba(167,139,250,.22);
+  --o:#FB923C;--odim:rgba(251,146,60,.12);
+  --text:#EDE9FE;--dim:#A78BFA;--faint:rgba(237,233,254,.35);
+  --green:#4ADE80;--gdim:rgba(74,222,128,.12);
+  --red:#F87171;--rdim:rgba(248,113,113,.12);
+  --blue:#60A5FA;--bdim:rgba(96,165,250,.12);
+  --amber:#FCD34D;--adim:rgba(252,211,77,.12);
+  --sh:0 1px 4px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  --shmd:0 4px 24px rgba(0,0,0,.4);
+  --scroll:rgba(167,139,250,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:9px}
+button,select,input,textarea{font-family:inherit}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:var(--nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;gap:2px}
+.nav-tabs{display:flex;align-items:center;gap:1px;flex:1;overflow-x:auto}
+.nav-tab{padding:13px 14px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--dim);cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;transition:all .18s;user-select:none;display:flex;align-items:center;gap:5px}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--p);border-bottom-color:var(--p)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;padding-left:10px}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;border:1px solid var(--border2);background:var(--surface2);color:var(--dim);cursor:pointer;font-size:11px;font-weight:700;transition:all .18s}
+.theme-btn:hover{border-color:var(--p);color:var(--p);background:var(--pdim)}
+
+/* LAYOUT */
+.main{max-width:1280px;margin:0 auto;padding:32px 28px 100px}
+.section{display:none}
+.section.active{display:block;animation:fu .28s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.sec-title-row{display:flex;align-items:center;gap:11px}
+.sec-icon{width:34px;height:34px;border-radius:9px;background:var(--pdim);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sec-title{font-size:19px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.sec-sub{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.sec-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--sh);transition:border-color .18s}
+.card:hover{border-color:var(--border2)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;flex-wrap:wrap}
+.card-label{font-size:10px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+.card-acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{font-size:11px;font-weight:700;color:var(--p);cursor:pointer;padding:5px 11px;border-radius:7px;border:1px solid var(--border2);background:var(--pdim);transition:all .15s;white-space:nowrap;letter-spacing:.02em}
+.btn:hover{background:var(--pdim2)}
+.btn.danger{color:var(--red);background:var(--rdim);border-color:rgba(220,38,38,.2)}
+.btn.danger:hover{background:rgba(220,38,38,.18)}
+.btn.ghost{background:transparent;border-style:dashed}
+.btn.ghost:hover{background:var(--pdim);border-style:solid}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+/* EMPTY */
+.empty{display:flex;flex-direction:column;align-items:center;padding:36px 16px;text-align:center;gap:10px}
+.empty-icon{font-size:32px;opacity:.28}
+.empty-txt{font-size:13px;font-weight:600;color:var(--faint)}
+.empty-cta{font-size:12px;font-weight:700;color:var(--p);cursor:pointer;padding:6px 16px;border-radius:8px;border:1.5px dashed var(--border2);background:var(--pdim);transition:all .15s}
+.empty-cta:hover{background:var(--pdim2);border-color:var(--p)}
+
+/* INNER TABS */
+.itabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.itab{padding:5px 13px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--border);color:var(--faint);cursor:pointer;transition:all .15s}
+.itab:hover{color:var(--text);border-color:var(--border2)}
+.itab.active{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+.itab.add{border-style:dashed;color:var(--p)}
+.itab.add:hover{background:var(--pdim)}
+
+/* CALENDAR */
+.cal-layout{display:grid;grid-template-columns:300px 1fr;gap:14px;align-items:start}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month{font-size:15px;font-weight:800;color:var(--text)}
+.cal-navbtn{width:26px;height:26px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);color:var(--dim);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cal-navbtn:hover{border-color:var(--p);color:var(--p)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dl{text-align:center;padding:5px 0;font-size:9px;font-weight:700;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
+.cal-day{aspect-ratio:1;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:12px;font-weight:500;color:var(--dim);transition:all .15s;position:relative}
+.cal-day:hover{background:var(--surface2);color:var(--text)}
+.cal-day.today{background:var(--pdim);border:1.5px solid var(--border2);color:var(--p);font-weight:800}
+.cal-day.other{opacity:.22}
+.cal-day::after{content:'';width:4px;height:4px;border-radius:50%;position:absolute;bottom:4px;display:none}
+.cal-day.has-ev::after{display:block;background:var(--o)}
+.cal-day.has-td::after{display:block;background:var(--p)}
+.cal-day.has-both::after{display:block;background:linear-gradient(90deg,var(--o),var(--p))}
+.cal-legend{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--faint)}
+.cal-legend-dot{width:7px;height:7px;border-radius:50%}
+
+/* PANEL */
+.panel-tabs{display:flex;gap:6px;margin-bottom:10px}
+.ptab{padding:5px 13px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);color:var(--faint);cursor:pointer;transition:all .15s}
+.ptab.active{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+
+/* EVENTS */
+.ev-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border)}
+.ev-item:last-child{border-bottom:none}
+.ev-date-box{min-width:38px;height:38px;border-radius:8px;background:var(--pdim);border:1px solid var(--border2);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.ev-dd{font-size:14px;font-weight:800;line-height:1;color:var(--p)}
+.ev-mm{font-size:7px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.07em}
+.ev-title{font-size:13px;font-weight:700;color:var(--text)}
+.ev-notes{font-size:11px;color:var(--faint);margin-top:1px}
+.ev-badge{padding:2px 8px;border-radius:99px;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;flex-shrink:0;margin-top:2px}
+.ev-del{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;margin-top:2px}
+.ev-item:hover .ev-del{opacity:1}
+.bm{background:var(--pdim);color:var(--p)}
+.bd{background:var(--adim);color:var(--amber)}
+.br{background:var(--bdim);color:var(--blue)}
+.bc{background:var(--rdim);color:var(--red)}
+
+/* TASKS */
+.todo-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border)}
+.todo-item:last-child{border-bottom:none}
+.chk{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all .15s;font-size:10px;color:var(--p)}
+.chk.done{background:var(--pdim);border-color:var(--p)}
+.todo-title{font-size:13px;font-weight:600;color:var(--text)}
+.todo-title.done{text-decoration:line-through;color:var(--faint)}
+.todo-meta{font-size:10px;color:var(--faint);margin-top:2px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pri{padding:2px 6px;border-radius:99px;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.ph{background:var(--rdim);color:var(--red)}
+.pm{background:var(--adim);color:var(--amber)}
+.pl{background:var(--gdim);color:var(--green)}
+.todo-del{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;margin-top:2px}
+.todo-item:hover .todo-del{opacity:1}
+.tag-pill{background:var(--pdim);color:var(--p);padding:1px 6px;border-radius:99px;font-size:9px;font-weight:800}
+
+/* QUICK LINKS */
+.ql-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:9px}
+.ql-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;color:inherit;box-shadow:var(--sh);transition:all .18s;position:relative}
+.ql-item:hover{border-color:var(--p);transform:translateY(-1px);box-shadow:var(--shmd)}
+.ql-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--pdim)}
+.ql-name{font-size:12px;font-weight:700;color:var(--text)}
+.ql-type{font-size:9px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.09em;margin-top:1px}
+.ql-del{position:absolute;top:4px;right:4px;background:var(--rdim);color:var(--red);border-radius:4px;padding:1px 5px;font-size:10px;cursor:pointer;opacity:0;transition:opacity .15s}
+.ql-item:hover .ql-del{opacity:1}
+.ql-add{background:transparent;border:1.5px dashed var(--border2);border-radius:var(--rsm);padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;color:var(--faint)}
+.ql-add:hover{border-color:var(--p);color:var(--p);background:var(--pdim)}
+.grp-hd{display:flex;align-items:center;justify-content:space-between;margin:20px 0 9px}
+.grp-hd:first-child{margin-top:0}
+.grp-name-inp{background:transparent;border:none;border-bottom:1px solid transparent;font-size:10px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--faint);outline:none;cursor:text;width:auto;font-family:inherit;transition:border-color .15s}
+.grp-name-inp:focus{border-bottom-color:var(--p);color:var(--p)}
+
+/* POWER BI */
+.pbi-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--sh)}
+.pbi-top{background:var(--surface2);border-bottom:1px solid var(--border);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pbi-dots{display:flex;gap:5px;align-items:center}
+.pbi-dot{width:10px;height:10px;border-radius:50%}
+.pbi-dot.r{background:#EF4444}.pbi-dot.y{background:#F59E0B}.pbi-dot.g{background:#22C55E}
+.pbi-label{font-size:11px;font-weight:700;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;margin-left:9px}
+.pbi-frame{min-height:480px;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden}
+.pbi-frame::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:34px 34px;opacity:.5}
+.pbi-ph-icon{font-size:40px;opacity:.28;position:relative;z-index:1}
+.pbi-ph-title{font-size:17px;font-weight:800;color:var(--dim);position:relative;z-index:1}
+.pbi-ph-sub{font-size:13px;color:var(--faint);position:relative;z-index:1;text-align:center;max-width:340px;line-height:1.7}
+.pbi-ph-btn{background:var(--pdim);border:1px solid var(--border2);color:var(--p);padding:8px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;position:relative;z-index:1}
+.pbi-ph-btn:hover{background:var(--pdim2)}
+.help-box{background:var(--pdim);border:1px solid var(--border2);border-radius:var(--rsm);padding:13px 15px;margin-top:12px;font-size:12px;color:var(--dim);line-height:1.85}
+.help-box strong{color:var(--text)}
+code{background:var(--pdim);color:var(--p);border-radius:4px;padding:1px 5px;font-family:'DM Mono',monospace;font-size:11px}
+
+/* MONTH CLOSE */
+.mc-bar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-bottom:5px}
+.mc-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p),var(--o));transition:width .7s ease}
+.mc-task{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.mc-task:last-child{border-bottom:none}
+.mc-text{flex:1;font-size:13px;font-weight:500}
+.mc-text.done{text-decoration:line-through;color:var(--faint)}
+.mc-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;white-space:nowrap}
+.mc-del{opacity:0;transition:opacity .15s;cursor:pointer;padding:2px 5px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;margin-top:2px}
+.mc-task:hover .mc-del{opacity:1}
+.st-ot{background:var(--gdim);color:var(--green)}
+.st-ds{background:var(--adim);color:var(--amber)}
+.st-ov{background:var(--rdim);color:var(--red)}
+.st-dn{background:var(--gdim);color:var(--green)}
+.st-up{background:var(--surface2);color:var(--faint);border:1px solid var(--border)}
+
+/* DUE DATES */
+.due-item{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:var(--rsm);background:var(--surface2);margin-bottom:7px;border-left:3px solid transparent;transition:border-color .15s}
+.due-item:hover{border-left-color:var(--p)}
+.due-item.overdue{border-left-color:var(--red)}
+.due-item.due-today{border-left-color:var(--amber)}
+.due-item.on-track{border-left-color:var(--green)}
+.due-avt{width:26px;height:26px;border-radius:50%;background:var(--pdim);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--p);flex-shrink:0}
+.due-lbl{font-size:9px;font-weight:800;padding:2px 8px;border-radius:99px}
+.due-del{opacity:0;cursor:pointer;padding:2px 5px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;transition:opacity .15s}
+.due-item:hover .due-del{opacity:1}
+
+/* ROADMAP */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:0;width:2px;background:linear-gradient(180deg,var(--p),var(--o) 60%,transparent);opacity:.32}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-dot{position:absolute;left:-25px;top:4px;width:13px;height:13px;border-radius:50%;border:2.5px solid var(--p);background:var(--bg)}
+.tl-dot.done{background:var(--p)}
+.tl-dot.active{background:var(--odim);border-color:var(--o);box-shadow:0 0 0 4px var(--odim)}
+.tl-q{font-size:9px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--o);margin-bottom:2px}
+.tl-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:7px}
+.tl-goals{display:flex;flex-wrap:wrap;gap:5px}
+.tl-goal{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid;display:flex;align-items:center;gap:5px;cursor:pointer;transition:opacity .15s}
+.tl-goal:hover{opacity:.8}
+.g-del{font-size:9px;padding:1px 4px;border-radius:3px;background:var(--rdim);color:var(--red);display:none}
+.tl-goal:hover .g-del{display:inline}
+.goal-done{background:var(--gdim);border-color:rgba(22,163,74,.2);color:var(--green)}
+.goal-prog{background:var(--pdim);border-color:var(--border2);color:var(--p)}
+.goal-up{background:var(--surface2);border-color:var(--border);color:var(--faint)}
+.tl-add-goal{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;border:1.5px dashed var(--border2);color:var(--p);cursor:pointer;background:transparent;transition:all .15s}
+.tl-add-goal:hover{background:var(--pdim);border-color:var(--p)}
+.tl-del{position:absolute;right:0;top:0;opacity:0;cursor:pointer;padding:2px 7px;border-radius:5px;background:var(--rdim);color:var(--red);font-size:10px;font-weight:700;transition:opacity .15s}
+.tl-item:hover .tl-del{opacity:1}
+
+/* ALERTS */
+.alert-item{padding:12px 15px;border-radius:var(--rsm);border:1px solid;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.alert-item.critical{background:var(--rdim);border-color:rgba(220,38,38,.22)}
+.alert-item.warning{background:var(--adim);border-color:rgba(217,119,6,.2)}
+.alert-item.info{background:var(--bdim);border-color:rgba(37,99,235,.2)}
+.alert-icon{font-size:14px;flex-shrink:0;margin-top:2px}
+.alert-title{font-size:13px;font-weight:700;margin-bottom:2px}
+.alert-desc{font-size:12px;color:var(--dim)}
+.alert-time{font-size:10px;color:var(--faint);margin-top:3px}
+.alert-del{margin-left:auto;opacity:0;cursor:pointer;padding:2px 6px;border-radius:4px;background:var(--rdim);color:var(--red);font-size:11px;flex-shrink:0;transition:opacity .15s}
+.alert-item:hover .alert-del{opacity:1}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:26px;width:450px;max-width:94vw;box-shadow:var(--shmd)}
+.modal-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:18px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:9px;font-weight:800;color:var(--faint);letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:8px 11px;font-size:13px;font-weight:500;color:var(--text);outline:none;transition:border-color .15s;font-family:inherit;resize:vertical}
+.field textarea{min-height:65px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p)}
+.mrow{display:flex;gap:10px}
+.mrow .field{flex:1}
+.modal-foot{display:flex;gap:8px;margin-top:16px}
+.btn-ok{flex:1;padding:9px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--p2));border:none;color:#fff;font-size:12px;font-weight:800;letter-spacing:.04em;cursor:pointer;transition:opacity .15s}
+.btn-ok:hover{opacity:.9}
+.btn-cancel{padding:9px 15px;border-radius:8px;background:transparent;border:1px solid var(--border);color:var(--faint);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-cancel:hover{border-color:var(--border2);color:var(--text)}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:99px;font-size:12px;font-weight:700;opacity:0;transition:all .28s;z-index:2000;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* SETUP BANNER */
+.setup-banner{background:linear-gradient(135deg,#7C3AED,#F97316);color:#fff;padding:16px 24px;text-align:center;font-size:13px;font-weight:600;line-height:1.7;position:relative;z-index:300}
+.setup-banner a{color:#fff;text-decoration:underline}
+.setup-banner code{background:rgba(255,255,255,.2);color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;user-select:all;cursor:text;word-break:break-all}
+.setup-banner .setup-close{position:absolute;right:12px;top:8px;background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.setup-copy-btn{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;margin-left:8px;transition:background .15s}
+.setup-copy-btn:hover{background:rgba(255,255,255,.35)}
+/* SAVE INDICATOR */
+.save-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;display:inline-block;margin-right:4px;transition:background .3s}
+.save-dot.saving{background:#F59E0B;animation:pulse .6s infinite alternate}
+.save-dot.error{background:#EF4444}
+@keyframes pulse{from{opacity:.4}to{opacity:1}}
+.save-status{font-size:10px;font-weight:700;color:var(--faint);display:flex;align-items:center;gap:2px;letter-spacing:.04em}
+/* LOADING OVERLAY */
+.loading-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .4s}
+.loading-overlay.done{opacity:0;pointer-events:none}
+.loading-spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--p);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:13px;font-weight:600;color:var(--dim)}
+
+/* ADD ROW */
+.add-row{display:flex;justify-content:center;margin-top:20px}
+
+@media(max-width:800px){
+  .main{padding:20px 14px 80px}
+  .nav{padding:0 10px}
+  .g2,.g3{grid-template-columns:1fr}
+  .cal-layout{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay shown while data loads from cloud -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading your data…</div>
+</div>
+
+<!-- Setup banner (shown only on first use) -->
+<div class="setup-banner" id="setupBanner" style="display:none">
+  <button class="setup-close" onclick="document.getElementById('setupBanner').style.display='none'">&times;</button>
+  <div id="setupMsg"></div>
+</div>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-s="quicklinks">🗂 Links</div>
+    <div class="nav-tab" data-s="powerbi">📊 Power BI</div>
+    <div class="nav-tab" data-s="calendar">📅 Calendar & Tasks</div>
+    <div class="nav-tab" data-s="monthclose">✓ Month Close</div>
+    <div class="nav-tab" data-s="duedates">⏱ Due Dates</div>
+    <div class="nav-tab" data-s="roadmap">🗺 Roadmap</div>
+    <div class="nav-tab" data-s="alerts">🚨 Alerts</div>
+  </div>
+  <div class="nav-right">
+    <div class="save-status" id="saveStatus"><span class="save-dot" id="saveDot"></span><span id="saveLbl">Saved</span></div>
+    <button class="theme-btn" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span><span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- QUICK LINKS -->
+<section class="section active" id="section-quicklinks">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">🗂</div>
+      <div><div class="sec-title">Files & Quick Links</div><div class="sec-sub">All key files, folders and tools</div></div>
+    </div>
+    <div class="sec-actions">
+      <button class="btn" onclick="openLinkModal()">+ Add Link</button>
+      <button class="btn ghost" onclick="addLinkGroup()">+ Add Group</button>
+    </div>
+  </div>
+  <div id="qlGroups"></div>
+</section>
+
+<!-- POWER BI -->
+<section class="section" id="section-powerbi">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">📊</div>
+      <div><div class="sec-title">Power BI Reports</div><div class="sec-sub">Embed your live reports</div></div>
+    </div>
+    <button class="btn" onclick="openPbiAddModal()">+ Add Report Tab</button>
+  </div>
+  <div class="itabs" id="pbiTabs"></div>
+  <div class="pbi-wrap">
+    <div class="pbi-top">
+      <div style="display:flex;align-items:center">
+        <div class="pbi-dots"><div class="pbi-dot r"></div><div class="pbi-dot y"></div><div class="pbi-dot g"></div></div>
+        <div class="pbi-label" id="pbiLabel">NO REPORT CONNECTED</div>
+      </div>
+      <div style="display:flex;gap:7px">
+        <button class="btn" onclick="openPbiEditModal()" id="pbiEditBtn" style="display:none">✏ Edit</button>
+        <button class="btn danger" onclick="deletePbiTab()" id="pbiDelBtn" style="display:none">✕ Remove</button>
+      </div>
+    </div>
+    <div class="pbi-frame" id="pbiFrame">
+      <div class="pbi-ph-icon">📊</div>
+      <div class="pbi-ph-title">No Reports Yet</div>
+      <div class="pbi-ph-sub">Click <strong>+ Add Report Tab</strong> above to embed your first Power BI report. Add as many tabs as you need.</div>
+      <button class="pbi-ph-btn" onclick="openPbiAddModal()">+ Add Your First Report</button>
+    </div>
+  </div>
+  <div class="help-box">
+    <strong>How to get your Power BI embed URL:</strong><br>
+    1. Open your report in <strong>Power BI Service</strong> (app.powerbi.com)<br>
+    2. Click <strong>File → Embed report → Website or portal</strong><br>
+    3. Copy the URL starting with <code>https://app.powerbi.com/reportEmbed…</code><br>
+    4. Click <strong>+ Add Report Tab</strong>, paste the URL, name it, click Embed.
+  </div>
+</section>
+
+<!-- CALENDAR & TASKS -->
+<section class="section" id="section-calendar">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">📅</div>
+      <div><div class="sec-title">Calendar, Tasks & To-Do</div><div class="sec-sub">Events · Tasks · To-Dos · Deadlines</div></div>
+    </div>
+    <div class="sec-actions">
+      <button class="btn" onclick="openEventModal()">+ Event</button>
+      <button class="btn" onclick="openTodoModal()">+ Task / To-Do</button>
+    </div>
+  </div>
+  <div class="cal-layout">
+    <div class="card">
+      <div class="cal-nav">
+        <button class="cal-navbtn" id="calPrev">&#8249;</button>
+        <div class="cal-month" id="calMonthLabel"></div>
+        <button class="cal-navbtn" id="calNext">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="calLabels"></div>
+      <div class="cal-grid" id="calDays" style="margin-top:2px"></div>
+      <div class="cal-legend">
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--o)"></div>Events</div>
+        <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--p)"></div>Tasks</div>
+      </div>
+    </div>
+    <div>
+      <div class="panel-tabs">
+        <div class="ptab active" data-pt="events">📅 Events</div>
+        <div class="ptab" data-pt="tasks">✓ Tasks &amp; To-Dos</div>
+      </div>
+      <div id="panelEvents" class="card" style="max-height:460px;overflow-y:auto">
+        <div class="card-hd">
+          <div class="card-label" id="evPanelLbl">Events</div>
+          <button class="btn" onclick="openEventModal()">+ Event</button>
+        </div>
+        <div id="evList"></div>
+      </div>
+      <div id="panelTasks" class="card" style="display:none;max-height:460px;overflow-y:auto">
+        <div class="card-hd">
+          <div class="card-label">Tasks &amp; To-Dos</div>
+          <div class="card-acts">
+            <div class="itab active" id="tf-all" onclick="filterTasks('all')" style="padding:3px 9px">All</div>
+            <div class="itab" id="tf-open" onclick="filterTasks('open')" style="padding:3px 9px">Open</div>
+            <div class="itab" id="tf-done" onclick="filterTasks('done')" style="padding:3px 9px">Done</div>
+            <button class="btn" onclick="openTodoModal()">+ Task</button>
+          </div>
+        </div>
+        <div id="todoList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTH CLOSE -->
+<section class="section" id="section-monthclose">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">&#x2713;</div>
+      <div><div class="sec-title">Month-End Close</div><div class="sec-sub">Track your close checklist</div></div>
+    </div>
+    <button class="btn" onclick="openMCGroupModal()">+ Add Category</button>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-hd"><div class="card-label">Overall Progress</div><div id="mcProgLbl" style="font-size:11px;font-weight:700;color:var(--p)"></div></div>
+    <div class="mc-bar"><div class="mc-fill" id="mcFill" style="width:0%"></div></div>
+  </div>
+  <div class="g2" id="mcGroups"></div>
+  <div class="add-row"><button class="btn ghost" onclick="openMCGroupModal()">+ Add category</button></div>
+</section>
+
+<!-- DUE DATES -->
+<section class="section" id="section-duedates">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">&#x23F1;</div>
+      <div><div class="sec-title">Due Dates &amp; Deadlines</div><div class="sec-sub">All upcoming deadlines</div></div>
+    </div>
+    <button class="btn" onclick="openDueModal()">+ Add Deadline</button>
+  </div>
+  <div class="itabs" id="dueTabs">
+    <div class="itab active" data-df="all">All</div>
+    <div class="itab" data-df="overdue">&#x1F534; Overdue</div>
+    <div class="itab" data-df="this-week">This Week</div>
+    <div class="itab" data-df="upcoming">Upcoming</div>
+  </div>
+  <div class="card"><div class="card-hd"><div class="card-label" id="dueLbl">All Deadlines</div></div><div id="dueList"></div></div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section" id="section-roadmap">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">&#x1F5FA;</div>
+      <div><div class="sec-title">Roadmap &amp; Goals</div><div class="sec-sub">Quarterly and annual objectives</div></div>
+    </div>
+    <button class="btn" onclick="openRMItemModal()">+ Add Milestone</button>
+  </div>
+  <div class="itabs" id="rmTabs"></div>
+  <div id="rmTimeline"></div>
+  <div class="add-row"><button class="btn ghost" onclick="openRMTabModal()">+ Add year / period</button></div>
+</section>
+
+<!-- ALERTS -->
+<section class="section" id="section-alerts">
+  <div class="sec-hd">
+    <div class="sec-title-row">
+      <div class="sec-icon">&#x1F6A8;</div>
+      <div><div class="sec-title">Alerts &amp; Critical Events</div><div class="sec-sub">Board deadlines · Regulatory · High-priority</div></div>
+    </div>
+    <button class="btn" onclick="openAlertModal()">+ Add Alert</button>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hd"><div class="card-label">&#x1F534; Critical</div><button class="btn" onclick="openAlertModal('critical')">+ Add</button></div>
+    <div id="alCritical"></div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="card-hd"><div class="card-label">&#x1F7E1; Warnings</div><button class="btn" onclick="openAlertModal('warning')">+ Add</button></div>
+    <div id="alWarning"></div>
+  </div>
+  <div class="card">
+    <div class="card-hd"><div class="card-label">&#x1F535; Informational</div><button class="btn" onclick="openAlertModal('info')">+ Add</button></div>
+    <div id="alInfo"></div>
+  </div>
+</section>
+
+</div><!-- /main -->
+
+<!-- MODALS -->
+<!-- Link -->
+<div class="overlay" id="mLink">
+  <div class="modal">
+    <div class="modal-title">Add Quick Link</div>
+    <div class="field"><label>Name</label><input id="lkName" placeholder="e.g. Budget Model, Drive Folder…"></div>
+    <div class="field"><label>URL (optional)</label><input id="lkUrl" placeholder="https://…"></div>
+    <div class="mrow">
+      <div class="field"><label>Icon (emoji)</label><input id="lkIcon" placeholder="📊" maxlength="3" style="font-size:18px;text-align:center"></div>
+      <div class="field"><label>Type / Label</label><input id="lkType" placeholder="Excel, PDF, Folder…"></div>
+    </div>
+    <div class="field"><label>Group</label><select id="lkGroup"></select></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveLink()">Add Link</button><button class="btn-cancel" onclick="closeM('mLink')">Cancel</button></div>
+  </div>
+</div>
+<!-- PBI -->
+<div class="overlay" id="mPbi">
+  <div class="modal">
+    <div class="modal-title" id="mPbiTitle">Add Power BI Report</div>
+    <div class="field"><label>Tab Name</label><input id="pbiName" placeholder="e.g. Revenue Dashboard"></div>
+    <div class="field"><label>Power BI Embed URL</label><input id="pbiUrl" placeholder="https://app.powerbi.com/reportEmbed?..."></div>
+    <div class="field"><label>Height px (default 560)</label><input id="pbiH" type="number" value="560"></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="savePbi()">Embed Report</button><button class="btn-cancel" onclick="closeM('mPbi')">Cancel</button></div>
+  </div>
+</div>
+<!-- Event -->
+<div class="overlay" id="mEvent">
+  <div class="modal">
+    <div class="modal-title">Add Event</div>
+    <div class="field"><label>Title</label><input id="evT" placeholder="Board Meeting, Tax Filing…"></div>
+    <div class="mrow">
+      <div class="field"><label>Date</label><input id="evD" type="date"></div>
+      <div class="field"><label>Type</label><select id="evType"><option value="meeting">Meeting</option><option value="deadline">Deadline</option><option value="report">Report Due</option><option value="critical">Critical</option></select></div>
+    </div>
+    <div class="field"><label>Notes (optional)</label><input id="evN" placeholder="Any context…"></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveEvent()">Add Event</button><button class="btn-cancel" onclick="closeM('mEvent')">Cancel</button></div>
+  </div>
+</div>
+<!-- Todo -->
+<div class="overlay" id="mTodo">
+  <div class="modal">
+    <div class="modal-title">Add Task / To-Do</div>
+    <div class="field"><label>Title</label><input id="tdT" placeholder="What needs to be done?"></div>
+    <div class="field"><label>Notes / Description</label><textarea id="tdN" placeholder="Details, context, links…"></textarea></div>
+    <div class="mrow">
+      <div class="field"><label>Due Date</label><input id="tdD" type="date"></div>
+      <div class="field"><label>Assignee</label><input id="tdA" placeholder="Name or initials"></div>
+    </div>
+    <div class="mrow">
+      <div class="field"><label>Priority</label><select id="tdP"><option value="high">&#x1F534; High</option><option value="med" selected>&#x1F7E1; Medium</option><option value="low">&#x1F7E2; Low</option></select></div>
+      <div class="field"><label>Category / Tag</label><input id="tdTag" placeholder="Finance, Tax, Audit…"></div>
+    </div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveTodo()">Add Task</button><button class="btn-cancel" onclick="closeM('mTodo')">Cancel</button></div>
+  </div>
+</div>
+<!-- MC Group -->
+<div class="overlay" id="mMCG">
+  <div class="modal">
+    <div class="modal-title">Add Close Category</div>
+    <div class="field"><label>Category Name</label><input id="mcgN" placeholder="e.g. Accounting & GL, AP / Payables…"></div>
+    <div class="field"><label>Icon (emoji)</label><input id="mcgI" placeholder="📒" maxlength="3" style="font-size:18px;text-align:center"></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveMCGroup()">Add Category</button><button class="btn-cancel" onclick="closeM('mMCG')">Cancel</button></div>
+  </div>
+</div>
+<!-- MC Task -->
+<div class="overlay" id="mMCT">
+  <div class="modal">
+    <div class="modal-title">Add Task</div>
+    <div class="field"><label>Task Description</label><input id="mctT" placeholder="e.g. Post all journal entries"></div>
+    <div class="mrow">
+      <div class="field"><label>Owner</label><input id="mctO" placeholder="Sarah K."></div>
+      <div class="field"><label>Due Date</label><input id="mctD" type="date"></div>
+    </div>
+    <div class="field"><label>Status</label><select id="mctS"><option value="on-track">On Track</option><option value="due-soon">Due Soon</option><option value="overdue">Overdue</option><option value="upcoming">Upcoming</option></select></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveMCTask()">Add Task</button><button class="btn-cancel" onclick="closeM('mMCT')">Cancel</button></div>
+  </div>
+</div>
+<!-- Due Date -->
+<div class="overlay" id="mDue">
+  <div class="modal">
+    <div class="modal-title">Add Deadline</div>
+    <div class="field"><label>Task / Deadline</label><input id="ddT" placeholder="e.g. Q1 Tax Payment"></div>
+    <div class="mrow">
+      <div class="field"><label>Due Date</label><input id="ddD" type="date"></div>
+      <div class="field"><label>Assignee</label><input id="ddA" placeholder="JD" maxlength="3"></div>
+    </div>
+    <div class="field"><label>Category</label><input id="ddC" placeholder="Tax, Payroll, Audit…"></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveDue()">Add Deadline</button><button class="btn-cancel" onclick="closeM('mDue')">Cancel</button></div>
+  </div>
+</div>
+<!-- Roadmap Tab -->
+<div class="overlay" id="mRMTab">
+  <div class="modal">
+    <div class="modal-title">Add Year / Period</div>
+    <div class="field"><label>Label</label><input id="rmTabN" placeholder="e.g. FY 2026, Q1 2026…"></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveRMTab()">Add Period</button><button class="btn-cancel" onclick="closeM('mRMTab')">Cancel</button></div>
+  </div>
+</div>
+<!-- Roadmap Item -->
+<div class="overlay" id="mRMItem">
+  <div class="modal">
+    <div class="modal-title">Add Milestone</div>
+    <div class="field"><label>Period</label><select id="rmITab"></select></div>
+    <div class="field"><label>Quarter / Phase Label</label><input id="rmIQ" placeholder="Q1 · Jan–Mar 2026"></div>
+    <div class="field"><label>Milestone Title</label><input id="rmIT" placeholder="e.g. Foundation & Controls"></div>
+    <div class="field"><label>Status</label><select id="rmIS"><option value="active">&#x25B6; In Progress</option><option value="done">&#x2713; Done</option><option value="">&#x25CB; Upcoming</option></select></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveRMItem()">Add Milestone</button><button class="btn-cancel" onclick="closeM('mRMItem')">Cancel</button></div>
+  </div>
+</div>
+<!-- Goal -->
+<div class="overlay" id="mGoal">
+  <div class="modal">
+    <div class="modal-title">Add Goal</div>
+    <div class="field"><label>Goal Description</label><input id="goalT" placeholder="e.g. Complete FY25 audit"></div>
+    <div class="field"><label>Status</label><select id="goalS"><option value="in-progress">&#x25D0; In Progress</option><option value="done">&#x2713; Done</option><option value="upcoming">&#x25CB; Upcoming</option></select></div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveGoal()">Add Goal</button><button class="btn-cancel" onclick="closeM('mGoal')">Cancel</button></div>
+  </div>
+</div>
+<!-- Alert -->
+<div class="overlay" id="mAlert">
+  <div class="modal">
+    <div class="modal-title">Add Alert</div>
+    <div class="field"><label>Title</label><input id="alT" placeholder="Alert title…"></div>
+    <div class="field"><label>Description</label><textarea id="alD" placeholder="What action is needed?"></textarea></div>
+    <div class="mrow">
+      <div class="field"><label>Severity</label><select id="alS"><option value="critical">&#x1F534; Critical</option><option value="warning">&#x1F7E1; Warning</option><option value="info">&#x1F535; Info</option></select></div>
+      <div class="field"><label>Date / Tag</label><input id="alTime" placeholder="e.g. Due Mar 15"></div>
+    </div>
+    <div class="modal-foot"><button class="btn-ok" onclick="saveAlert()">Add Alert</button><button class="btn-cancel" onclick="closeM('mAlert')">Cancel</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const today = new Date();
+const todayStr = today.toISOString().split('T')[0];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100)}
+function closeM(id){$(id).classList.remove('open')}
+function openM(id){$(id).classList.add('open')}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+
+// ═══════════════════════════════════════════════════
+// CLOUD STORAGE (jsonblob.com — free, no account needed)
+// ═══════════════════════════════════════════════════
+const BLOB_API = 'https://jsonblob.com/api/jsonBlob';
+
+// Get blob ID from URL query param (?bid=xxx) or hash (#bid=xxx)
+function getBlobId(){
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('bid')) return params.get('bid');
+  const h = window.location.hash;
+  if(h.includes('bid=')) return h.split('bid=')[1].split('&')[0];
+  return null;
+}
+
+// Show save status in nav
+function showSaveStatus(state){
+  const dot=$('saveDot'),lbl=$('saveLbl');
+  if(!dot||!lbl) return;
+  dot.className='save-dot'+(state==='saving'?' saving':state==='error'?' error':'');
+  lbl.textContent=state==='saving'?'Saving…':state==='error'?'Save failed':'Saved';
+}
+
+// Load state from cloud
+async function loadFromCloud(){
+  const bid = getBlobId();
+  if(!bid) return null;
+  try{
+    const res = await fetch(BLOB_API+'/'+bid, {headers:{'Content-Type':'application/json','Accept':'application/json'}});
+    if(res.ok) return await res.json();
+  }catch(e){console.warn('Cloud load failed:',e);}
+  return null;
+}
+
+// Save state to cloud (called on every data change)
+let _saveTimer=null;
+function persist(){
+  clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(_doSave, 800); // debounce 800ms
+  showSaveStatus('saving');
+}
+async function _doSave(){
+  const bid=getBlobId();
+  // Build saveable state (exclude non-persistent UI stuff)
+  const data={
+    qlGroups:S.qlGroups, pbiReports:S.pbiReports, activePbi:S.activePbi,
+    events:S.events, todos:S.todos,
+    mcGroups:S.mcGroups,
+    dueDates:S.dueDates,
+    rmTabs:S.rmTabs, rmItems:S.rmItems, activeRMTab:S.activeRMTab,
+    alerts:S.alerts
+  };
+  try{
+    if(bid){
+      // Update existing blob
+      const res=await fetch(BLOB_API+'/'+bid,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+      if(res.ok){showSaveStatus('ok');return}
+    }
+    // No blob yet — create one
+    const res=await fetch(BLOB_API,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+    if(res.ok){
+      const loc=res.headers.get('Location')||res.headers.get('location')||'';
+      const newId=loc.split('/').pop();
+      if(newId){
+        showSetupBanner(newId);
+        showSaveStatus('ok');
+      }
+    }else{showSaveStatus('error')}
+  }catch(e){console.warn('Save failed:',e);showSaveStatus('error')}
+}
+
+// Show one-time setup banner with new URL for Notion
+function showSetupBanner(blobId){
+  const banner=$('setupBanner');
+  const msg=$('setupMsg');
+  if(!banner||!msg) return;
+  // Build the new URL — same origin + path but with ?bid=xxx
+  const base=window.location.origin+window.location.pathname;
+  const newUrl=base+'?bid='+blobId;
+  msg.innerHTML=`
+    <strong>✅ Your Finance Hub is saving data to the cloud!</strong><br>
+    <span style="opacity:.9">To make it permanent, update your Notion embed URL to:</span><br>
+    <code id="newUrlText">${newUrl}</code>
+    <button class="setup-copy-btn" onclick="navigator.clipboard.writeText('${newUrl}');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy URL',1500)">Copy URL</button><br>
+    <span style="font-size:11px;opacity:.75">After updating the embed URL in Notion, this message will not appear again.</span>
+  `;
+  banner.style.display='block';
+}
+
+// THEME
+function toggleTheme(){
+  const d=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',d?'light':'dark');
+  $('themeIcon').textContent=d?'&#x1F319;':'&#x2600;&#xFE0F;';
+  $('themeLabel').textContent=d?'Dark':'Light';
+  try{localStorage.setItem('fh3-theme',d?'light':'dark')}catch(e){}
+}
+(function(){try{const s=localStorage.getItem('fh3-theme');if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');$('themeIcon').textContent='&#x2600;&#xFE0F;';$('themeLabel').textContent='Light'}}catch(e){}})();
+
+// NAV
+document.querySelectorAll('.nav-tab[data-s]').forEach(t=>t.addEventListener('click',()=>switchS(t.dataset.s)));
+function switchS(s){
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.toggle('active',t.dataset.s===s));
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.toggle('active',sec.id==='section-'+s));
+}
+
+// STATE (all empty — users add their own data)
+const S={
+  qlGroups:[{id:'g1',name:'&#x1F4C1; Folders & Files',links:[]},{id:'g2',name:'&#x1F4CA; Spreadsheets & Models',links:[]},{id:'g3',name:'&#x1F517; Tools & Other Links',links:[]}],
+  pbiReports:[],activePbi:null,
+  events:[],todos:[],taskFilter:'all',
+  calMonth:today.getMonth(),calYear:today.getFullYear(),activePT:'events',
+  mcGroups:[],
+  dueDates:[],dueFilter:'all',
+  rmTabs:[],rmItems:{},activeRMTab:null,
+  pendingGoal:null,
+  alerts:[]
+};
+
+// ── QUICK LINKS ──────────────────────────────────
+function renderQL(){
+  const el=$('qlGroups');if(!el)return;
+  if(!S.qlGroups.length){el.innerHTML='<div class="empty"><div class="empty-icon">&#x1F5C2;</div><div class="empty-txt">No groups yet</div><div class="empty-cta" onclick="addLinkGroup()">+ Add Group</div></div>';return;}
+  el.innerHTML='';
+  S.qlGroups.forEach((grp,gi)=>{
+    const wrap=document.createElement('div');wrap.style.marginBottom='24px';
+    wrap.innerHTML=`<div class="grp-hd"><div style="display:flex;align-items:center;gap:8px"><input class="grp-name-inp" value="${grp.name.replace(/"/g,'&quot;')}" onchange="S.qlGroups[${gi}].name=this.value;persist()" title="Click to rename"><span style="opacity:.35;cursor:pointer;font-size:12px" onclick="deleteQLGrp(${gi})" title="Delete group">&#x2715;</span></div><button class="btn" onclick="openLinkModal(${gi})">+ Add</button></div><div class="ql-grid" id="qlg${gi}"></div>`;
+    el.appendChild(wrap);
+    const grid=$('qlg'+gi);
+    grp.links.forEach((lk,li)=>{
+      const a=document.createElement('a');a.className='ql-item';a.href=lk.url||'#';a.target='_blank';
+      a.innerHTML=`<div class="ql-icon">${lk.icon||'&#x1F517;'}</div><div><div class="ql-name">${lk.name}</div><div class="ql-type">${lk.type||''}</div></div><span class="ql-del" onclick="event.preventDefault();deleteQL(${gi},${li})">&#x2715;</span>`;
+      grid.appendChild(a);
+    });
+    const add=document.createElement('div');add.className='ql-add';add.innerHTML='<span style="font-size:17px">+</span><span style="font-size:12px;font-weight:700">Add link</span>';add.onclick=()=>openLinkModal(gi);
+    grid.appendChild(add);
+  });
+}
+function addLinkGroup(){S.qlGroups.push({id:'g'+Date.now(),name:'&#x1F4C2; New Group',links:[]});renderQL();persist();toast('Group added — click name to rename')}
+function deleteQLGrp(gi){if(!confirm('Delete this group and all its links?'))return;S.qlGroups.splice(gi,1);renderQL();persist()}
+function deleteQL(gi,li){S.qlGroups[gi].links.splice(li,1);renderQL();persist()}
+let _lkGi=0;
+function openLinkModal(gi=0){_lkGi=gi;$('lkName').value='';$('lkUrl').value='';$('lkIcon').value='';$('lkType').value='';const sel=$('lkGroup');sel.innerHTML='';S.qlGroups.forEach((g,i)=>{const o=document.createElement('option');o.value=i;o.textContent=g.name.replace(/&#x[0-9A-F]+;/gi,'').trim()||'Group '+(i+1);if(i===gi)o.selected=true;sel.appendChild(o)});openM('mLink')}
+function saveLink(){const n=$('lkName').value.trim();if(!n){toast('Enter a name');return}const gi=parseInt($('lkGroup').value);S.qlGroups[gi].links.push({name:n,url:$('lkUrl').value.trim(),icon:$('lkIcon').value.trim()||'&#x1F517;',type:$('lkType').value.trim()});closeM('mLink');renderQL();persist();toast('Link added!')}
+
+// ── POWER BI ─────────────────────────────────────
+function renderPbiTabs(){
+  const el=$('pbiTabs');el.innerHTML='';
+  S.pbiReports.forEach((r,i)=>{const t=document.createElement('div');t.className='itab'+(S.activePbi===i?' active':'');t.textContent=r.name;t.onclick=()=>switchPbi(i);el.appendChild(t)});
+  const add=document.createElement('div');add.className='itab add';add.textContent='+ Add Report';add.onclick=openPbiAddModal;el.appendChild(add);
+}
+function switchPbi(i){S.activePbi=i;renderPbiTabs();renderPbiFrame()}
+function renderPbiFrame(){
+  const frame=$('pbiFrame');
+  if(S.activePbi===null||!S.pbiReports[S.activePbi]){
+    $('pbiLabel').textContent='NO REPORT CONNECTED';
+    $('pbiEditBtn').style.display='none';$('pbiDelBtn').style.display='none';
+    frame.style.minHeight='480px';
+    frame.innerHTML='<div class="pbi-ph-icon">&#x1F4CA;</div><div class="pbi-ph-title">No Reports Yet</div><div class="pbi-ph-sub">Click <strong>+ Add Report Tab</strong> to embed your Power BI report.</div><button class="pbi-ph-btn" onclick="openPbiAddModal()">+ Add Your First Report</button>';
+    return;
+  }
+  const r=S.pbiReports[S.activePbi];
+  $('pbiLabel').textContent=r.name.toUpperCase();
+  $('pbiEditBtn').style.display='';$('pbiDelBtn').style.display='';
+  if(r.url){frame.style.minHeight='auto';frame.innerHTML=`<iframe src="${r.url}" width="100%" height="${r.h||560}" frameborder="0" allowFullScreen="true" style="display:block"></iframe>`}
+  else{frame.style.minHeight='480px';frame.innerHTML=`<div class="pbi-ph-icon">&#x1F517;</div><div class="pbi-ph-title">${r.name}</div><div class="pbi-ph-sub">No URL yet. Click <strong>&#x270F; Edit</strong> to add your Power BI embed link.</div><button class="pbi-ph-btn" onclick="openPbiEditModal()">&#x270F; Connect URL</button>`}
+}
+let _pbiEd=false;
+function openPbiAddModal(){_pbiEd=false;$('mPbiTitle').textContent='Add Power BI Report';$('pbiName').value='';$('pbiUrl').value='';$('pbiH').value=560;openM('mPbi')}
+function openPbiEditModal(){if(S.activePbi===null)return;_pbiEd=true;const r=S.pbiReports[S.activePbi];$('mPbiTitle').textContent='Edit Report';$('pbiName').value=r.name;$('pbiUrl').value=r.url||'';$('pbiH').value=r.h||560;openM('mPbi')}
+function savePbi(){const n=$('pbiName').value.trim();if(!n){toast('Enter a name');return}const url=$('pbiUrl').value.trim();const h=parseInt($('pbiH').value)||560;if(_pbiEd&&S.activePbi!==null)S.pbiReports[S.activePbi]={...S.pbiReports[S.activePbi],name:n,url,h};else{S.pbiReports.push({id:Date.now(),name:n,url,h});S.activePbi=S.pbiReports.length-1}closeM('mPbi');renderPbiTabs();renderPbiFrame();persist();toast('Report saved!')}
+function deletePbiTab(){if(S.activePbi===null)return;if(!confirm('Remove this report tab?'))return;S.pbiReports.splice(S.activePbi,1);S.activePbi=S.pbiReports.length?0:null;renderPbiTabs();renderPbiFrame();persist();toast('Report removed')}
+
+// ── CALENDAR ─────────────────────────────────────
+function renderCal(){
+  const{calMonth:m,calYear:y}=S;
+  $('calMonthLabel').textContent=MONTHS[m]+' '+y;
+  $('calLabels').innerHTML=DAYS.map(d=>`<div class="cal-dl">${d}</div>`).join('');
+  const first=new Date(y,m,1).getDay();const dim=new Date(y,m+1,0).getDate();const dprev=new Date(y,m,0).getDate();
+  const evDs=new Set(S.events.filter(e=>{const d=new Date(e.date);return d.getMonth()===m&&d.getFullYear()===y}).map(e=>new Date(e.date).getDate()));
+  const tdDs=new Set(S.todos.filter(t=>t.date).filter(t=>{const d=new Date(t.date);return d.getMonth()===m&&d.getFullYear()===y}).map(t=>new Date(t.date).getDate()));
+  let h='';
+  for(let i=first-1;i>=0;i--)h+=`<div class="cal-day other">${dprev-i}</div>`;
+  for(let d=1;d<=dim;d++){
+    const isT=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();
+    const hE=evDs.has(d),hT=tdDs.has(d);
+    const cls=[isT?'today':'',hE&&hT?'has-both':hE?'has-ev':hT?'has-td':''].filter(Boolean).join(' ');
+    h+=`<div class="cal-day ${cls}">${d}</div>`;
+  }
+  const rem=(first+dim)%7===0?0:7-(first+dim)%7;
+  for(let i=1;i<=rem;i++)h+=`<div class="cal-day other">${i}</div>`;
+  $('calDays').innerHTML=h;
+}
+$('calPrev').onclick=()=>{if(--S.calMonth<0){S.calMonth=11;S.calYear--}renderCal();renderEvList();renderTodoList()};
+$('calNext').onclick=()=>{if(++S.calMonth>11){S.calMonth=0;S.calYear++}renderCal();renderEvList();renderTodoList()};
+document.querySelectorAll('.ptab').forEach(t=>t.addEventListener('click',()=>{
+  S.activePT=t.dataset.pt;
+  document.querySelectorAll('.ptab').forEach(x=>x.classList.toggle('active',x===t));
+  $('panelEvents').style.display=t.dataset.pt==='events'?'':'none';
+  $('panelTasks').style.display=t.dataset.pt==='tasks'?'':'none';
+}));
+
+function renderEvList(){
+  const el=$('evList');if(!el)return;
+  const{calMonth:m,calYear:y}=S;
+  const evs=S.events.filter(e=>{const d=new Date(e.date);return d.getMonth()===m&&d.getFullYear()===y}).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  $('evPanelLbl').textContent=`Events — ${MONTHS[m]} ${y}`;
+  const bm={meeting:'bm',deadline:'bd',report:'br',critical:'bc'};
+  el.innerHTML=evs.length?evs.map(e=>{const d=new Date(e.date);return`<div class="ev-item"><div class="ev-date-box"><div class="ev-dd">${d.getDate()}</div><div class="ev-mm">${MONTHS[d.getMonth()].slice(0,3)}</div></div><div style="flex:1;min-width:0"><div class="ev-title">${e.title}</div>${e.notes?`<div class="ev-notes">${e.notes}</div>`:''}</div><div class="ev-badge ${bm[e.type]||'bm'}">${e.type}</div><span class="ev-del" onclick="deleteEvent(${e.id})">&#x2715;</span></div>`}).join(''):`<div class="empty"><div class="empty-icon">&#x1F4C5;</div><div class="empty-txt">No events this month</div><div class="empty-cta" onclick="openEventModal()">+ Add Event</div></div>`;
+}
+function deleteEvent(id){S.events=S.events.filter(e=>e.id!==id);renderEvList();renderCal();persist();toast('Event removed')}
+function openEventModal(){$('evT').value='';$('evD').value=todayStr;$('evN').value='';openM('mEvent')}
+function saveEvent(){const t=$('evT').value.trim();if(!t){toast('Enter a title');return}const d=$('evD').value;if(!d){toast('Pick a date');return}S.events.push({id:Date.now(),title:t,date:d,type:$('evType').value,notes:$('evN').value.trim()});closeM('mEvent');renderEvList();renderCal();persist();toast('Event added!')}
+
+function renderTodoList(){
+  const el=$('todoList');if(!el)return;
+  let items=S.todos.slice().sort((a,b)=>({high:0,med:1,low:2}[a.priority]??1)-({high:0,med:1,low:2}[b.priority]??1));
+  if(S.taskFilter==='open')items=items.filter(t=>!t.done);
+  if(S.taskFilter==='done')items=items.filter(t=>t.done);
+  const pm={high:['ph','&#x1F534; High'],med:['pm','&#x1F7E1; Med'],low:['pl','&#x1F7E2; Low']};
+  el.innerHTML=items.length?items.map(t=>{const[pc,pl]=pm[t.priority]||pm.med;return`<div class="todo-item"><div class="chk ${t.done?'done':''}" onclick="toggleTodo(${t.id})">${t.done?'&#x2713;':''}</div><div style="flex:1;min-width:0"><div class="todo-title ${t.done?'done':''}">${t.title}</div><div class="todo-meta"><span class="pri ${pc}">${pl}</span>${t.assignee?`<span>&#x1F464; ${t.assignee}</span>`:''  }${t.date?`<span>&#x1F4C5; ${new Date(t.date).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span>`:''  }${t.tag?`<span class="tag-pill">${t.tag}</span>`:''  }${t.notes?`<span style="font-style:italic">${t.notes.slice(0,38)}${t.notes.length>38?'&#x2026;':''}</span>`:''  }</div></div><span class="todo-del" onclick="deleteTodo(${t.id})">&#x2715;</span></div>`}).join(''):`<div class="empty"><div class="empty-icon">&#x2713;</div><div class="empty-txt">No tasks yet</div><div class="empty-cta" onclick="openTodoModal()">+ Add Task</div></div>`;
+}
+window.toggleTodo=function(id){const t=S.todos.find(x=>x.id===id);if(t)t.done=!t.done;renderTodoList();persist()};
+window.deleteTodo=function(id){S.todos=S.todos.filter(x=>x.id!==id);renderTodoList();renderCal();persist();toast('Task removed')};
+window.filterTasks=function(f){S.taskFilter=f;['all','open','done'].forEach(x=>{const e=$('tf-'+x);if(e)e.classList.toggle('active',f===x)});renderTodoList()};
+function openTodoModal(){$('tdT').value='';$('tdN').value='';$('tdD').value='';$('tdA').value='';$('tdTag').value='';$('tdP').value='med';openM('mTodo')}
+function saveTodo(){const t=$('tdT').value.trim();if(!t){toast('Enter a title');return}S.todos.push({id:Date.now(),title:t,notes:$('tdN').value.trim(),date:$('tdD').value,assignee:$('tdA').value.trim(),priority:$('tdP').value,tag:$('tdTag').value.trim(),done:false});closeM('mTodo');renderTodoList();renderCal();persist();toast('Task added!')}
+
+// ── MONTH CLOSE ──────────────────────────────────
+function renderMCGroups(){
+  const el=$('mcGroups');if(!el)return;
+  if(!S.mcGroups.length){el.innerHTML='<div class="empty" style="grid-column:span 2"><div class="empty-icon">&#x2713;</div><div class="empty-txt">No categories yet — add your close checklist</div><div class="empty-cta" onclick="openMCGroupModal()">+ Add Category</div></div>';updateMCProg();return}
+  el.innerHTML='';
+  S.mcGroups.forEach((grp,gi)=>{
+    const card=document.createElement('div');card.className='card';
+    card.innerHTML=`<div class="card-hd"><div class="card-label">${grp.icon||'&#x1F4CB;'} ${grp.name}</div><div class="card-acts"><button class="btn" onclick="openMCTaskModal(${gi})">+ Task</button><button class="btn danger" onclick="deleteMCGrp(${gi})">&#x2715;</button></div></div><div id="mct${gi}"></div>`;
+    el.appendChild(card);renderMCTasks(gi);
+  });
+  updateMCProg();
+}
+function renderMCTasks(gi){
+  const el=$('mct'+gi);if(!el)return;
+  const tasks=S.mcGroups[gi].tasks;
+  if(!tasks.length){el.innerHTML='<div style="font-size:12px;color:var(--faint);padding:8px 0">No tasks yet — click + Task above</div>';return}
+  const st={'on-track':['st-ot','On Track'],'due-soon':['st-ds','Due Soon'],overdue:['st-ov','Overdue'],done:['st-dn','Done'],upcoming:['st-up','Upcoming']};
+  el.innerHTML=tasks.map((t,ti)=>{const[sc,sl]=st[t.done?'done':t.status]||st['on-track'];return`<div class="mc-task"><div class="chk ${t.done?'done':''}" onclick="toggleMC(${gi},${ti})">${t.done?'&#x2713;':''}</div><div style="flex:1;min-width:0"><div class="mc-text ${t.done?'done':''}">${t.text}</div>${t.owner?`<div style="font-size:10px;color:var(--faint);margin-top:1px">&#x1F464; ${t.owner}${t.due?' &middot; &#x1F4C5; '+new Date(t.due).toLocaleDateString('en-US',{month:'short',day:'numeric'}):''}</div>`:''}</div><span class="mc-badge ${sc}">${sl}</span><span class="mc-del" onclick="deleteMCTask(${gi},${ti})">&#x2715;</span></div>`}).join('');
+}
+window.toggleMC=function(gi,ti){const t=S.mcGroups[gi].tasks[ti];t.done=!t.done;renderMCTasks(gi);updateMCProg();persist()};
+window.deleteMCTask=function(gi,ti){S.mcGroups[gi].tasks.splice(ti,1);renderMCTasks(gi);updateMCProg();persist();toast('Task removed')};
+function deleteMCGrp(gi){if(!confirm('Delete this category?'))return;S.mcGroups.splice(gi,1);renderMCGroups();persist();toast('Category removed')}
+function updateMCProg(){let tot=0,dn=0;S.mcGroups.forEach(g=>{tot+=g.tasks.length;dn+=g.tasks.filter(t=>t.done).length});const pct=tot?Math.round(dn/tot*100):0;$('mcFill').style.width=pct+'%';$('mcProgLbl').textContent=tot?`${dn} / ${tot} tasks &middot; ${pct}%`:'Add tasks to track progress'}
+function openMCGroupModal(){$('mcgN').value='';$('mcgI').value='';openM('mMCG')}
+function saveMCGroup(){const n=$('mcgN').value.trim();if(!n){toast('Enter a name');return}S.mcGroups.push({id:Date.now(),name:n,icon:$('mcgI').value.trim()||'&#x1F4CB;',tasks:[]});closeM('mMCG');renderMCGroups();persist();toast('Category added!')}
+let _mcGi=0;
+function openMCTaskModal(gi){_mcGi=gi;$('mctT').value='';$('mctO').value='';$('mctD').value='';$('mctS').value='on-track';openM('mMCT')}
+function saveMCTask(){const t=$('mctT').value.trim();if(!t){toast('Enter a task');return}S.mcGroups[_mcGi].tasks.push({id:Date.now(),text:t,owner:$('mctO').value.trim(),due:$('mctD').value,status:$('mctS').value,done:false});closeM('mMCT');renderMCTasks(_mcGi);updateMCProg();persist();toast('Task added!')}
+
+// ── DUE DATES ────────────────────────────────────
+function getDueSt(due){const diff=Math.ceil((new Date(due)-new Date())/86400000);return diff<0?'overdue':diff<=3?'due-today':'on-track'}
+function renderDue(){
+  const el=$('dueList');if(!el)return;
+  let items=S.dueDates.slice();const f=S.dueFilter;
+  if(f==='overdue')items=items.filter(i=>getDueSt(i.due)==='overdue');
+  else if(f==='this-week')items=items.filter(i=>{const d=Math.ceil((new Date(i.due)-new Date())/86400000);return d>=0&&d<=7});
+  else if(f==='upcoming')items=items.filter(i=>getDueSt(i.due)==='on-track');
+  items.sort((a,b)=>new Date(a.due)-new Date(b.due));
+  const cm={overdue:['var(--red)','var(--rdim)','&#x1F534; Overdue'],'due-today':['var(--amber)','var(--adim)','&#x1F7E1; Due Soon'],'on-track':['var(--green)','var(--gdim)','&#x2705; On Track']};
+  const lm={all:'All Deadlines',overdue:'Overdue','this-week':'This Week',upcoming:'Upcoming'};
+  $('dueLbl').textContent=lm[f]||'Deadlines';
+  el.innerHTML=items.length?items.map(i=>{const st=getDueSt(i.due);const[col,bg,lbl]=cm[st];return`<div class="due-item ${st}"><div class="due-avt">${(i.assignee||'?').slice(0,2).toUpperCase()}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600">${i.title}</div><div style="font-size:10px;font-weight:600;color:var(--faint);margin-top:1px">${i.cat?i.cat+' &middot; ':''  }Due ${new Date(i.due).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div></div><div class="due-lbl" style="background:${bg};color:${col}">${lbl}</div><span class="due-del" onclick="deleteDue(${i.id})">&#x2715;</span></div>`}).join(''):`<div class="empty"><div class="empty-icon">&#x23F1;</div><div class="empty-txt">No deadlines in this view</div><div class="empty-cta" onclick="openDueModal()">+ Add Deadline</div></div>`;
+}
+window.deleteDue=function(id){S.dueDates=S.dueDates.filter(x=>x.id!==id);renderDue();persist();toast('Deadline removed')};
+$('dueTabs').addEventListener('click',e=>{const t=e.target.closest('.itab');if(!t)return;document.querySelectorAll('#dueTabs .itab').forEach(x=>x.classList.toggle('active',x===t));S.dueFilter=t.dataset.df||'all';renderDue()});
+function openDueModal(){$('ddT').value='';$('ddD').value=todayStr;$('ddA').value='';$('ddC').value='';openM('mDue')}
+function saveDue(){const t=$('ddT').value.trim();if(!t){toast('Enter a title');return}const d=$('ddD').value;if(!d){toast('Pick a date');return}S.dueDates.push({id:Date.now(),title:t,due:d,assignee:$('ddA').value.trim().toUpperCase()||'?',cat:$('ddC').value.trim()});closeM('mDue');renderDue();persist();toast('Deadline added!')}
+
+// ── ROADMAP ──────────────────────────────────────
+function renderRMTabs(){
+  const el=$('rmTabs');el.innerHTML='';
+  S.rmTabs.forEach(t=>{const tab=document.createElement('div');tab.className='itab'+(S.activeRMTab===t.id?' active':'');tab.innerHTML=`${t.name} <span style="opacity:.35;margin-left:4px;cursor:pointer" onclick="event.stopPropagation();deleteRMTab('${t.id}')">&#x2715;</span>`;tab.onclick=()=>{S.activeRMTab=t.id;renderRMTabs();renderRMTimeline()};el.appendChild(tab)});
+  const add=document.createElement('div');add.className='itab add';add.textContent='+ Add Period';add.onclick=openRMTabModal;el.appendChild(add);
+}
+function deleteRMTab(id){if(!confirm('Delete this period?'))return;S.rmTabs=S.rmTabs.filter(t=>t.id!==id);delete S.rmItems[id];S.activeRMTab=S.rmTabs[0]?.id||null;renderRMTabs();renderRMTimeline();persist()}
+function renderRMTimeline(){
+  const el=$('rmTimeline');if(!el)return;
+  if(!S.rmTabs.length){el.innerHTML='<div class="empty"><div class="empty-icon">&#x1F5FA;</div><div class="empty-txt">No roadmap periods yet</div><div class="empty-cta" onclick="openRMTabModal()">+ Add Period</div></div>';return}
+  const items=S.rmItems[S.activeRMTab]||[];
+  const gI={'in-progress':'&#x25D0;',done:'&#x2713;',upcoming:'&#x25CB;'};
+  const gC={'in-progress':'goal-prog',done:'goal-done',upcoming:'goal-up'};
+  el.innerHTML='<div class="timeline">'+(items.length?items.map((item,ii)=>`<div class="tl-item"><div class="tl-del" onclick="deleteRMItem('${S.activeRMTab}',${ii})">&#x2715; Remove</div><div class="tl-dot ${item.status==='done'?'done':item.status==='active'?'active':''}"></div><div><div class="tl-q">${item.q}</div><div class="tl-title">${item.title}</div><div class="tl-goals">${(item.goals||[]).map((g,gi)=>`<div class="tl-goal ${gC[g.status]||'goal-up'}"><span>${gI[g.status]||'&#x25CB;'}</span>${g.text}<span class="g-del" onclick="deleteGoal('${S.activeRMTab}',${ii},${gi})">&#x2715;</span></div>`).join('')}<div class="tl-add-goal" onclick="openGoalModal('${S.activeRMTab}',${ii})">+ Goal</div></div></div></div>`).join(''):'<div class="empty"><div class="empty-icon">&#x25CB;</div><div class="empty-txt">No milestones yet</div><div class="empty-cta" onclick="openRMItemModal()">+ Add Milestone</div></div>')+'</div>';
+}
+window.deleteRMItem=function(tid,ii){S.rmItems[tid].splice(ii,1);renderRMTimeline();persist();toast('Milestone removed')};
+window.deleteGoal=function(tid,ii,gi){S.rmItems[tid][ii].goals.splice(gi,1);renderRMTimeline();persist();toast('Goal removed')};
+function openRMTabModal(){$('rmTabN').value='';openM('mRMTab')}
+function saveRMTab(){const n=$('rmTabN').value.trim();if(!n){toast('Enter a name');return}const id='rm'+Date.now();S.rmTabs.push({id,name:n});S.rmItems[id]=[];if(!S.activeRMTab)S.activeRMTab=id;closeM('mRMTab');renderRMTabs();renderRMTimeline();persist();toast('Period added!')}
+function openRMItemModal(){const sel=$('rmITab');sel.innerHTML='';S.rmTabs.forEach(t=>{const o=document.createElement('option');o.value=t.id;o.textContent=t.name;if(t.id===S.activeRMTab)o.selected=true;sel.appendChild(o)});$('rmIQ').value='';$('rmIT').value='';$('rmIS').value='active';openM('mRMItem')}
+function saveRMItem(){const tid=$('rmITab').value;const t=$('rmIT').value.trim();if(!t){toast('Enter a title');return}if(!S.rmItems[tid])S.rmItems[tid]=[];S.rmItems[tid].push({id:Date.now(),q:$('rmIQ').value.trim(),title:t,status:$('rmIS').value,goals:[]});S.activeRMTab=tid;closeM('mRMItem');renderRMTabs();renderRMTimeline();persist();toast('Milestone added!')}
+window.openGoalModal=function(tid,ii){S.pendingGoal={tid,ii};$('goalT').value='';$('goalS').value='in-progress';openM('mGoal')};
+function saveGoal(){const t=$('goalT').value.trim();if(!t){toast('Enter goal text');return}const{tid,ii}=S.pendingGoal;S.rmItems[tid][ii].goals.push({text:t,status:$('goalS').value});closeM('mGoal');renderRMTimeline();persist();toast('Goal added!')}
+
+// ── ALERTS ──────────────────────────────────────
+function renderAlerts(){
+  const im={critical:'&#x1F534;',warning:'&#x1F7E1;',info:'&#x1F535;'};
+  ['critical','warning','info'].forEach(sev=>{
+    const id='al'+sev.charAt(0).toUpperCase()+sev.slice(1);
+    const el=$(id);if(!el)return;
+    const items=S.alerts.filter(a=>a.sev===sev);
+    el.innerHTML=items.length?items.map(a=>`<div class="alert-item ${a.sev}"><div class="alert-icon">${im[a.sev]}</div><div style="flex:1"><div class="alert-title">${a.title}</div>${a.desc?`<div class="alert-desc">${a.desc}</div>`:''  }${a.time?`<div class="alert-time">${a.time}</div>`:''  }</div><span class="alert-del" onclick="deleteAlert(${a.id})">&#x2715;</span></div>`).join(''):`<div style="font-size:12px;color:var(--faint);padding:8px 0">No ${sev} alerts. Click + Add above.</div>`;
+  });
+}
+window.deleteAlert=function(id){S.alerts=S.alerts.filter(a=>a.id!==id);renderAlerts();persist();toast('Alert removed')};
+function openAlertModal(sev){if(sev)$('alS').value=sev;$('alT').value='';$('alD').value='';$('alTime').value='';openM('mAlert')}
+function saveAlert(){const t=$('alT').value.trim();if(!t){toast('Enter a title');return}S.alerts.unshift({id:Date.now(),sev:$('alS').value,title:t,desc:$('alD').value.trim(),time:$('alTime').value.trim()||'Just now'});closeM('mAlert');renderAlerts();persist();toast('Alert added!')}
+
+// INIT — load from cloud, then render
+async function init(){
+  const overlay=$('loadingOverlay');
+  try{
+    const cloud=await loadFromCloud();
+    if(cloud){
+      // Merge cloud data into state
+      if(cloud.qlGroups) S.qlGroups=cloud.qlGroups;
+      if(cloud.pbiReports) S.pbiReports=cloud.pbiReports;
+      if(cloud.activePbi!==undefined) S.activePbi=cloud.activePbi;
+      if(cloud.events) S.events=cloud.events;
+      if(cloud.todos) S.todos=cloud.todos;
+      if(cloud.mcGroups) S.mcGroups=cloud.mcGroups;
+      if(cloud.dueDates) S.dueDates=cloud.dueDates;
+      if(cloud.rmTabs) S.rmTabs=cloud.rmTabs;
+      if(cloud.rmItems) S.rmItems=cloud.rmItems;
+      if(cloud.activeRMTab!==undefined) S.activeRMTab=cloud.activeRMTab;
+      if(cloud.alerts) S.alerts=cloud.alerts;
+      showSaveStatus('ok');
+    } else if(!getBlobId()){
+      // No blob ID in URL — first time setup, auto-create blob
+      showSaveStatus('saving');
+      persist(); // this will create a new blob and show setup banner
+    }
+  }catch(e){console.warn('Init load error:',e)}
+  // Render everything
+  renderQL();renderPbiTabs();renderPbiFrame();renderCal();renderEvList();renderTodoList();renderMCGroups();renderDue();renderRMTabs();renderRMTimeline();renderAlerts();
+  // Hide loading overlay
+  if(overlay){overlay.classList.add('done');setTimeout(()=>overlay.remove(),500)}
+}
+init();
+</script>
+</body>
+</html>
