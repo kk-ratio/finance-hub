@@ -77,7 +77,16 @@
       "id": 1772640863631,
       "name": "Bank Accounting",
       "icon": "📋",
-      "tasks": []
+      "tasks": [
+        {
+          "id": 1772640877880,
+          "text": "Bank Import",
+          "owner": "",
+          "due": "",
+          "status": "on-track",
+          "done": false
+        }
+      ]
     }
   ],
   "mcLabel": "2026-01",
@@ -303,5 +312,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-04T16:14:25.632Z"
+  "_savedAt": "2026-03-04T16:14:39.881Z"
 }
