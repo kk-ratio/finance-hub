@@ -21,6 +21,12 @@
           "url": "https://docs.google.com/spreadsheets/u/0/d/1Ag5bSWCO51kGEJnEdTlcz9r5RhT9GrYt/edit?usp=sheets_home&ths=true&rtpof=true",
           "icon": "📗",
           "type": "workbook"
+        },
+        {
+          "name": "SOP - Accounting & Finance Dept.",
+          "url": "https://docs.google.com/document/d/1zpvSUHCzcD1NaZW3kEp9oG-UkgUqZJSf/edit?usp=sharing&ouid=109646198567205120357&rtpof=true&sd=true",
+          "icon": "📄",
+          "type": "Doc"
         }
       ]
     },
@@ -290,5 +296,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-03T15:48:20.952Z"
+  "_savedAt": "2026-03-04T14:29:29.104Z"
 }
