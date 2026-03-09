@@ -15,12 +15,6 @@
           "url": "https://docs.google.com/document/d/1UE8cAkgq94w_v4LiRqLXJjReLcAPSWxzdv6SNLPACUo/edit?tab=t.0",
           "icon": "📄",
           "type": "Doc"
-        },
-        {
-          "name": "Key Metrics Report",
-          "url": "https://docs.google.com/spreadsheets/u/0/d/1Ag5bSWCO51kGEJnEdTlcz9r5RhT9GrYt/edit?usp=sheets_home&ths=true&rtpof=true",
-          "icon": "📗",
-          "type": "workbook"
         }
       ]
     },
@@ -324,5 +318,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-09T18:26:09.294Z"
+  "_savedAt": "2026-03-09T18:29:39.412Z"
 }
