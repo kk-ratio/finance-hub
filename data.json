@@ -27,6 +27,12 @@
           "url": "https://docs.google.com/spreadsheets/d/199z5c-R0MsHOQh7MluL4ByqBTDdIAc3i/edit?gid=482243406#gid=482243406",
           "icon": "🔗",
           "type": "sheets"
+        },
+        {
+          "name": "DPD - Weekly collections report",
+          "url": "https://docs.google.com/spreadsheets/d/1X-WJqo8_cuCEH4AAAcZ6cAGq4NDiACfDcexlYLSfSqs/edit?gid=655463322#gid=655463322",
+          "icon": "🔗",
+          "type": "sheetd"
         }
       ]
     },
@@ -325,5 +331,5 @@
   },
   "activeRMTab": "rm1772550808347",
   "alerts": [],
-  "_savedAt": "2026-03-09T18:30:26.578Z"
+  "_savedAt": "2026-03-10T15:23:59.521Z"
 }
